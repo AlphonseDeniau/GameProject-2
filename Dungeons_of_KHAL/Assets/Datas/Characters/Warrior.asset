@@ -25,9 +25,9 @@ MonoBehaviour:
   m_ActualHP: 0
   m_ActualMP: 0
   m_Position: 0
-  m_Dead: 0
+  m_IsDead: 0
   skills:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 07364f1fb3d829e46a76af39b795ae6d, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

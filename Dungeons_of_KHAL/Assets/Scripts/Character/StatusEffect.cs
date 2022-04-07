@@ -7,8 +7,15 @@ using System;
 public class StatusEffect
 {
     public enum EStatusType {
+        // GOOD EFFECT \\
+        //   Duration  \\
         regeneration,
         concentration,
+        provocation,
+        guard,
+        //   Instant   \\
+        detoxification,
+        //  Statistics \\
         strength,
         resistance,
         haste,
@@ -16,26 +23,29 @@ public class StatusEffect
         accuracy,
         ghost,
         vigilance,
-        detoxification,
-        stun,
-        freeze,
+
+        //  BAD EFFECT \\
+        //   Duration  \\
         burn,
-        paralysis,
         poison,
+        freeze,
+        paralysis,
         blind,
         confusion,
+        //   Instant   \\
+        stun,
+        //  Statistics \\
         exhaustion,
         weakness,
         slowness,
-        provocation,
-        guard,
+        //-------------\\
     };
 
     public enum EStatusActionTime {
-        startOfTurn,
-        endOfTurn,
-        immediate,
-        fight
+        startOfTurn, // Apply at the beginning of the character turn
+        endOfTurn,   // Apply at the end of the character turn
+        immediate,   // Apply at the moment you receive the effect
+        fight        // Apply at the moment you make a fighting action
     }
 
     [Header("Effect Description")]
@@ -49,6 +59,42 @@ public class StatusEffect
     public EStatusActionTime ActionTime => m_ActionTime;
     public EStatusType Type => m_Type;
     public int Duration => m_Duration;
-    public int Power => m_Power;
+    public int Power { get { return m_Power; } set { m_Power = value; } }
     public Character Target { get { return m_Target; } set { m_Target = value; } }
+
+    // Methods \\
+
+    /// <summary>
+    /// If actionTime is immediate do the status
+    /// Else add it in the Character
+    /// </summary>
+    /// <param name="_user">character who use the skill</param>
+    /// <param name="_target">character targeted by the skill</param>
+    /// <returns>True if the status was immediate</returns>
+    public bool ApplyStatus(Character _user, Character _target)
+    {
+        if (m_ActionTime != EStatusActionTime.immediate)
+            return false;
+        // Make the immediate Effect do something
+        // And add other effect in the Character
+        return true;
+    }
+
+
+    /// <summary>
+    /// Choose the Target of effect
+    /// </summary>
+    /// <param name="_user">character who use the skill</param>
+    /// <param name="_target">character targeted by the skill</param>
+    /// <returns>True if the Target his the same</returns>
+    public bool ChooseTarget(Character _user, Character _target)
+    {
+        if (m_Type == EStatusType.provocation || m_Type == EStatusType.guard)
+        {
+            m_Target = _user;
+            return false;
+        }
+        m_Target = _target;
+        return true;
+    }
 }

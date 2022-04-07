@@ -28,7 +28,7 @@ public class Character : ScriptableObject
     [SerializeField] private int m_ActualHP;
     [SerializeField] private int m_ActualMP;
     [SerializeField] private int m_Position;
-    [SerializeField] private bool m_Dead;
+    [SerializeField] private bool m_IsDead;
 
     [Header("Skills List")]
     [SerializeField] private List<Skill> skills;
@@ -50,7 +50,7 @@ public class Character : ScriptableObject
     public int ActualHP => m_ActualHP;
     public int ActualMP => m_ActualMP;
     public int Position => m_Position;
-    public bool Dead => m_Dead;
+    public bool IsDead => m_IsDead;
 
 
     /// <summary>
@@ -62,7 +62,7 @@ public class Character : ScriptableObject
         m_ActualHP = m_MaxHP;
         m_ActualMP = m_MaxMP;
         m_Position = 0;
-        m_Dead = false;
+        m_IsDead = false;
         return true;
     }
 
@@ -73,7 +73,7 @@ public class Character : ScriptableObject
     /// <returns>True if character alive</returns>
     public bool ChooseExpedition(int _position)
     {
-        if (m_Dead) return false;
+        if (m_IsDead) return false;
         m_Position = _position;
         return true;
     }

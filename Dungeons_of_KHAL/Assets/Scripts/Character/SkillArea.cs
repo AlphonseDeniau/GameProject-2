@@ -6,7 +6,7 @@ using System.Linq;
 
 public class SkillArea
 {
-    public enum areaTypes {
+    public enum EAreaTypes {
         Single,
         Adjacent,
         Cross,
@@ -15,21 +15,26 @@ public class SkillArea
         Square,
         All
     };
+    [Header("Area Type")]
+    [SerializeField] private EAreaTypes m_Type;
 
-    areaTypes area;
+    // Accessors \\
+    public EAreaTypes Type => m_Type;
+
+    // Methods \\
 
     public List<Character> getTargetedCharacters(List<Character> teamCharacters, Character selectedTarget, Character.ETeam team)
     {
         return (
-            area switch {
-                areaTypes.Single => singleTarget(selectedTarget),
-                areaTypes.Adjacent => adjacentTarget(teamCharacters, selectedTarget, team),
-                areaTypes.Cross => crossTarget(teamCharacters, selectedTarget, team),
-                areaTypes.Row => rowTarget(teamCharacters, selectedTarget, team),
-                areaTypes.Column => columnTarget(teamCharacters, selectedTarget, team),
-                areaTypes.Square => squareTarget(teamCharacters, selectedTarget, team),
-                areaTypes.All => allTarget(teamCharacters),
-                _ => throw new ArgumentOutOfRangeException(nameof(area), $"Not expected area value: {area}"),
+            m_Type switch {
+                EAreaTypes.Single => singleTarget(selectedTarget),
+                EAreaTypes.Adjacent => adjacentTarget(teamCharacters, selectedTarget, team),
+                EAreaTypes.Cross => crossTarget(teamCharacters, selectedTarget, team),
+                EAreaTypes.Row => rowTarget(teamCharacters, selectedTarget, team),
+                EAreaTypes.Column => columnTarget(teamCharacters, selectedTarget, team),
+                EAreaTypes.Square => squareTarget(teamCharacters, selectedTarget, team),
+                EAreaTypes.All => allTarget(teamCharacters),
+                _ => throw new ArgumentOutOfRangeException(nameof(m_Type), $"Not expected area value: {m_Type}"),
             }
         );
     }
