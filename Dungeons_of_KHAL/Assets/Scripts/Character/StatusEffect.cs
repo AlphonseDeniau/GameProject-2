@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-abstract public class Status : MonoBehaviour
+[Serializable]
+public class StatusEffect
 {
     enum statusTypes {
         regeneration,
@@ -24,13 +26,25 @@ abstract public class Status : MonoBehaviour
         confusion,
         exhaustion,
         weakness,
-        slowness
+        slowness,
+        provocation,
+        guard,
     };
     enum statusActionTime {
         startOfTurn,
         endOfTurn,
-        immediate
+        immediate,
+        fight
     }
+
+    [SerializeField]
+    statusActionTime actionTime;
+    [SerializeField]
     statusTypes statusType;
+    [SerializeField]
     int duration; // -1 = infinite
+    [SerializeField]
+    int value;
+
+    Character target;
 }

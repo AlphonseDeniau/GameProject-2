@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Character : MonoBehaviour
+[CreateAssetMenu(fileName = "Character", menuName = "ScriptableObjects/Character", order = 1)]
+public class Character : ScriptableObject
 {
     public enum teamList {
         ally,
@@ -23,5 +24,11 @@ abstract public class Character : MonoBehaviour
     int crit;
     int parry;
 
+    [SerializeField]
     List<Skill> skills;
+    List<StatusEffect> statuses;
+    Combination.stackTypes stackOnHim;
+
+//    useSkill(index);
+    
 }
