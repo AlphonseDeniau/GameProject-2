@@ -12,6 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd9a5e93b3d7d246b6aa43c80f396ad, type: 3}
   m_Name: Skill
   m_EditorClassIdentifier: 
-  areaType: 0
   target: 0
-  skillEffects: []
+  stack: 0
+  Levels:
+  - skillEffects:
+    - type: 0
+      effect:
+        m_Type: 0
+        m_ActionTime: 0
+        m_Duration: 0
+        m_Power: 0
+      pourcentage: 0
+    - type: 0
+      effect:
+        m_Type: 0
+        m_ActionTime: 0
+        m_Duration: 0
+        m_Power: 0
+      pourcentage: 0

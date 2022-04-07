@@ -6,7 +6,7 @@ using System;
 [Serializable]
 public class StatusEffect
 {
-    enum statusTypes {
+    public enum EStatusType {
         regeneration,
         concentration,
         strength,
@@ -30,21 +30,25 @@ public class StatusEffect
         provocation,
         guard,
     };
-    enum statusActionTime {
+
+    public enum EStatusActionTime {
         startOfTurn,
         endOfTurn,
         immediate,
         fight
     }
 
-    [SerializeField]
-    statusActionTime actionTime;
-    [SerializeField]
-    statusTypes statusType;
-    [SerializeField]
-    int duration; // -1 = infinite
-    [SerializeField]
-    int value;
+    [Header("Effect Description")]
+    [SerializeField] private EStatusType m_Type;
+    [SerializeField] private EStatusActionTime m_ActionTime;
+    [SerializeField] private int m_Duration; // -1 = infinite // Depends of the effect (ex: Burn = number of turn, Freeze = number of seconds)
+    [SerializeField] private int m_Power; // Depends of the effect (ex: Burn = damage, Regeneration = heal)
+    private Character m_Target;
 
-    Character target;
+    // Accessors \\
+    public EStatusActionTime ActionTime => m_ActionTime;
+    public EStatusType Type => m_Type;
+    public int Duration => m_Duration;
+    public int Power => m_Power;
+    public Character Target { get { return m_Target; } set { m_Target = value; } }
 }

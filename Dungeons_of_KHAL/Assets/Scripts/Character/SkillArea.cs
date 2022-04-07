@@ -18,7 +18,7 @@ public class SkillArea
 
     areaTypes area;
 
-    public List<Character> getTargetedCharacters(List<Character> teamCharacters, Character selectedTarget, Character.teamList team)
+    public List<Character> getTargetedCharacters(List<Character> teamCharacters, Character selectedTarget, Character.ETeam team)
     {
         return (
             area switch {
@@ -38,11 +38,11 @@ public class SkillArea
         return (new List<Character>{selectedTarget});
     }
 
-    List<Character> adjacentTarget(List<Character> teamCharacters, Character selectedTarget, Character.teamList team) {
-        if (team == Character.teamList.ally) {
-            Character character1 = getCharacterByPosition(teamCharacters, selectedTarget.position - 1);
+    List<Character> adjacentTarget(List<Character> teamCharacters, Character selectedTarget, Character.ETeam team) {
+        if (team == Character.ETeam.Ally) {
+            Character character1 = getCharacterByPosition(teamCharacters, selectedTarget.Position - 1);
             Character character2 = selectedTarget;
-            Character character3 = getCharacterByPosition(teamCharacters, selectedTarget.position + 1);
+            Character character3 = getCharacterByPosition(teamCharacters, selectedTarget.Position + 1);
             List<Character> targets = new List<Character>{
                 character1,
                 character2,
@@ -52,7 +52,7 @@ public class SkillArea
             return (targets);
         } else {
             List<Character> targets = new List<Character>();
-            int targetPlace = selectedTarget.position / 3;
+            int targetPlace = selectedTarget.Position / 3;
 
             for (int i = 0; i < 3; i++) {
                 Character tmp = getCharacterByPosition(teamCharacters, i + (targetPlace * 3));
@@ -70,15 +70,15 @@ public class SkillArea
         }
     }
 
-    List<Character> crossTarget(List<Character> teamCharacters, Character selectedTarget, Character.teamList team) {
+    List<Character> crossTarget(List<Character> teamCharacters, Character selectedTarget, Character.ETeam team) {
         return (rowTarget(teamCharacters, selectedTarget, team).Union(columnTarget(teamCharacters, selectedTarget, team)).ToList());
     }
-    List<Character> rowTarget(List<Character> teamCharacters, Character selectedTarget, Character.teamList team) {
-        if (team == Character.teamList.ally)
+    List<Character> rowTarget(List<Character> teamCharacters, Character selectedTarget, Character.ETeam team) {
+        if (team == Character.ETeam.Ally)
             return (teamCharacters);
         else {
             List<Character> targets = new List<Character>();
-            int targetPlace = selectedTarget.position / 3;
+            int targetPlace = selectedTarget.Position / 3;
 
             for (int i = 0; i < 3; i++) {
                 Character tmp = getCharacterByPosition(teamCharacters, i + (targetPlace * 3));
@@ -90,12 +90,12 @@ public class SkillArea
         }
     }
 
-    List<Character> columnTarget(List<Character> teamCharacters, Character selectedTarget, Character.teamList team) {
-        if (team == Character.teamList.ally)
+    List<Character> columnTarget(List<Character> teamCharacters, Character selectedTarget, Character.ETeam team) {
+        if (team == Character.ETeam.Ally)
             return (new List<Character>{selectedTarget});
         else {
             List<Character> targets = new List<Character>();
-            int targetPlace = selectedTarget.position / 3;
+            int targetPlace = selectedTarget.Position / 3;
 
             for (int i = 0; i < 3; i++) {
                 Character tmp = getCharacterByPosition(teamCharacters, targetPlace + (i * 3));
@@ -107,11 +107,11 @@ public class SkillArea
         }
     }
 
-    List<Character> squareTarget(List<Character> teamCharacters, Character selectedTarget, Character.teamList team) {
-        if (team == Character.teamList.ally) {
-            Character character1 = getCharacterByPosition(teamCharacters, selectedTarget.position - 1);
+    List<Character> squareTarget(List<Character> teamCharacters, Character selectedTarget, Character.ETeam team) {
+        if (team == Character.ETeam.Ally) {
+            Character character1 = getCharacterByPosition(teamCharacters, selectedTarget.Position - 1);
             Character character2 = selectedTarget;
-            Character character3 = getCharacterByPosition(teamCharacters, selectedTarget.position + 1);
+            Character character3 = getCharacterByPosition(teamCharacters, selectedTarget.Position + 1);
             List<Character> targets = new List<Character>{
                 character1,
                 character2,
@@ -124,7 +124,7 @@ public class SkillArea
 
             for (int i = -1; i < 2; i++) {
                 for (int j = -1; j < 2; j++) {
-                    int targetPlace = selectedTarget.position + (i * 3) + j;
+                    int targetPlace = selectedTarget.Position + (i * 3) + j;
                     Character tmp = getCharacterByPosition(teamCharacters, targetPlace);
 
                     if (tmp != null)
@@ -142,7 +142,7 @@ public class SkillArea
     Character getCharacterByPosition(List<Character> teamCharacters, int position) {
         Character returnValue = null;
         foreach (Character character in teamCharacters) {
-            if (character.position == position)
+            if (character.Position == position)
                 returnValue = character;
         }
         return (returnValue);
