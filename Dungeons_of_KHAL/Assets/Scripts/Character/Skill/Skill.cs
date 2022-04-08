@@ -6,22 +6,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skill", menuName = "ScriptableObjects/Skill", order = 2)]
 public class Skill : ScriptableObject
 {
-    public enum ETargetType {
-        ally,
-        enemy,
-        self,
-    };
-    
-
     [Header("Properties")]
     [SerializeField] private string m_SkillName;
     [SerializeField] private string m_Description;
     [SerializeField] private int m_Level;
-    [SerializeField] private int m_Cost;
-    [SerializeField] private Stack.EStackType m_StackType;
+    [SerializeField] private StackEnum.EStackType m_StackType;
 
     [Header("Target")]
-    [SerializeField] private ETargetType m_Type;
+    [SerializeField] private SkillEnum.ETargetType m_Type;
 
     [Header("Effects")]
     [SerializeField] private List<LevelEffect> m_LevelEffects;
@@ -30,20 +22,21 @@ public class Skill : ScriptableObject
     public class LevelEffect
     {
         [SerializeField] private int m_Level;
+        [SerializeField] private int m_Cost;
         [SerializeField] private List<SkillEffect> m_SkillEffects;
 
         // Accessors \\
         public int Level => m_Level;
         public List<SkillEffect> SkillEffects => m_SkillEffects;
+        public int Cost => m_Cost;
     }
 
     // Accessors \\
     public string SkillName => m_SkillName;
     public string Description => m_Description;
-    public int Level => m_Level;
-    public int Cost => m_Cost;
-    public Stack.EStackType StackType => m_StackType;
-    public ETargetType Type => m_Type;
+    public int Level { get { return m_Level; } set { m_Level = value; } }
+    public StackEnum.EStackType StackType => m_StackType;
+    public SkillEnum.ETargetType Type => m_Type;
 
     // Methods \\
 
@@ -53,8 +46,10 @@ public class Skill : ScriptableObject
     /// <param name="_user">character who use the skill</param>
     /// <param name="_target">character targeted by the skill</param>
     /// <returns></returns>
-    public bool UseSkill(Character _user, Character _target)
+    public bool UseSkill(Character _user, Character _target, List<Character> _targetTeam)
     {
+        LevelEffect _levelEffects = m_LevelEffects.Find(x => x.Level == m_Level);
+        _levelEffects.SkillEffects.ForEach(x => x.ApplyEffect(_user, _target, _targetTeam));
         return true;
     }
 
@@ -64,14 +59,14 @@ public class Skill : ScriptableObject
     /// <param name="_user">character who use the skill</param>
     /// <param name="_target">character targeted by the skill</param>
     /// <returns>List of all targets</returns>
-    public List<Character> GetTargetedCharacters(Character _user, Character _target)
+    public List<Character> GetTargetedCharacters(Character _target, List<Character> _targetTeam)
     {
         List<Character> _result = new List<Character>();
         List<SkillEffect> _effects = m_LevelEffects.Find(x => x.Level == m_Level).SkillEffects;
         for (int i = 0; i < _effects.Count; i++)
         {
-//            List<Character> _targets = _effects[i].Area.getTargetedCharacters(_user, _target, _target.Team);
-//            _result.AddRange(_targets.FindAll(x => !_result.Contains(x)));
+            List<Character> _targets = _effects[i].Area.GetTargetedCharacters(_target, _targetTeam);
+            _result.AddRange(_targets.FindAll(x => !_result.Contains(x)));
         }
         return null;
     }
@@ -83,6 +78,7 @@ public class Skill : ScriptableObject
     /// <returns>True if he can cast the skill</returns>
     public bool IsUsable(Character _user)
     {
-        return _user.ActualMP < m_Cost;
+        LevelEffect _levelEffects = m_LevelEffects.Find(x => x.Level == m_Level);
+        return _user.ActualMP < _levelEffects.Cost;
     }
 }

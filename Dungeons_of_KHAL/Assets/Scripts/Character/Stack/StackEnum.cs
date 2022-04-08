@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class Stack : MonoBehaviour
+[Serializable]
+public class StackEnum
 {
     public enum EStackType
     {
+        None,
         Neutral,
         Fire,
         Water,
         Wind,
         Earth
+    }
+
+    public enum EEffectType
+    {
+        Positive,
+        Negative,
     }
 }

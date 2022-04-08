@@ -13,73 +13,33 @@ MonoBehaviour:
   m_Name: HeavyStrike
   m_EditorClassIdentifier: 
   m_SkillName: Heavy Strike
-  m_Description: 
+  m_Description: Make an heavy strike which stun the enemy
   m_Level: 0
-  m_Cost: 10
-  m_StackType: 0
+  m_StackType: 1
   m_Type: 1
   m_LevelEffects:
   - m_Level: 0
+    m_Cost: 10
     m_SkillEffects:
-    - m_Type: 2
-      m_StaticPower: 0
-      m_Effect:
-        m_Type: 0
-        m_ActionTime: 0
-        m_Duration: 0
-        m_Power: 0
-      m_CharacterStatistics:
-        m_MaxHPPourcentage: 0
-        m_MaxMPPourcentage: 0
-        m_ActualHPPourcentage: 0
-        m_ActualMPPourcentage: 0
-        m_StrengthPourcentage: 125
-        m_DefensePourcentage: 0
-        m_MagicPourcentage: 0
-        m_SpeedPourcentage: 0
-        m_DodgePourcentage: 0
-        m_CriticalPourcentage: 0
-        m_ParryPourcentage: 0
-      m_TargetStatistics:
-        m_MaxHPPourcentage: 0
-        m_MaxMPPourcentage: 0
-        m_ActualHPPourcentage: 0
-        m_ActualMPPourcentage: 0
-        m_StrengthPourcentage: 0
-        m_DefensePourcentage: 0
-        m_MagicPourcentage: 0
-        m_SpeedPourcentage: 0
-        m_DodgePourcentage: 0
-        m_CriticalPourcentage: 0
-        m_ParryPourcentage: 0
-    - m_Type: 0
-      m_StaticPower: 0
-      m_Effect:
-        m_Type: 18
+    - m_Effect:
+        m_Type: 14
         m_ActionTime: 2
         m_Duration: 0
-        m_Power: 0
-      m_CharacterStatistics:
-        m_MaxHPPourcentage: 0
-        m_MaxMPPourcentage: 0
-        m_ActualHPPourcentage: 0
-        m_ActualMPPourcentage: 0
-        m_StrengthPourcentage: 125
-        m_DefensePourcentage: 0
-        m_MagicPourcentage: 0
-        m_SpeedPourcentage: 0
-        m_DodgePourcentage: 0
-        m_CriticalPourcentage: 0
-        m_ParryPourcentage: 0
-      m_TargetStatistics:
-        m_MaxHPPourcentage: 0
-        m_MaxMPPourcentage: 0
-        m_ActualHPPourcentage: 0
-        m_ActualMPPourcentage: 0
-        m_StrengthPourcentage: 0
-        m_DefensePourcentage: 0
-        m_MagicPourcentage: 0
-        m_SpeedPourcentage: 0
-        m_DodgePourcentage: 0
-        m_CriticalPourcentage: 0
-        m_ParryPourcentage: 0
+        m_StaticPower: 0
+        m_UserPower:
+          m_Powers:
+          - m_Status: 4
+            m_Value: 125
+        m_TargetPower:
+          m_Powers: []
+    - m_Effect:
+        m_Type: 21
+        m_ActionTime: 2
+        m_Duration: 0
+        m_StaticPower: 0
+        m_UserPower:
+          m_Powers:
+          - m_Status: 4
+            m_Value: 125
+        m_TargetPower:
+          m_Powers: []

@@ -31,13 +31,14 @@ public class Character : ScriptableObject
     [SerializeField] private bool m_IsDead;
 
     [Header("Skills List")]
-    [SerializeField] private List<Skill> skills;
+    [SerializeField] private List<Skill> m_Skills;
 
     // Statuses Effects
-    private List<StatusEffect> statuses;
-    private Combination.stackTypes stackOnHim;
+    [Header("Dont Touch")]
+    [SerializeField] private List<StatusEffect> m_Statuses;
+    [SerializeField] private StackEnum.EStackType m_StackType;
 
-    // Accessors
+    // Accessors \\
     public int MaxHP => m_MaxHP;
     public int MaxMP => m_MaxMP;
     public int Strength => m_Strength;
@@ -51,6 +52,9 @@ public class Character : ScriptableObject
     public int ActualMP => m_ActualMP;
     public int Position => m_Position;
     public bool IsDead => m_IsDead;
+
+    public List<Skill> Skills => m_Skills;
+    public StackEnum.EStackType StackType { get { return m_StackType; } set { m_StackType = value; } }
 
 
     /// <summary>
@@ -76,6 +80,20 @@ public class Character : ScriptableObject
         if (m_IsDead) return false;
         m_Position = _position;
         return true;
+    }
+
+    /// <summary>
+    /// Use a skill to hit the target
+    /// </summary>
+    /// <param name="_skill">Skill of the character</param>
+    /// <param name="_target">character who will take the skill</param>
+    /// <param name="_targetTeam">target's team</param>
+    /// <returns>True if the skill is used</returns>
+    public bool UseSkill(Skill _skill, Character _target, List<Character> _targetTeam)
+    {
+        if (!m_Skills.Contains(_skill)) return false;
+        if (!_skill.IsUsable(this)) return false;
+        return _skill.UseSkill(this, _target, _targetTeam);
     }
 
     /// <summary>
@@ -111,7 +129,7 @@ public class Character : ScriptableObject
     /// <returns></returns>
     public bool AddStatusEffect(StatusEffect _effect)
     {
-        foreach (StatusEffect status in statuses)
+        foreach (StatusEffect status in m_Statuses)
         {
             // Check if effect is already make
             // if yes change by the new effect
@@ -133,7 +151,7 @@ public class Character : ScriptableObject
             // Only remove the status
             return true;
         }
-        statuses.Clear();
+        m_Statuses.Clear();
         return true;
     }
 }

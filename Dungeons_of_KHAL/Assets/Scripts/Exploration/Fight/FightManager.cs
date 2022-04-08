@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FightManager : MonoBehaviour
+public class FightManager : Singleton<FightManager>
 {
-    List<Character> allies;
-    List<Character> enemies;
+    [SerializeField] private List<Character> allies;
+    [SerializeField] private List<Character> enemies;
+
+
 }
