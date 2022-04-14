@@ -7,13 +7,17 @@ using UnityEngine.UI;
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer mainMixer;
+    Text mainSliderText;
     public AudioMixer SFXMixer;
+    Text SFXSliderText;
     public Dropdown resolutionDropdawn;
 
     Resolution[] resolutions;
 
     void Start()
     {
+        mainSliderText = GetComponent < Text > ();
+        SFXSliderText = GetComponent < Text > ();
         List<string> options = new List<string>();
     
         resolutions = Screen.resolutions;
@@ -39,6 +43,15 @@ public class SettingsMenu : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         SFXMixer.SetFloat("SFXVolume", volume);
+    }
+    public void MainTextUpdate(float value)
+    {
+        mainSliderText.text = Mathf.RoundToInt(value) + "%";
+    }
+
+    public void SFXTextUpdate(float value)
+    {
+        SFXSliderText.text = Mathf.RoundToInt(value) + "%";
     }
 
     public void SetQuality(int qualityIndex)
