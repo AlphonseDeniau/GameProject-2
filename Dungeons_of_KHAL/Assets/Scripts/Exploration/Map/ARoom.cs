@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ARoom : MonoBehaviour
+public abstract class ARoom
 {
 
     // Graphical and Logical Place
@@ -15,28 +15,26 @@ public abstract class ARoom : MonoBehaviour
     protected int m_Index;
     // Depth to know the distance from the beginning
     protected int m_Depth;
-
     // State of Room \\
     protected bool m_Explored;
-    public bool isExplored => m_Explored;
 
     // Next rooms available
-    protected List<ARoom> m_NextRooms;
+    protected List<ARoom> m_NextRooms = new List<ARoom>();
     public List<ARoom> nextRooms => m_NextRooms;
 
-    ARoom (int depth, int index) {
+    public ARoom (int depth, int index) {
         m_Depth = depth;
         m_Index = index;
     }
 
-    // Abstract Methods \\
-    public abstract void InitRoom();
-    public abstract void EnterInRoom();
-
-
     // Getter - Setter \\
+    public int Index => m_Index;
+    public int Depth => m_Depth;
+    public bool isExplored => m_Explored;
+
     public bool AddRoom(ARoom room)
     {
+        Debug.Log(room.ToString());
         if (room == null)
         {
             return false;
@@ -54,4 +52,8 @@ public abstract class ARoom : MonoBehaviour
         m_NextRooms.Remove(room);
         return true;
     }
+
+    // Abstract Methods \\
+    public abstract void InitRoom();
+    public abstract void EnterInRoom();
 }
