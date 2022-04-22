@@ -1,22 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EmptyRoom : ARoom
 {
-
-    public EmptyRoom(int depth, int index) : base(depth, index)
-    {
-
-    }
-
     public override void InitRoom()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Initialization of a room: " + m_Index);
     }
 
-    public override void EnterInRoom()
+    public override void EnterRoom()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Enter in room: " + m_Index);
+        m_Explored = true;
+        UpdateImage(true);
+
+    }
+
+    public override void LeaveRoom()
+    {
+        Debug.Log("Leave this room: " + m_Index);
+        UpdateImage(false);
     }
 }
