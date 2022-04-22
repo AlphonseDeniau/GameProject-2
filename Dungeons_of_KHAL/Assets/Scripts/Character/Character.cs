@@ -154,4 +154,37 @@ public class Character : ScriptableObject
         m_Statuses.Clear();
         return true;
     }
+
+    /// <summary>
+    /// Check if the character has a status of a certain type
+    /// </summary>
+    /// <param name="_effectToCheck">List of effect to check</param>
+    /// <returns>True if the character has the status type</returns>
+    public bool CheckStatusEffect(StatusEnum.EStatusType _effectToCheck)
+    {
+        return m_Statuses.Exists(x => x.Type == _effectToCheck);
+    }
+
+    /// <summary>
+    /// Update the duration of the statuses of the character and remove them if they finished
+    /// </summary>
+    /// <param name="_time">Time passed</param>
+    /// <returns></returns>
+    public bool UpdateStatus(float _time)
+    {
+        List<StatusEffect> l_EffectToRemove = new List<StatusEffect>();
+
+        foreach (StatusEffect l_Status in this.m_Statuses)
+        {
+            if (l_Status.DurationType == StatusEnum.EStatusDurationType.Second)
+            {
+                if (l_Status.UpdateDuration(_time))
+                {
+                    l_EffectToRemove.Add(l_Status);
+                }
+            }
+        }
+        this.ClearStatusEffect(l_EffectToRemove);
+        return true;
+    }
 }

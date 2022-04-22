@@ -9,7 +9,8 @@ public class StatusEffect
     [Header("Effect Description")]
     [SerializeField] private StatusEnum.EStatusType m_Type;
     [SerializeField] private StatusEnum.EStatusActionTime m_ActionTime;
-    [SerializeField] private int m_Duration; // -1 = infinite // Depends of the effect (ex: Burn = number of turn, Freeze = number of seconds)
+    [SerializeField] private StatusEnum.EStatusDurationType m_DurationType;
+    [SerializeField] private float m_Duration; // -1 = infinite // Depends of the effect (ex: Burn = number of turn, Freeze = number of seconds)
     [SerializeField] private int m_StaticPower; // Depends of the effect (ex: Burn = damage, Regeneration = heal)
 
     [SerializeField] private StatusCharacterPower m_UserPower;
@@ -21,7 +22,8 @@ public class StatusEffect
     // Accessors \\
     public StatusEnum.EStatusType Type => m_Type;
     public StatusEnum.EStatusActionTime ActionTime => m_ActionTime;
-    public int Duration => m_Duration;
+    public StatusEnum.EStatusDurationType DurationType => m_DurationType;
+    public float Duration => m_Duration;
     public int StaticPower => m_StaticPower;
     public Character User { get { return m_User; } set { m_User = value; } }
     public Character Target { get { return m_Target; } set { m_Target = value; } }
@@ -37,7 +39,7 @@ public class StatusEffect
     /// <returns>True if the status was immediate</returns>
     public bool ApplyImmediateStatus(Character _user, Character _target)
     {
-        if (m_ActionTime != StatusEnum.EStatusActionTime.immediate)
+        if (m_ActionTime != StatusEnum.EStatusActionTime.Immediate)
         {
             _target.AddStatusEffect(this);
             return false;
@@ -69,5 +71,18 @@ public class StatusEffect
     {
         // Add non immediate effect and process of them here
         return true;
+    }
+
+    /// <summary>
+    /// Update Duration
+    /// </summary>
+    /// <param name="_time">time passed</param>
+    /// <returns>True if the effect is finished</returns>
+    public bool UpdateDuration(float _time)
+    {
+        this.m_Duration -= _time;
+        if (this.m_Duration <= 0)
+            return true;
+        return false;
     }
 }

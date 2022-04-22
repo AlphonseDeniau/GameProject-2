@@ -18,7 +18,7 @@ MonoBehaviour:
   m_Strength: 0
   m_Defense: 0
   m_Magic: 0
-  m_Speed: 0
+  m_Speed: 10
   m_Dodge: 0
   m_Critical: 0
   m_Parry: 0

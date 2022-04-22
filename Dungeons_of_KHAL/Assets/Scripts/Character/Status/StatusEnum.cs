@@ -9,41 +9,48 @@ public class StatusEnum : MonoBehaviour
     public enum EStatusType
     {
         // GOOD EFFECT \\
-        heal,
-        regeneration,
-        concentration,
-        thorn,
-        provocation,
-        guard,
-        detoxification,
-        strength,
-        resistance,
-        haste,
-        power,
-        accuracy,
-        ghost,
-        vigilance,
+        Heal,
+        Regeneration,
+        Concentration,
+        Thorn,
+        Provocation,
+        Guard,
+        Detoxification,
+        Strength,
+        Resistance,
+        Haste,
+        Power,
+        Accuracy,
+        Ghost,
+        Vigilance,
 
         //  BAD EFFECT \\
-        damage,
-        burn,
-        poison,
-        freeze,
-        paralysis,
-        blind,
-        confusion,
-        stun,
-        exhaustion,
-        weakness,
-        slowness,
+        Damage,
+        Burn,
+        Poison,
+        Freeze,
+        Paralysis,
+        Blind,
+        Confusion,
+        Stun,
+        Exhaustion,
+        Weakness,
+        Slowness,
     };
 
     public enum EStatusActionTime
     {
-        startOfTurn, // Apply at the beginning of the character turn
-        endOfTurn,   // Apply at the end of the character turn
-        immediate,   // Apply at the moment you receive the effect
-        fight        // Apply at the moment you make a fighting action
+        StartOfTurn, // Apply at the beginning of the character turn
+        EndOfTurn,   // Apply at the end of the character turn
+        Immediate,   // Apply at the moment you receive the effect
+        Fight,       // Apply at the moment you make a fighting action
+        Continual,   // Apply continuously (freeze)
+    }
+
+    public enum EStatusDurationType
+    {
+        Turn,
+        Second
     }
 
     public enum EStatusStatistics
