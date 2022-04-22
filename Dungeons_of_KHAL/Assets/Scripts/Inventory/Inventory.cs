@@ -65,6 +65,12 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void ClearInventory()
+    {
+        m_SelectedItem = null;
+        m_Items.Clear();
+    }
+
     public void SelectItem(Item item)
     {
         if (m_Items.Exists(x => x.m_Item == item))

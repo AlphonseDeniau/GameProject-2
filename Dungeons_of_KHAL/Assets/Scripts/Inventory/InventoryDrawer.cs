@@ -35,7 +35,7 @@ public class InventoryDrawer : MonoBehaviour
     // Methods \\
     public void Start()
     {
-        // Get the inventory or set by another thing
+        m_Inventory = DungeonManager.Instance.Inventory;
         CreateInventory();
         UpdateButton();
     }

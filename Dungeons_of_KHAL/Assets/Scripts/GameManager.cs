@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class GameManager : SingletonDontDestroy<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Managers")]
+    [SerializeField] private SceneManager m_SceneManager;
+    [SerializeField] private AudioManager m_AudioManager;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Game Datas")]
+    [SerializeField] private Inventory m_GlobalInventory;
+    [SerializeField] private Inventory m_ExplorationInventory;
+
+    // Accessors \\
+    public Inventory GlobalInventory => m_GlobalInventory;
+    public Inventory ExplorationInventory => m_ExplorationInventory;
+
+    
+    // Methods \\
+    public void ChangeScene(string name = "MainMenu")
     {
-        
+        m_SceneManager.ChangeSceneByName(name);
     }
 }
