@@ -12,11 +12,19 @@ public class ButtonMap : MonoBehaviour
 
     private Map m_Map;
 
+    private bool m_Initialized = false;
+
     private void Start()
     {
         m_Map = Map.Instance;
-        while (!m_Map.initialized);
-        UpdateButton();
+    }
+
+    private void Update()
+    {
+        if (m_Map.initialized && !m_Initialized)
+        {
+            UpdateButton();
+        }
     }
 
     public void UpdateButton()

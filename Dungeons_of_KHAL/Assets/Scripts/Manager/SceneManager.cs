@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class SceneManager : MonoBehaviour
 {
+    [Serializable]
     public class Scene
     {
         public string m_Name;
