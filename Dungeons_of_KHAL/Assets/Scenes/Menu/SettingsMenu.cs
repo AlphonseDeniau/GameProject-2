@@ -21,7 +21,8 @@ public class SettingsMenu : MonoBehaviour
         List<string> options = new List<string>();
     
         resolutions = Screen.resolutions;
-        resolutionDropdawn.ClearOptions();
+        if (resolutionDropdawn != null)
+            resolutionDropdawn.ClearOptions();
         int currentResolutionIndex = 0;
         for (int i = 0; i < resolutions.Length; i++) {
             string option = resolutions[i].width + " x " + resolutions[i].height;
