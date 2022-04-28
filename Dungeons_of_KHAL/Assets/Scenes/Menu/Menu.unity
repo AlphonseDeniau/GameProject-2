@@ -443,7 +443,6 @@ GameObject:
   - component: {fileID: 228352878}
   - component: {fileID: 228352880}
   - component: {fileID: 228352879}
-  - component: {fileID: 228352881}
   m_Layer: 5
   m_Name: ValueMainVolume
   m_TagString: Untagged
@@ -512,21 +511,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228352877}
   m_CullTransparentMesh: 1
---- !u!114 &228352881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 228352877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d663ebe07dd079849b345f21fca6dc42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMixer: {fileID: 0}
-  SFXMixer: {fileID: 0}
-  resolutionDropdawn: {fileID: 0}
 --- !u!1 &297797631
 GameObject:
   m_ObjectHideFlags: 0
@@ -1493,7 +1477,6 @@ GameObject:
   - component: {fileID: 663189626}
   - component: {fileID: 663189628}
   - component: {fileID: 663189627}
-  - component: {fileID: 663189629}
   m_Layer: 5
   m_Name: ValueSFXVolume
   m_TagString: Untagged
@@ -1562,21 +1545,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663189625}
   m_CullTransparentMesh: 1
---- !u!114 &663189629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 663189625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d663ebe07dd079849b345f21fca6dc42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMixer: {fileID: 0}
-  SFXMixer: {fileID: 0}
-  resolutionDropdawn: {fileID: 0}
 --- !u!1 &708332716
 GameObject:
   m_ObjectHideFlags: 0
@@ -3289,6 +3257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1239669598}
   - component: {fileID: 1239669599}
+  - component: {fileID: 1239669600}
   m_Layer: 5
   m_Name: MainVolumeSlider
   m_TagString: Untagged
@@ -3381,18 +3350,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 228352881}
-        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: MainTextUpdate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &1239669600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239669597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695893e80d0b7714f8d918fa03df3f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 1239669599}
+  _sliderText: {fileID: 228352879}
 --- !u!1 &1261490404
 GameObject:
   m_ObjectHideFlags: 0
@@ -4974,6 +4945,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2030537948}
   - component: {fileID: 2030537949}
+  - component: {fileID: 2030537950}
   m_Layer: 5
   m_Name: SFXVolumeSlider
   m_TagString: Untagged
@@ -5066,18 +5038,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 663189629}
-        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: SFXTextUpdate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &2030537950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030537947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477d8765d26e695469ddfe3d40d8b18d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 2030537949}
+  _sliderText: {fileID: 663189627}
 --- !u!1 &2048564813
 GameObject:
   m_ObjectHideFlags: 0
