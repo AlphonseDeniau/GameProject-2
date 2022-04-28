@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    [SerializeField] private GameObject StartWaypoint;
+    [SerializeField] private GameObject EndWaypoint;
+    [SerializeField] private float SpeedConstant = 1;
+
+    private List<TurnIcon> m_Icons;
+    [SerializeField] private List<FightCharacter> m_CharactersTurn = new List<FightCharacter>();
+    public List<FightCharacter> CharactersTurn => m_CharactersTurn;
 
     void Start() {
         m_Icons = new List<TurnIcon>(FindObjectsOfType<TurnIcon>());
@@ -12,28 +19,16 @@ public class TurnManager : MonoBehaviour
         });
     }
 
-    [SerializeField] private GameObject StartWaypoint;
-    [SerializeField] private GameObject EndWaypoint;
-    [SerializeField] private int SpeedConstant = 1;
-
-    private List<TurnIcon> m_Icons;
-    private List<FightCharacter> m_CharactersTurn = new List<FightCharacter>();
-    public List<FightCharacter> CharactersTurn => m_CharactersTurn;
-
-    void FixedUpdate() {
+    public void FightUpdate() {
         if (m_CharactersTurn.Count == 0) {
             foreach (TurnIcon icon in m_Icons) {
-                if (!icon.FightCharacter.Character.CheckStatusEffect(StatusEnum.EStatusType.Freeze)) MoveIcon(icon);
-            }
-        } else {
-            foreach (FightCharacter character in m_CharactersTurn) {
-                
+                if (!icon.FightCharacter.CharacterObject.Data.CheckStatusEffect(StatusEnum.EStatusType.Freeze)) MoveIcon(icon);
             }
         }
     }
 
     private void MoveIcon(TurnIcon icon) {
-        icon.transform.position += new Vector3(icon.FightCharacter.Character.Speed * SpeedConstant, 0, 0);
+        icon.transform.position += new Vector3(icon.FightCharacter.CharacterObject.ScriptableObject.Speed * SpeedConstant, 0, 0);
         if (icon.transform.position.x >= EndWaypoint.transform.position.x) {
             m_CharactersTurn.Add(icon.FightCharacter);
             icon.transform.position = EndWaypoint.transform.position;
@@ -49,7 +44,7 @@ public class TurnManager : MonoBehaviour
     }
 
     public void ResetCharacter(FightCharacter character) {
-        GetIcon(character).transform.position = EndWaypoint.transform.position;
+        GetIcon(character).transform.position = StartWaypoint.transform.position;
     }
 
     public void TurnEnd() {

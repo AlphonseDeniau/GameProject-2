@@ -46,7 +46,7 @@ public class Skill : ScriptableObject
     /// <param name="_user">character who use the skill</param>
     /// <param name="_target">character targeted by the skill</param>
     /// <returns></returns>
-    public bool UseSkill(Character _user, Character _target, List<Character> _targetTeam)
+    public bool UseSkill(CharacterObject _user, CharacterObject _target, List<CharacterObject> _targetTeam)
     {
         LevelEffect _levelEffects = m_LevelEffects.Find(x => x.Level == m_Level);
         _levelEffects.SkillEffects.ForEach(x => x.ApplyEffect(_user, _target, _targetTeam));
@@ -59,16 +59,16 @@ public class Skill : ScriptableObject
     /// <param name="_user">character who use the skill</param>
     /// <param name="_target">character targeted by the skill</param>
     /// <returns>List of all targets</returns>
-    public List<Character> GetTargetedCharacters(Character _target, List<Character> _targetTeam)
+    public List<CharacterObject> GetTargetedCharacters(CharacterObject _target, List<CharacterObject> _targetTeam)
     {
-        List<Character> _result = new List<Character>();
+        List<CharacterObject> _result = new List<CharacterObject>();
         List<SkillEffect> _effects = m_LevelEffects.Find(x => x.Level == m_Level).SkillEffects;
         for (int i = 0; i < _effects.Count; i++)
         {
-            List<Character> _targets = _effects[i].Area.GetTargetedCharacters(_target, _targetTeam);
+            List<CharacterObject> _targets = _effects[i].Area.GetTargetedCharacters(_target, _targetTeam);
             _result.AddRange(_targets.FindAll(x => !_result.Contains(x)));
         }
-        return null;
+        return _result;
     }
 
     /// <summary>
@@ -76,9 +76,19 @@ public class Skill : ScriptableObject
     /// </summary>
     /// <param name="_user">Main character</param>
     /// <returns>True if he can cast the skill</returns>
-    public bool IsUsable(Character _user)
+    public bool IsUsable(CharacterObject _user)
     {
         LevelEffect _levelEffects = m_LevelEffects.Find(x => x.Level == m_Level);
-        return _user.ActualMP < _levelEffects.Cost;
+        return _user.Data.ActualMP < _levelEffects.Cost;
+    }
+
+    /// <summary>
+    /// Get the actual level effect
+    /// </summary>
+    /// <returns>level effect</returns>
+    public LevelEffect GetLevelEffect()
+    {
+        LevelEffect _levelEffects = m_LevelEffects.Find(x => x.Level == m_Level);
+        return _levelEffects;
     }
 }
