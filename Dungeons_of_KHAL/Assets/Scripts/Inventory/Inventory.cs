@@ -74,6 +74,8 @@ public class Inventory : MonoBehaviour
 
     public void SelectItem(Item item)
     {
+        if (item == null)
+            m_SelectedItem = null;
         if (m_Items.Exists(x => x.m_Item == item))
             m_SelectedItem = item;
     }

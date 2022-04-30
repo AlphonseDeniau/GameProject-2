@@ -30,11 +30,17 @@ public class InventoryDrawer : MonoBehaviour
     public Inventory Inventory { get { return m_Inventory; } set { m_Inventory = value; } }
 
     // Methods \\
-    public void Start()
+    private void OnEnable()
     {
         m_Inventory = DungeonManager.Instance.Inventory;
-        CreateInventory();
+        m_IndexShowing = 0;
+        UpdateVisual();
         UpdateButton();
+    }
+
+    private void OnDisable()
+    {
+        m_Inventory.SelectItem(null);
     }
 
     private void CreateInventory()
