@@ -24,9 +24,9 @@ public class SkillEffect
     /// <param name="_user">character who use the skill</param>
     /// <param name="_target">character targeted by the skill</param>
     /// <returns></returns>
-    public bool ApplyEffect(Character _user, Character _target, List<Character> _targetTeam)
+    public bool ApplyEffect(CharacterObject _user, CharacterObject _target, List<CharacterObject> _targetTeam)
     {
-        List<Character> _targets = m_Area.GetTargetedCharacters(_target, _targetTeam);
+        List<CharacterObject> _targets = m_Area.GetTargetedCharacters(_target, _targetTeam);
         _targets.ForEach(x => ApplyStatus(_user, x));
         return true;
     }
@@ -37,7 +37,7 @@ public class SkillEffect
     /// <param name="_user">character who use the skill</param>
     /// <param name="_target">character targeted by the skill</param>
     /// <returns></returns>
-    private bool ApplyStatus(Character _user, Character _target)
+    private bool ApplyStatus(CharacterObject _user, CharacterObject _target)
     {
         if (m_Effect == null) return false;
         // Choose if who will have the effect link
@@ -46,7 +46,7 @@ public class SkillEffect
         if (!m_Effect.ApplyImmediateStatus(_user, _target))
         {
             // False add the effect in the character targeted
-            _target.AddStatusEffect(m_Effect);
+            _target.Data.AddStatusEffect(m_Effect);
         }
         return true;
     }

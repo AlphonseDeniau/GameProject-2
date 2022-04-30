@@ -17,11 +17,10 @@ public class StackManager : Singleton<StackManager>
     /// <param name="_target">Character who receive the stack</param>
     /// <param name="_type">Type of the stack</param>
     /// <returns>True if stack effect trigger</returns>
-    public bool ApplyStack(Character _user, Character _target, StackEnum.EStackType _stackType, StackEnum.EEffectType _effectType)
+    public bool ApplyStack(CharacterObject _user, CharacterObject _target, StackEnum.EStackType _stackType, StackEnum.EEffectType _effectType)
     {
-        if (!_target) return false;
-        if (_target.StackType == StackEnum.EStackType.None)
-            _target.StackType = _stackType;
+        if (_target.Data.StackType == StackEnum.EStackType.None)
+            _target.Data.StackType = _stackType;
         else
             ApplyStackEffect(_user, _target, _stackType, _effectType);
         return true;
@@ -33,21 +32,21 @@ public class StackManager : Singleton<StackManager>
     /// <param name="_target">Character who receive the stack</param>
     /// <param name="_type">Type of stack added</param>
     /// <returns></returns>
-    private bool ApplyStackEffect(Character _user, Character _target, StackEnum.EStackType _stackType, StackEnum.EEffectType _effectType)
+    private bool ApplyStackEffect(CharacterObject _user, CharacterObject _target, StackEnum.EStackType _stackType, StackEnum.EEffectType _effectType)
     {
         for (int i = 0; i < m_Combinaisons.Count; i++)
         {
-            if (m_Combinaisons[i].HasTypes(_target.StackType, _stackType) && m_Combinaisons[i].EffectType == _effectType)
+            if (m_Combinaisons[i].HasTypes(_target.Data.StackType, _stackType) && m_Combinaisons[i].EffectType == _effectType)
             {
                 StatusEffect _effect = new StatusEffect();
                 _effect = m_Combinaisons[i].Effect;
                 _effect.ChooseTarget(_user, _target);
-                _target.AddStatusEffect(_effect);
+                _target.Data.AddStatusEffect(_effect);
                 break;
             }
         }
 
-        _target.StackType = StackEnum.EStackType.None;
+        _target.Data.StackType = StackEnum.EStackType.None;
         return true;
     }
 }
