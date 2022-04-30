@@ -16,7 +16,7 @@ public class SceneManager : MonoBehaviour
 
     [SerializeField] private List<Scene> m_Scenes = new List<Scene>();
 
-    public void ChangeSceneByName(string name)
+    public void ChangeScene(string name)
     {
         if (m_Scenes.Exists(s => s.m_Name == name))
         {
@@ -24,7 +24,7 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void ChangeSceneByIndex(int index)
+    public void ChangeScene(int index)
     {
         if (m_Scenes.Exists(s => s.m_Index == index))
         {

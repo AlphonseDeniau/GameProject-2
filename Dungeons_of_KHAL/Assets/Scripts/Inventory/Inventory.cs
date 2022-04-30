@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
 
         public int m_Number;
         public Item m_Item;
+        public bool m_Selected;
     }
 
     [SerializeField] private List<InventoryItem> m_Items = new List<InventoryItem>();
@@ -35,7 +36,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            m_Items.Add(new InventoryItem(1, item));
+            m_Items.Add(new InventoryItem(number, item));
         }
     }
 
@@ -45,7 +46,7 @@ public class Inventory : MonoBehaviour
         {
             InventoryItem inventory = m_Items.Find(x => x.m_Item == item);
             if (inventory.m_Number < number)
-                inventory.m_Number -= 0;
+                inventory.m_Number = 0;
             else
                 inventory.m_Number -= number;
             if (inventory.m_Number == 0)
