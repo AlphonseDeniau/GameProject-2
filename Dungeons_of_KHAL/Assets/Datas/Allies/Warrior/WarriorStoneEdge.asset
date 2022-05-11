@@ -10,42 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cd9a5e93b3d7d246b6aa43c80f396ad, type: 3}
-  m_Name: HeavyStrike
+  m_Name: WarriorStoneEdge
   m_EditorClassIdentifier: 
-  m_SkillName: Heavy Strike
-  m_Description: Make an heavy strike which stun the enemy
-  m_Level: 0
-  m_StackType: 1
-  m_Type: 1
+  m_SkillName: Stone Edge
+  m_Description: Explode the roc armor to damage enemies
+  m_StackType: 5
+  m_Type: 0
   m_LevelEffects:
   - m_Level: 0
-    m_Cost: 10
+    m_Cost: 0
     m_SkillEffects:
     - m_Area:
         m_Type: 0
       m_Effect:
-        m_Type: 14
-        m_ActionTime: 4
-        m_DurationType: 1
-        m_Duration: 5
-        m_StaticPower: 0
-        m_UserPower:
-          m_Powers:
-          - m_Status: 4
-            m_Value: 125
-        m_TargetPower:
-          m_Powers: []
-    - m_Area:
         m_Type: 0
-      m_Effect:
-        m_Type: 21
         m_ActionTime: 0
         m_DurationType: 0
         m_Duration: 0
         m_StaticPower: 0
         m_UserPower:
-          m_Powers:
-          - m_Status: 4
-            m_Value: 125
+          m_Powers: []
         m_TargetPower:
           m_Powers: []

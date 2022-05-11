@@ -10,12 +10,13 @@ public class FightManager : Singleton<FightManager>
     [SerializeField] private List<CharacterObject> m_Allies;
     [SerializeField] private List<CharacterObject> m_Enemies;
     [SerializeField] private CharacterObject m_CurrentTurn = null;
-    private Skill m_SelectedSkill = null;
+    private SkillData m_SelectedSkill = null;
     [SerializeField] private bool m_InFight = true;
+    public TurnManager TurnManager => m_TurnManager;
     public List<CharacterObject> Allies => m_Allies;
     public List<CharacterObject> Enemies => m_Enemies;
     public CharacterObject CurrentTurn => m_CurrentTurn;
-    public Skill SelectedSkill => m_SelectedSkill;
+    public SkillData SelectedSkill => m_SelectedSkill;
 
     public void SetAllies(List<CharacterObject> allies)
     {
@@ -62,6 +63,7 @@ public class FightManager : Singleton<FightManager>
 
 
     void DoTurn() {
+        m_CurrentTurn.Data.DoStatus(StatusEnum.EStatusActionTime.StartOfTurn);
         if (m_CurrentTurn.Data.CheckStatusEffect(StatusEnum.EStatusType.Paralysis))
         {
             m_TurnManager.TurnEnd();
@@ -86,19 +88,21 @@ public class FightManager : Singleton<FightManager>
         //call doaction
     }
 
-    public void SelectSkill(Skill skill)
+    public void SelectSkill(SkillData skill)
     {
         m_SelectedSkill = skill;
         new List<FightCharacter>(FindObjectsOfType<FightCharacter>()).ForEach(x => x.SkillSelected(skill, m_CurrentTurn));
     }
 
-    public void DoAction(Skill skill, CharacterObject target)
+    public void DoAction(SkillData skill, CharacterObject target)
     {
         //Rand confusion modify skill and target
         if (target.ScriptableObject.Team == Character.ETeam.Ally)
             m_CurrentTurn.Data.UseSkill(skill, target, m_Allies);
         else
             m_CurrentTurn.Data.UseSkill(skill, target, m_Enemies);
+        m_CurrentTurn.Data.DoStatus(StatusEnum.EStatusActionTime.EndOfTurn);
+        m_CurrentTurn.Data.UpdateStatus(1, StatusEnum.EStatusDurationType.Turn);
         m_UIActionPart.SetActive(false);
         m_CurrentTurn = null;
         m_SelectedSkill = null;
@@ -106,8 +110,8 @@ public class FightManager : Singleton<FightManager>
         m_TurnManager.TurnEnd();
     }
 
-    void DoContinuousStatus() {
-        m_Allies.ForEach(x => x.Data.UpdateStatus(Time.deltaTime));
-        m_Enemies.ForEach(x => x.Data.UpdateStatus(Time.deltaTime));
+    private void DoContinuousStatus() {
+        m_Allies.ForEach(x => x.Data.UpdateStatus(Time.deltaTime, StatusEnum.EStatusDurationType.Second));
+        m_Enemies.ForEach(x => x.Data.UpdateStatus(Time.deltaTime, StatusEnum.EStatusDurationType.Second));
     }
 }

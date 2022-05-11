@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd9a5e93b3d7d246b6aa43c80f396ad, type: 3}
+  m_Name: WarriorRocArmor
+  m_EditorClassIdentifier: 
+  m_SkillName: Roc Armor
+  m_Description: The warrior creates and equips a roc armor which upgrades his defense.
+  m_StackType: 5
+  m_Type: 0
+  m_LevelEffects:
+  - m_Level: 0
+    m_Cost: 0
+    m_SkillEffects:
+    - m_Area:
+        m_Type: 0
+      m_Effect:
+        m_Type: 0
+        m_ActionTime: 0
+        m_DurationType: 0
+        m_Duration: 0
+        m_StaticPower: 0
+        m_UserPower:
+          m_Powers: []
+        m_TargetPower:
+          m_Powers: []

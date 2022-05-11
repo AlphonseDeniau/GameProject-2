@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   m_Team: 0
-  m_MaxHP: 0
-  m_MaxMP: 0
-  m_Strength: 0
-  m_Defense: 0
-  m_Magic: 0
-  m_Speed: 10
-  m_Dodge: 0
+  m_MaxHP: 400
+  m_MaxMP: 200
+  m_Strength: 15
+  m_Defense: 20
+  m_Magic: 10
+  m_Speed: 15
+  m_Dodge: 2
   m_Critical: 0
-  m_Parry: 0
+  m_Parry: 4
   m_Skills:
+  - {fileID: 11400000, guid: f9642adb4233fff4e97756f24a1a3d79, type: 2}
   - {fileID: 11400000, guid: 07364f1fb3d829e46a76af39b795ae6d, type: 2}
+  - {fileID: 11400000, guid: 5801c17a11939454187dce50da1580cf, type: 2}
+  - {fileID: 11400000, guid: 9a055dcd0e0ce4b4f8153cafd40f304d, type: 2}
+  - {fileID: 11400000, guid: 77a38f06ca6ab584cb40134db2ccfb2a, type: 2}

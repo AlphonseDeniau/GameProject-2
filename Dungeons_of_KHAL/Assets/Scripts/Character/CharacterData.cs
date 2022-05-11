@@ -16,12 +16,15 @@ public class CharacterData
     [SerializeField] private List<StatusEffect> m_Statuses;
     [SerializeField] private StackEnum.EStackType m_StackType;
 
+    [Header("Skills Values")]
+    [SerializeField] private List<SkillData> m_Skills = new List<SkillData>();
+
     public int ActualHP => m_ActualHP;
     public int ActualMP => m_ActualMP;
     public int Position => m_Position;
     public bool IsDead => m_IsDead;
     public StackEnum.EStackType StackType { get { return m_StackType; } set { m_StackType = value; } }
-
+    public List<SkillData> Skills => m_Skills;
 
     /// <summary>
     /// Initialize character when we create it
@@ -31,9 +34,10 @@ public class CharacterData
     {
         m_ActualHP = character.ScriptableObject.MaxHP;
         m_ActualMP = character.ScriptableObject.MaxMP;
-        m_Position = 0;
+//        m_Position = 0;
         m_IsDead = false;
         m_CharacterObject = character;
+        character.ScriptableObject.Skills.ForEach(x => m_Skills.Add(new SkillData(x, 0)));
         return true;
     }
 
@@ -56,9 +60,10 @@ public class CharacterData
     /// <param name="_target">character who will take the skill</param>
     /// <param name="_targetTeam">target's team</param>
     /// <returns>True if the skill is used</returns>
-    public bool UseSkill(Skill _skill, CharacterObject _target, List<CharacterObject> _targetTeam)
+    public bool UseSkill(SkillData _skill, CharacterObject _target, List<CharacterObject> _targetTeam)
     {
-        if (!m_CharacterObject.ScriptableObject.Skills.Contains(_skill)) return false;
+        if (!m_CharacterObject.ScriptableObject.Skills.Contains(_skill.Skill)) return false;
+        if (!this.m_Skills.Contains(_skill)) return false;
         if (!_skill.IsUsable(m_CharacterObject)) return false;
         return _skill.UseSkill(m_CharacterObject, _target, _targetTeam);
     }
@@ -152,14 +157,15 @@ public class CharacterData
     /// Update the duration of the statuses of the character and remove them if they finished
     /// </summary>
     /// <param name="_time">Time passed</param>
+    /// <param name="_type">Type of duration (turn or second)</param>
     /// <returns></returns>
-    public bool UpdateStatus(float _time)
+    public bool UpdateStatus(float _time, StatusEnum.EStatusDurationType _type)
     {
         List<StatusEffect> l_EffectToRemove = new List<StatusEffect>();
 
         foreach (StatusEffect l_Status in this.m_Statuses)
         {
-            if (l_Status.DurationType == StatusEnum.EStatusDurationType.Second)
+            if (l_Status.DurationType == _type)
             {
                 if (l_Status.UpdateDuration(_time))
                 {
@@ -170,4 +176,78 @@ public class CharacterData
         this.ClearStatusEffect(l_EffectToRemove);
         return true;
     }
+
+    /// <summary>
+    /// Do Status
+    /// </summary>
+    /// <param name="_time">Action time of status to do</param>
+    /// <returns></returns>
+    public void DoStatus(StatusEnum.EStatusActionTime _time)
+    {
+        this.m_Statuses.FindAll(x => x.ActionTime == _time).ForEach(x => x.ApplyStatus(x.User, x.Target));
+    }
+
+    /// <summary>
+    /// Get the stat value with effects modifiers
+    /// </summary>
+    /// <param name="_stat">Stat to get</param>
+    /// <returns></returns>
+    public float GetStatWithModifier(StatusEnum.EStatusStatistics _stat)
+    {
+        float stat = 0;
+        switch (_stat)
+        {
+            case StatusEnum.EStatusStatistics.ActualHP:
+                stat = this.m_ActualHP;
+                break;
+            case StatusEnum.EStatusStatistics.ActualMP:
+                stat = this.m_ActualMP;
+                break;
+            case StatusEnum.EStatusStatistics.MaxHP:
+                stat = this.m_CharacterObject.ScriptableObject.Critical;
+                break;
+            case StatusEnum.EStatusStatistics.MaxMP:
+                stat = this.m_CharacterObject.ScriptableObject.MaxMP;
+                break;
+            case StatusEnum.EStatusStatistics.Critical:
+                stat = this.m_CharacterObject.ScriptableObject.Critical;
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Accuracy).ForEach(x => stat *= x.StaticPower);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Slowness).ForEach(x => stat /= x.StaticPower);
+                break;
+            case StatusEnum.EStatusStatistics.Defense:
+                stat = this.m_CharacterObject.ScriptableObject.Defense;
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Resistance).ForEach(x => stat *= x.StaticPower);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Weakness).ForEach(x => stat /= x.StaticPower);
+                break;
+            case StatusEnum.EStatusStatistics.Dodge:
+                stat = this.m_CharacterObject.ScriptableObject.Dodge;
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Ghost).ForEach(x => stat *= x.StaticPower);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Weakness).ForEach(x => stat /= x.StaticPower);
+                break;
+            case StatusEnum.EStatusStatistics.Magic:
+                stat = this.m_CharacterObject.ScriptableObject.Magic;
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Power).ForEach(x => stat *= x.StaticPower);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Exhaustion).ForEach(x => stat /= x.StaticPower);
+                break;
+            case StatusEnum.EStatusStatistics.Parry:
+                stat = this.m_CharacterObject.ScriptableObject.Parry;
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Vigilance).ForEach(x => stat *= x.StaticPower);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Weakness).ForEach(x => stat /= x.StaticPower);
+                break;
+            case StatusEnum.EStatusStatistics.Speed:
+                stat = this.m_CharacterObject.ScriptableObject.Speed;
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Haste).ForEach(x => stat *= x.StaticPower);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Slowness).ForEach(x => stat /= x.StaticPower);
+                break;
+            case StatusEnum.EStatusStatistics.Strength:
+                stat = this.m_CharacterObject.ScriptableObject.Strength;
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Strength).ForEach(x => stat *= x.StaticPower);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Exhaustion).ForEach(x => stat /= x.StaticPower);
+                break;
+            default:
+                return (-1);
+        }
+        return (stat);
+    }
+
 };

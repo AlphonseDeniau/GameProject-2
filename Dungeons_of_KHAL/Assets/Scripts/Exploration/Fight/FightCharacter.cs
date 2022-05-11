@@ -22,9 +22,9 @@ public class FightCharacter : MonoBehaviour
         m_Selected.SetActive(false);
     }
 
-    public void SkillSelected(Skill skill, CharacterObject user)
+    public void SkillSelected(SkillData skill, CharacterObject user)
     {
-        if (skill.Type == SkillEnum.ETargetType.Self)
+        if (skill.Skill.Type == SkillEnum.ETargetType.Self)
         {
             if (user == m_CharacterObject)
             {
@@ -35,7 +35,7 @@ public class FightCharacter : MonoBehaviour
                 CancelTarget();
             }
         }
-        if (skill.Type == SkillEnum.ETargetType.Ally)
+        if (skill.Skill.Type == SkillEnum.ETargetType.Ally)
         {
             if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Ally)
             {
@@ -46,7 +46,7 @@ public class FightCharacter : MonoBehaviour
                 m_Selected.SetActive(false);
             }
         }
-        if (skill.Type == SkillEnum.ETargetType.Enemy)
+        if (skill.Skill.Type == SkillEnum.ETargetType.Enemy)
         {
             if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Enemy)
             {

@@ -10,6 +10,11 @@ public class CharacterObject : MonoBehaviour
     public Character ScriptableObject => m_ScriptableObject;
     public CharacterData Data => m_Data;
 
+    void Start()
+    {
+        Data.Initialize(this);
+    }
+
     public bool Initialize(Character scriptableObject)
     {
         m_ScriptableObject = scriptableObject;

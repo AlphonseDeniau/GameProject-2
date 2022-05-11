@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb70d2c594715984ba30d3c69e4dd47c, type: 3}
+  m_Name: Thief
+  m_EditorClassIdentifier: 
+  m_Team: 0
+  m_MaxHP: 300
+  m_MaxMP: 300
+  m_Strength: 20
+  m_Defense: 10
+  m_Magic: 10
+  m_Speed: 20
+  m_Dodge: 6
+  m_Critical: 0
+  m_Parry: 0
+  m_Skills:
+  - {fileID: 11400000, guid: cd923fbad45835a4fa89be8a72e3f59f, type: 2}
+  - {fileID: 11400000, guid: cbeaa96be77bdd54aa4866ebdb49efa3, type: 2}
+  - {fileID: 11400000, guid: 3ce406a84cbec09448a8d490895660c3, type: 2}
+  - {fileID: 11400000, guid: 0cf951e65ad23cb46b952942d7613366, type: 2}
+  - {fileID: 11400000, guid: 69d66558d8fdb7e4e8e12c1a374e44a0, type: 2}

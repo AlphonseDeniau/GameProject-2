@@ -30,6 +30,23 @@ public class StatusEffect
 
     // Methods \\
 
+    public float CalcPower(CharacterObject obj, StatusCharacterPower power)
+    {
+        float value = 0;
+        value += (power.GetPower(StatusEnum.EStatusStatistics.ActualHP) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.ActualHP);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.ActualMP) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.ActualMP);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Critical) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Critical);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Defense) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Defense);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Dodge) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Dodge);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Magic) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Magic);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.MaxHP) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.MaxHP);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.MaxMP) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.MaxMP);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Parry) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Parry);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Speed) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Speed);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Strength) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Strength);
+        return (value);
+    }
+
     /// <summary>
     /// If actionTime is immediate do the status
     /// Else add it in the CharacterObject
@@ -45,6 +62,21 @@ public class StatusEffect
             return false;
         }
         // Add immediate effect and process of them here
+        switch (this.m_Type)
+        {
+            case StatusEnum.EStatusType.Heal:
+
+                _target.Data.TakeHeal(this.m_StaticPower);
+                break;
+            case StatusEnum.EStatusType.Damage:
+                _target.Data.TakeDamage(this.m_StaticPower);
+                break;
+            case StatusEnum.EStatusType.Stun:
+                FightManager.Instance.TurnManager.ResetCharacter(FightManager.Instance.TurnManager.GetCharacter(_target));
+                break;
+            default:
+                break;
+        }
         return true;
     }
 
