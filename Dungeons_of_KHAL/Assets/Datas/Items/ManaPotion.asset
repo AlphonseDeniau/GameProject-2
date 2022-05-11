@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Mana Potion
   m_Description: Add mana
-  m_Sprite: {fileID: 21300000, guid: f73f68fe6815f5548a6c2a61b9e49add, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e248ee69775f35c4b86f5e54526dc5bf, type: 3}
   m_Effect: 1
   m_Target: 0
   m_Type: 0

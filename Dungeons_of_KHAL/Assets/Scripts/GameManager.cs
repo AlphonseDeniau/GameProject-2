@@ -16,10 +16,10 @@ public class GameManager : SingletonDontDestroy<GameManager>
     public Inventory GlobalInventory => m_GlobalInventory;
     public Inventory ExplorationInventory => m_ExplorationInventory;
 
-    
+
     // Methods \\
     public void ChangeScene(string name = "MainMenu")
     {
-        m_SceneManager.ChangeSceneByName(name);
+        m_SceneManager.ChangeScene(name);
     }
 }
