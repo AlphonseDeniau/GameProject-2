@@ -7,31 +7,52 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private GameObject StartWaypoint;
     [SerializeField] private GameObject EndWaypoint;
     [SerializeField] private float SpeedConstant = 1;
+    private FightManager m_FightManager;
 
-    private List<TurnIcon> m_Icons;
+    [SerializeField] private List<TurnIcon> m_Icons;
     private List<FightCharacter> m_CharactersTurn = new List<FightCharacter>();
     public List<FightCharacter> CharactersTurn => m_CharactersTurn;
 
-    void Start() {
+    void Start()
+    {
+        m_FightManager = FightManager.Instance;
         m_Icons = new List<TurnIcon>(FindObjectsOfType<TurnIcon>());
         m_Icons.ForEach((icon) => {
             this.ResetCharacter(icon.FightCharacter);
         });
     }
 
+    private List<TurnIcon> MoveList()
+    {
+        
+        return m_Icons.FindAll(x => !x.FightCharacter.CharacterObject.Data.CheckStatusEffect(StatusEnum.EStatusType.Freeze) && !x.FightCharacter.CharacterObject.Data.IsDead);
+    }
+
+    public void UpdateAlive()
+    {
+        m_Icons.FindAll(x => x.FightCharacter.CharacterObject.Data.IsDead).ForEach(x => x.gameObject.SetActive(false));
+        m_Icons.FindAll(x => !x.FightCharacter.CharacterObject.Data.IsDead).ForEach(x => x.gameObject.SetActive(true));
+    }
+
+    private TurnIcon GetFarest()
+    {
+        TurnIcon farest = null;
+        MoveList().ForEach(x => {
+            if (farest == null || NextPos(x, 1) > NextPos(farest, 1)) farest = x;
+        });
+        return farest;
+    }
+
     public void FightUpdate() {
         if (m_CharactersTurn.Count == 0) {
-            TurnIcon farest = null;
-            m_Icons.ForEach(x => {
-                if ((farest == null || NextPos(x, 1) > NextPos(farest, 1)) && !x.FightCharacter.CharacterObject.Data.CheckStatusEffect(StatusEnum.EStatusType.Freeze)) farest = x;
-            });
+            TurnIcon farest = GetFarest();
             if (farest != null)
             {
                 float percentage = 1.0f;
                 if (NextPos(farest, 1) >= EndWaypoint.transform.position.x)
                     percentage = Mathf.Abs(EndWaypoint.transform.position.x - farest.transform.position.x) / Mathf.Abs(NextPos(farest, 1) - farest.transform.position.x);
-                m_Icons.ForEach(x => {
-                    if (!x.FightCharacter.CharacterObject.Data.CheckStatusEffect(StatusEnum.EStatusType.Freeze)) MoveIcon(x, percentage);
+                MoveList().ForEach(x => {
+                    MoveIcon(x, percentage);
                 });
             }
         }

@@ -33,17 +33,17 @@ public class StatusEffect
     public float CalcPower(CharacterObject obj, StatusCharacterPower power)
     {
         float value = 0;
-        value += (power.GetPower(StatusEnum.EStatusStatistics.ActualHP) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.ActualHP);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.ActualMP) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.ActualMP);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.Critical) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Critical);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.Defense) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Defense);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.Dodge) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Dodge);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.Magic) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Magic);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.MaxHP) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.MaxHP);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.MaxMP) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.MaxMP);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.Parry) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Parry);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.Speed) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Speed);
-        value += (power.GetPower(StatusEnum.EStatusStatistics.Strength) / 100) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Strength);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.ActualHP) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.ActualHP);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.ActualMP) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.ActualMP);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Critical) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Critical);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Defense) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Defense);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Dodge) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Dodge);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Magic) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Magic);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.MaxHP) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.MaxHP);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.MaxMP) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.MaxMP);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Parry) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Parry);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Speed) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Speed);
+        value += (power.GetPower(StatusEnum.EStatusStatistics.Strength) / 100.0f) * obj.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Strength);
         return (value);
     }
 
@@ -62,22 +62,7 @@ public class StatusEffect
             return false;
         }
         // Add immediate effect and process of them here
-        switch (this.m_Type)
-        {
-            case StatusEnum.EStatusType.Heal:
-
-                _target.Data.TakeHeal(this.m_StaticPower);
-                break;
-            case StatusEnum.EStatusType.Damage:
-                _target.Data.TakeDamage(this.m_StaticPower);
-                break;
-            case StatusEnum.EStatusType.Stun:
-                FightManager.Instance.TurnManager.ResetCharacter(FightManager.Instance.TurnManager.GetCharacter(_target));
-                break;
-            default:
-                break;
-        }
-        return true;
+        return (ApplyStatus(_user, _target));
     }
 
     /// <summary>
@@ -101,7 +86,31 @@ public class StatusEffect
     /// <returns></returns>
     public bool ApplyStatus(CharacterObject _user, CharacterObject _target)
     {
-        // Add non immediate effect and process of them here
+        switch (this.m_Type)
+        {
+            case StatusEnum.EStatusType.Regeneration:
+            case StatusEnum.EStatusType.Concentration:
+            case StatusEnum.EStatusType.Detoxification:
+            case StatusEnum.EStatusType.Burn:
+            case StatusEnum.EStatusType.Poison:
+            case StatusEnum.EStatusType.Heal:
+                float heal = m_StaticPower;
+                heal += CalcPower(m_User, m_UserPower);
+                heal += CalcPower(m_Target, m_TargetPower);
+                _target.Data.TakeHeal((int)heal);
+                break;
+            case StatusEnum.EStatusType.Damage:
+                float dmg = m_StaticPower;
+                dmg += CalcPower(m_User, m_UserPower);
+                dmg += CalcPower(m_Target, m_TargetPower);
+                _target.Data.TakeDamage((int)dmg);
+                break;
+            case StatusEnum.EStatusType.Stun:
+                FightManager.Instance.TurnManager.ResetCharacter(FightManager.Instance.TurnManager.GetCharacter(_target));
+                break;
+            default:
+                break;
+        }
         return true;
     }
 

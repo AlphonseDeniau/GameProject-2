@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SkillName: Heavy Strike
   m_Description: Make an heavy strike which stun the enemy
-  m_Level: 0
   m_StackType: 1
   m_Type: 1
   m_LevelEffects:
@@ -26,7 +25,7 @@ MonoBehaviour:
       m_Effect:
         m_Type: 14
         m_ActionTime: 2
-        m_DurationType: 1
+        m_DurationType: 0
         m_Duration: 0
         m_StaticPower: 0
         m_UserPower:

@@ -16,6 +16,7 @@ public class DungeonManager : Singleton<DungeonManager>
     private GameManager m_GameManager;
 
     // Accessors \\
+    public DungeonUIManager UIManager => m_UIManager;
     public Inventory Inventory => m_Inventory;
     public Map Map => m_Map;
 

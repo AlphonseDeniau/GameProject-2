@@ -48,7 +48,8 @@ public class InventoryDrawer : MonoBehaviour
 
     private void OnDisable()
     {
-        m_Inventory.SelectItem(null);
+        if (m_Inventory)
+            m_Inventory.SelectItem(null);
     }
 
     private void CreateInventory()

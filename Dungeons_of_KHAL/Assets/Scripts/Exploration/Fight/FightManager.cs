@@ -1,44 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class FightManager : Singleton<FightManager>
 {
     [SerializeField] private TurnManager m_TurnManager;
-    [SerializeField] private GameObject m_UIActionPart;
-    [SerializeField] private List<GameObject> m_UISkillButtons;
-    [SerializeField] private List<CharacterObject> m_Allies;
-    [SerializeField] private List<CharacterObject> m_Enemies;
+    [SerializeField] private List<FightCharacter> m_Allies;
+    [SerializeField] private List<FightCharacter> m_Enemies;
     [SerializeField] private CharacterObject m_CurrentTurn = null;
     private SkillData m_SelectedSkill = null;
     [SerializeField] private bool m_InFight = true;
     public TurnManager TurnManager => m_TurnManager;
-    public List<CharacterObject> Allies => m_Allies;
-    public List<CharacterObject> Enemies => m_Enemies;
+    public List<FightCharacter> FightCharacters => new List<FightCharacter>(Allies).Union<FightCharacter>(new List<FightCharacter>(Enemies)).ToList<FightCharacter>();
+    public List<FightCharacter> Allies => m_Allies;
+    public List<FightCharacter> Enemies => m_Enemies;
+    public List<CharacterObject> CharactersObject => new List<CharacterObject>(AlliesObject).Union<CharacterObject>(new List<CharacterObject>(EnemiesObject)).ToList<CharacterObject>();
+    public List<CharacterObject> AlliesObject => m_Allies.Select(x => x.CharacterObject).ToList<CharacterObject>();
+    public List<CharacterObject> EnemiesObject => m_Enemies.Select(x => x.CharacterObject).ToList<CharacterObject>();
+    public List<CharacterObject> CharactersAlive => new List<CharacterObject>(AlliesAlive).Union<CharacterObject>(new List<CharacterObject>(EnemiesAlive)).ToList<CharacterObject>();
+    public List<CharacterObject> AlliesAlive => AlliesObject.FindAll(x => !x.Data.IsDead);
+    public List<CharacterObject> EnemiesAlive => EnemiesObject.FindAll(x => !x.Data.IsDead);
     public CharacterObject CurrentTurn => m_CurrentTurn;
     public SkillData SelectedSkill => m_SelectedSkill;
 
+    private DungeonManager m_DungeonManager;
+
     public void SetAllies(List<CharacterObject> allies)
     {
-        m_Allies = allies;
-        m_Allies.ForEach((ally) => {
-            new List<FightCharacter>(FindObjectsOfType<FightCharacter>()).Find(x => x.Position == ally.Data.Position && x.Team == ally.ScriptableObject.Team).SetCharacter(ally);
+        m_Allies.ForEach(x => {
+            allies.ForEach(y => {
+                if (x.Position == y.Data.Position && x.Team == y.ScriptableObject.Team) x.SetCharacter(y);
+            });
         });
     }
 
     public void CreateFight(List<CharacterObject> enemies)
     {
-        m_Enemies = enemies;
-        m_InFight = true;
-        m_Enemies.ForEach((enemy) => {
-            new List<FightCharacter>(FindObjectsOfType<FightCharacter>()).Find(x => x.Position == enemy.Data.Position && x.Team == enemy.ScriptableObject.Team).SetCharacter(enemy);
+        m_Enemies.ForEach(x => {
+            enemies.ForEach(y => {
+                if (x.Position == y.Data.Position && x.Team == y.ScriptableObject.Team) x.SetCharacter(y);
+            });
         });
-        m_UIActionPart.SetActive(false);
+        m_InFight = true;
+        m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
     }
 
     void Start()
     {
-        m_UIActionPart.SetActive(false);
+        m_DungeonManager = DungeonManager.Instance;
+        m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
+        this.SetAllies(new List<CharacterObject>(FindObjectsOfType<CharacterObject>()));
+        this.CreateFight(new List<CharacterObject>(FindObjectsOfType<CharacterObject>()));
     }
 
     void FixedUpdate()
@@ -66,15 +79,16 @@ public class FightManager : Singleton<FightManager>
         m_CurrentTurn.Data.DoStatus(StatusEnum.EStatusActionTime.StartOfTurn);
         if (m_CurrentTurn.Data.CheckStatusEffect(StatusEnum.EStatusType.Paralysis))
         {
-            m_TurnManager.TurnEnd();
+            TurnEnd();
             m_CurrentTurn = null;
         }
         else
         {
             if (m_CurrentTurn.ScriptableObject.Team == Character.ETeam.Ally)
             {
-                m_UIActionPart.SetActive(true);
-                m_UISkillButtons.ForEach(x => x.SetActive(true));
+                m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
+                m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(true);
+                m_DungeonManager.UIManager.MiddlePanel.ActivePanel(EUIPanel.Skill);
             }
             else
             {
@@ -88,30 +102,36 @@ public class FightManager : Singleton<FightManager>
         //call doaction
     }
 
+    void TurnEnd()
+    {
+        m_CurrentTurn.Data.DoStatus(StatusEnum.EStatusActionTime.EndOfTurn);
+        m_CurrentTurn.Data.UpdateStatus(1, StatusEnum.EStatusDurationType.Turn);
+        m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
+        m_CurrentTurn = null;
+        m_SelectedSkill = null;
+        FightCharacters.ForEach(x => x.CancelTarget());
+        m_TurnManager.TurnEnd();
+        m_TurnManager.UpdateAlive();
+    }
+
     public void SelectSkill(SkillData skill)
     {
         m_SelectedSkill = skill;
-        new List<FightCharacter>(FindObjectsOfType<FightCharacter>()).ForEach(x => x.SkillSelected(skill, m_CurrentTurn));
+        FightCharacters.ForEach(x => x.SkillSelected(skill, m_CurrentTurn));
     }
 
     public void DoAction(SkillData skill, CharacterObject target)
     {
         //Rand confusion modify skill and target
         if (target.ScriptableObject.Team == Character.ETeam.Ally)
-            m_CurrentTurn.Data.UseSkill(skill, target, m_Allies);
+            m_CurrentTurn.Data.UseSkill(skill, target, AlliesObject);
         else
-            m_CurrentTurn.Data.UseSkill(skill, target, m_Enemies);
-        m_CurrentTurn.Data.DoStatus(StatusEnum.EStatusActionTime.EndOfTurn);
-        m_CurrentTurn.Data.UpdateStatus(1, StatusEnum.EStatusDurationType.Turn);
-        m_UIActionPart.SetActive(false);
-        m_CurrentTurn = null;
-        m_SelectedSkill = null;
-        new List<FightCharacter>(FindObjectsOfType<FightCharacter>()).ForEach(x => x.CancelTarget());
-        m_TurnManager.TurnEnd();
+            m_CurrentTurn.Data.UseSkill(skill, target, AlliesObject);
+        TurnEnd();
     }
 
     private void DoContinuousStatus() {
-        m_Allies.ForEach(x => x.Data.UpdateStatus(Time.deltaTime, StatusEnum.EStatusDurationType.Second));
-        m_Enemies.ForEach(x => x.Data.UpdateStatus(Time.deltaTime, StatusEnum.EStatusDurationType.Second));
+        AlliesAlive.ForEach(x => x.Data.UpdateStatus(Time.deltaTime, StatusEnum.EStatusDurationType.Second));
+        EnemiesAlive.ForEach(x => x.Data.UpdateStatus(Time.deltaTime, StatusEnum.EStatusDurationType.Second));
     }
 }

@@ -14,10 +14,10 @@ public class SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private Button m_Button;
     private FightManager m_FightManager;
 
-    void Start()
+    void Awake()
     {
-        m_Button = GetComponent<Button>();
         m_FightManager = FightManager.Instance;
+        m_Button = GetComponent<Button>();
     }
 
     void OnEnable()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WarriorEnemy
   m_EditorClassIdentifier: 
   m_Team: 1
-  m_MaxHP: 0
+  m_MaxHP: 10
   m_MaxMP: 0
   m_Strength: 0
   m_Defense: 0

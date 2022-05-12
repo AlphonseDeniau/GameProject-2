@@ -8,6 +8,7 @@ public class FightCharacter : MonoBehaviour
     [SerializeField] private Character.ETeam m_Team;
     [SerializeField] private CharacterObject m_CharacterObject;
     [SerializeField] private GameObject m_Selected;
+    private FightManager m_FightManager;
     private bool m_CanBeTargeted = false;
     public int Position => m_Position;
     public Character.ETeam Team => m_Team;
@@ -15,10 +16,7 @@ public class FightCharacter : MonoBehaviour
 
     void Start()
     {
-        if (m_Team == Character.ETeam.Ally)
-            m_CharacterObject = FightManager.Instance.Allies[m_Position];
-        else
-            m_CharacterObject = FightManager.Instance.Enemies[m_Position];
+        m_FightManager = FightManager.Instance;
         m_Selected.SetActive(false);
     }
 
@@ -80,19 +78,19 @@ public class FightCharacter : MonoBehaviour
     {
         List<CharacterObject> targets = new List<CharacterObject>();
         if (Team == Character.ETeam.Ally)
-            targets = FightManager.Instance.SelectedSkill.GetTargetedCharacters(CharacterObject, FightManager.Instance.Allies);
+            targets = m_FightManager.SelectedSkill.GetTargetedCharacters(CharacterObject, m_FightManager.AlliesObject);
         if (Team == Character.ETeam.Enemy)
-            targets = FightManager.Instance.SelectedSkill.GetTargetedCharacters(CharacterObject, FightManager.Instance.Enemies);
+            targets = m_FightManager.SelectedSkill.GetTargetedCharacters(CharacterObject, m_FightManager.EnemiesObject);
         targets.ForEach(x => {
-            new List<FightCharacter>(FindObjectsOfType<FightCharacter>()).Find(y => x.Data.Position == y.Position && x.ScriptableObject.Team == y.Team).StartSelected();
+            m_FightManager.FightCharacters.Find(y => x.Data.Position == y.Position && x.ScriptableObject.Team == y.Team).StartSelected();
         });
     }
     
     void OnMouseEnter()
     {
-        if (FightManager.Instance.SelectedSkill != null && m_CanBeTargeted)
+        if (m_FightManager.SelectedSkill != null && m_CanBeTargeted)
         {
-            new List<FightCharacter>(FindObjectsOfType<FightCharacter>()).ForEach(x => x.StopSelected());
+            m_FightManager.FightCharacters.ForEach(x => x.StopSelected());
             ShowAffected();
         }
     }
@@ -101,7 +99,7 @@ public class FightCharacter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && m_CanBeTargeted)
         {
-            FightManager.Instance.DoAction(FightManager.Instance.SelectedSkill, m_CharacterObject);
+            m_FightManager.DoAction(m_FightManager.SelectedSkill, m_CharacterObject);
         }
     }
 
@@ -109,8 +107,8 @@ public class FightCharacter : MonoBehaviour
     {
         if (m_CanBeTargeted)
         {
-            new List<FightCharacter>(FindObjectsOfType<FightCharacter>()).ForEach(x => x.StopSelected());
-            new List<FightCharacter>(FindObjectsOfType<FightCharacter>()).ForEach(x => x.SkillSelected(FightManager.Instance.SelectedSkill, FightManager.Instance.CurrentTurn));
+            m_FightManager.FightCharacters.ForEach(x => x.StopSelected());
+            m_FightManager.FightCharacters.ForEach(x => x.SkillSelected(m_FightManager.SelectedSkill, m_FightManager.CurrentTurn));
         }
     }
 
