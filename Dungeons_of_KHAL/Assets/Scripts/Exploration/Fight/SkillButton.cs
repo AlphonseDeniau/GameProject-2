@@ -9,19 +9,27 @@ public class SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private int m_Index;
     [SerializeField] private Text m_NameText;
     [SerializeField] private Text m_MPText;
-    [SerializeField] private GameObject m_MouseOverObject;
-    [SerializeField] private Text m_DescriptionText;
-    [SerializeField] private Text m_StackTypeText;
-    [SerializeField] private Button m_Button;
+    [SerializeField] private SkillDescription m_Description;
+    
+    private Button m_Button;
+    private FightManager m_FightManager;
+
+    void Start()
+    {
+        m_Button = GetComponent<Button>();
+        m_FightManager = FightManager.Instance;
+    }
 
     void OnEnable()
     {
-        if (FightManager.Instance != null && FightManager.Instance.CurrentTurn != null)
+        if (m_FightManager != null && m_FightManager.CurrentTurn != null)
         {
-            if (m_Index < FightManager.Instance.CurrentTurn.ScriptableObject.Skills.Count) {
-                m_NameText.text = FightManager.Instance.CurrentTurn.ScriptableObject.Skills[m_Index].SkillName;
-                m_MPText.text = "MP: " + FightManager.Instance.CurrentTurn.Data.Skills[m_Index].GetLevelEffect().Cost;
-                if (FightManager.Instance.CurrentTurn.Data.Skills[m_Index].IsUsable(FightManager.Instance.CurrentTurn))
+            CharacterObject _currentFighter = m_FightManager.CurrentTurn;
+
+            if (m_Index < _currentFighter.ScriptableObject.Skills.Count) {
+                m_NameText.text = _currentFighter.ScriptableObject.Skills[m_Index].SkillName;
+                m_MPText.text = "MP: " + _currentFighter.Data.Skills[m_Index].GetLevelEffect().Cost;
+                if (_currentFighter.Data.Skills[m_Index].IsUsable(_currentFighter))
                     m_Button.interactable = true;
                 else
                     m_Button.interactable = false;
@@ -35,23 +43,34 @@ public class SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void SelectSkill()
     {
-        if (FightManager.Instance.CurrentTurn.Data.Skills[m_Index].IsUsable(FightManager.Instance.CurrentTurn))
+        if (m_FightManager != null && m_FightManager.CurrentTurn != null)
         {
-            FightManager.Instance.SelectSkill(FightManager.Instance.CurrentTurn.Data.Skills[m_Index]);
+            CharacterObject _currentFighter = m_FightManager.CurrentTurn;
+
+            if (_currentFighter.Data.Skills[m_Index].IsUsable(_currentFighter))
+            {
+                m_FightManager.SelectSkill(_currentFighter.Data.Skills[m_Index]);
+            }
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        m_MouseOverObject.SetActive(true);
-        if (m_Index < FightManager.Instance.CurrentTurn.ScriptableObject.Skills.Count) {
-            m_DescriptionText.text = FightManager.Instance.CurrentTurn.ScriptableObject.Skills[m_Index].Description;
-            m_StackTypeText.text = "Stack type:\n" + FightManager.Instance.CurrentTurn.ScriptableObject.Skills[m_Index].StackType.ToString();
+        if (m_FightManager != null && m_FightManager.CurrentTurn != null)
+        {
+            CharacterObject _currentFighter = m_FightManager.CurrentTurn;
+            m_Description.ActiveText(true);
+
+            if (m_Index < _currentFighter.ScriptableObject.Skills.Count)
+            {
+                Skill _skill = _currentFighter.ScriptableObject.Skills[m_Index];
+                m_Description.ModifyInformation(_skill.Description, "Stack type: \n" + _skill.StackType.ToString());
+            }
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        m_MouseOverObject.SetActive(false);
+        m_Description.ActiveText(false);
     }
 }

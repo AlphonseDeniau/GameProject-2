@@ -30,9 +30,17 @@ public class InventoryDrawer : MonoBehaviour
     public Inventory Inventory { get { return m_Inventory; } set { m_Inventory = value; } }
 
     // Methods \\
-    private void OnEnable()
+
+    private void Start()
     {
         m_Inventory = DungeonManager.Instance.Inventory;
+        m_IndexShowing = 0;
+        UpdateVisual();
+        UpdateButton();
+    }
+
+    private void OnEnable()
+    {
         m_IndexShowing = 0;
         UpdateVisual();
         UpdateButton();
@@ -73,28 +81,34 @@ public class InventoryDrawer : MonoBehaviour
 
     public void UpdateVisual()
     {
-        m_ItemButtons.ForEach(x => Destroy(x.gameObject));
-        m_ItemButtons.Clear();
-        CreateInventory();
+        if (m_Inventory)
+        {
+            m_ItemButtons.ForEach(x => Destroy(x.gameObject));
+            m_ItemButtons.Clear();
+            CreateInventory();
+        }
     }
 
     private void UpdateButton()
     {
-        Button leftButton = m_SelectButtons[0];
-        Button rightButton = m_SelectButtons[1];
-
-        leftButton.interactable = true;
-        rightButton.interactable = true;
-
-        if (m_Inventory.Items.Count <= m_MaxItem)
+        if (m_Inventory)
         {
-            leftButton.interactable = false;
-            rightButton.interactable = false;
+            Button leftButton = m_SelectButtons[0];
+            Button rightButton = m_SelectButtons[1];
+
+            leftButton.interactable = true;
+            rightButton.interactable = true;
+
+            if (m_Inventory.Items.Count <= m_MaxItem)
+            {
+                leftButton.interactable = false;
+                rightButton.interactable = false;
+            }
+            if (m_IndexShowing == 0)
+                leftButton.interactable = false;
+            if (m_IndexShowing + m_MaxItem == m_Inventory.Items.Count)
+                rightButton.interactable = false;
         }
-        if (m_IndexShowing == 0)
-            leftButton.interactable = false;
-        if (m_IndexShowing + m_MaxItem == m_Inventory.Items.Count)
-            rightButton.interactable = false;
     }
 
     public void SelectInventoryItem(Item item)

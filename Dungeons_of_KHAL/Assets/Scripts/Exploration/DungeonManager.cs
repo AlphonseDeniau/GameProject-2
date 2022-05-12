@@ -20,10 +20,8 @@ public class DungeonManager : Singleton<DungeonManager>
     public Map Map => m_Map;
 
     // Methods \\
-    
-    protected new void Awake()
+    void Start()
     {
-        base.Awake();
         m_GameManager = GameManager.Instance;
         m_Inventory = m_GameManager.ExplorationInventory;
         m_Map = Map.Instance;

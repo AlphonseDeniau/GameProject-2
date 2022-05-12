@@ -17,7 +17,7 @@ public class DungeonMiddlePanel : MonoBehaviour
     [SerializeField] private EUIPanel m_CurrentType = EUIPanel.Skill;
     [SerializeField] private List<Panel> m_Panels = new List<Panel>();
 
-    private void Start()
+    private void OnEnable()
     {
         ActivePanel(m_CurrentType);
     }
