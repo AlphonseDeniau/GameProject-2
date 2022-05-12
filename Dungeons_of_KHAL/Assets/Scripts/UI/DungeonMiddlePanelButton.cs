@@ -17,8 +17,11 @@ public class DungeonMiddlePanelButton : MonoBehaviour
 
     private bool m_Active = false;
 
+    public Button m_Button;
+
     private void Awake()
     {
+        m_Button = GetComponent<Button>();
         m_Image = GetComponent<Image>();
     }
 
@@ -27,6 +30,7 @@ public class DungeonMiddlePanelButton : MonoBehaviour
         m_Active = active;
         m_Image.color = active ? m_ColorActive : m_ColorInactive;
         m_Text.color = active ? m_ColorActiveText : m_ColorInactiveText;
+        m_Button.interactable = true;
     }
 
     public void ChangeText(string text)

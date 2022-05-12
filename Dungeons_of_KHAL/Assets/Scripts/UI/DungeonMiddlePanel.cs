@@ -54,4 +54,17 @@ public class DungeonMiddlePanel : MonoBehaviour
             return m_Panels.Find(x => x.m_Type == type).m_Panel;
         return null;
     }
+
+    public void ActiveMiddlePanel(bool active)
+    {
+        m_Panels.ForEach(x => {
+            x.m_Panel.SetActive(false);
+            x.m_Button.m_Button.interactable = false;
+        });
+
+        if (active)
+        {
+            ActivePanel(m_CurrentType);
+        }
+    }
 }
