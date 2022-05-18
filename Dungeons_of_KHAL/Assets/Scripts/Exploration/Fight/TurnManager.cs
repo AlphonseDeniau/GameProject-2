@@ -24,8 +24,9 @@ public class TurnManager : MonoBehaviour
 
     private List<TurnIcon> MoveList()
     {
-        
-        return m_Icons.FindAll(x => !x.FightCharacter.CharacterObject.Data.CheckStatusEffect(StatusEnum.EStatusType.Freeze) && !x.FightCharacter.CharacterObject.Data.IsDead);
+        return m_Icons.FindAll(x => {
+            return !x.FightCharacter.CharacterObject.Data.CheckStatusEffect(StatusEnum.EStatusType.Freeze) && !x.FightCharacter.CharacterObject.Data.IsDead;
+        });
     }
 
     public void UpdateAlive()

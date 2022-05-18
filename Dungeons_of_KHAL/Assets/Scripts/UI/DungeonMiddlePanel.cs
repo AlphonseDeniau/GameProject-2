@@ -24,6 +24,11 @@ public class DungeonMiddlePanel : MonoBehaviour
 
     public void ActivePanel(EUIPanel type)
     {
+        if (m_CurrentType != type)
+        {
+            FightManager.Instance.SelectSkill(null);
+        }
+
         m_CurrentType = type;
         m_Panels.ForEach(x => {
             x.m_Panel.SetActive(x.m_Type == type);
@@ -33,6 +38,10 @@ public class DungeonMiddlePanel : MonoBehaviour
 
     public void ActivePanel(int enumIndex)
     {
+        if (m_CurrentType != (EUIPanel)enumIndex)
+        {
+            FightManager.Instance.SelectSkill(null);
+        }
         EUIPanel type = (EUIPanel)enumIndex;
         m_CurrentType = type;
         m_Panels.ForEach(x => {

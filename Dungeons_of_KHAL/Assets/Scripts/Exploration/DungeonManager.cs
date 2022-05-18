@@ -7,6 +7,7 @@ public class DungeonManager : Singleton<DungeonManager>
     [Header("Managers")]
     [SerializeField] private DungeonUIManager m_UIManager;
     [SerializeField] private FightManager m_FightManager;
+    [SerializeField] private CharacterManager m_CharacterManager;
 
     [Header("Game Datas")]
     [SerializeField] private Inventory m_Inventory;
@@ -18,6 +19,7 @@ public class DungeonManager : Singleton<DungeonManager>
     // Accessors \\
     public DungeonUIManager UIManager => m_UIManager;
     public Inventory Inventory => m_Inventory;
+    public CharacterManager CharacterManager => m_CharacterManager;
     public Map Map => m_Map;
 
     // Methods \\
@@ -25,7 +27,10 @@ public class DungeonManager : Singleton<DungeonManager>
     {
         m_GameManager = GameManager.Instance;
         m_Inventory = m_GameManager.ExplorationInventory;
+        m_CharacterManager.Allies = m_GameManager.ExplorationCharacterManager.Allies;
         m_Map = Map.Instance;
+
+        m_FightManager.Initialize();
     }
 
     public void ReturnToVillage()

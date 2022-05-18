@@ -5,7 +5,6 @@ using System.Linq;
 
 public class FightManager : Singleton<FightManager>
 {
-    [SerializeField] private TurnManager m_TurnManager;
     [SerializeField] private List<FightCharacter> m_Allies;
     [SerializeField] private List<FightCharacter> m_Enemies;
     [SerializeField] private CharacterObject m_CurrentTurn = null;
@@ -25,12 +24,16 @@ public class FightManager : Singleton<FightManager>
     public SkillData SelectedSkill => m_SelectedSkill;
 
     private DungeonManager m_DungeonManager;
+    private TurnManager m_TurnManager;
 
     public void SetAllies(List<CharacterObject> allies)
     {
+
+        Debug.Log("SET ALLIES: " + allies.Count);
         m_Allies.ForEach(x => {
             allies.ForEach(y => {
-                if (x.Position == y.Data.Position && x.Team == y.ScriptableObject.Team) x.SetCharacter(y);
+                if (x.Position == y.Data.Position && x.Team == y.ScriptableObject.Team)
+                    x.SetCharacter(y);
             });
         });
     }
@@ -39,19 +42,22 @@ public class FightManager : Singleton<FightManager>
     {
         m_Enemies.ForEach(x => {
             enemies.ForEach(y => {
-                if (x.Position == y.Data.Position && x.Team == y.ScriptableObject.Team) x.SetCharacter(y);
+                if (x.Position == y.Data.Position && x.Team == y.ScriptableObject.Team)
+                    x.SetCharacter(y);
             });
         });
         m_InFight = true;
         m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
     }
 
-    void Start()
+    public void Initialize()
     {
         m_DungeonManager = DungeonManager.Instance;
         m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
-        this.SetAllies(new List<CharacterObject>(FindObjectsOfType<CharacterObject>()));
-        this.CreateFight(new List<CharacterObject>(FindObjectsOfType<CharacterObject>()));
+        m_TurnManager = m_DungeonManager.UIManager.TurnManager;
+
+        SetAllies(m_DungeonManager.CharacterManager.Allies);
+        CreateFight(m_DungeonManager.CharacterManager.Enemies);
     }
 
     void FixedUpdate()
@@ -117,7 +123,10 @@ public class FightManager : Singleton<FightManager>
     public void SelectSkill(SkillData skill)
     {
         m_SelectedSkill = skill;
-        FightCharacters.ForEach(x => x.SkillSelected(skill, m_CurrentTurn));
+        if (skill != null)
+            FightCharacters.ForEach(x => x.SkillSelected(skill, m_CurrentTurn));
+        else
+            FightCharacters.ForEach(x => x.CancelTarget());
     }
 
     public void DoAction(SkillData skill, CharacterObject target)
