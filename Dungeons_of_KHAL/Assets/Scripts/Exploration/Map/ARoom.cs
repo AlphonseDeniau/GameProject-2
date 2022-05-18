@@ -9,7 +9,7 @@ public abstract class ARoom : MonoBehaviour
     [Header("Graphical Parameters")]
     [SerializeField] protected Sprite m_HiddenRoom;
     [SerializeField] protected Sprite m_ShowedRoom;
-    protected Image m_Image;
+    [SerializeField] protected Image m_Image;
 
     [Header("Logical Parameters")]
     [SerializeField] protected float m_XPos;
@@ -69,7 +69,7 @@ public abstract class ARoom : MonoBehaviour
 
     private void Awake()
     {
-        m_Image = GetComponent<Image>();
+//        m_Image = GetComponent<Image>();
         m_Image.sprite = m_Explored ? m_ShowedRoom : m_HiddenRoom;
     }
 
@@ -88,7 +88,7 @@ public abstract class ARoom : MonoBehaviour
     protected void UpdateImage(bool selected)
     {
         m_Image.sprite = m_Explored ? m_ShowedRoom : m_HiddenRoom;
-        m_Image.color = selected ? Color.gray : Color.white;
+        m_Image.color = selected ? Color.yellow : Color.white;
     }
 
     // Abstract Methods \\
