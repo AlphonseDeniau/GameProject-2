@@ -67,7 +67,7 @@ public abstract class ARoom : MonoBehaviour
 
     // -------- --------- -------- \\
 
-    private void Awake()
+    protected void Awake()
     {
 //        m_Image = GetComponent<Image>();
         m_Image.sprite = m_Explored ? m_ShowedRoom : m_HiddenRoom;

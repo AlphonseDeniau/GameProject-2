@@ -22,6 +22,7 @@ public class CharacterManager : MonoBehaviour
     public void AddCharacter(Character newCharacter, Character.ETeam team)
     {
         GameObject go = Instantiate(m_Prefab, this.transform);
+        go.transform.SetParent(this.transform);
 
         CharacterObject obj = go.GetComponent<CharacterObject>();
         if (obj != null)

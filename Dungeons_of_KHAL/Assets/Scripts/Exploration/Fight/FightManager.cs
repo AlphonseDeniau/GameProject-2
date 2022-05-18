@@ -28,8 +28,6 @@ public class FightManager : Singleton<FightManager>
 
     public void SetAllies(List<CharacterObject> allies)
     {
-
-        Debug.Log("SET ALLIES: " + allies.Count);
         m_Allies.ForEach(x => {
             allies.ForEach(y => {
                 if (x.Position == y.Data.Position && x.Team == y.ScriptableObject.Team)
@@ -58,6 +56,11 @@ public class FightManager : Singleton<FightManager>
 
         SetAllies(m_DungeonManager.CharacterManager.Allies);
         CreateFight(m_DungeonManager.CharacterManager.Enemies);
+    }
+
+    public void Uninitialize()
+    {
+
     }
 
     void FixedUpdate()
