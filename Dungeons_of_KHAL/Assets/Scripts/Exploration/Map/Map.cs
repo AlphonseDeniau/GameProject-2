@@ -80,7 +80,7 @@ public class Map : Singleton<Map>
 
     // ----------------------------------- \\
 
-    private void Start()
+    public void MapStart()
     {
         InitializeMap();
         DrawCorridor();
@@ -133,8 +133,9 @@ public class Map : Singleton<Map>
 
     private ARoom CreateRoom(int depth, int index, float x, float y, ARoom previousRoom)
     {
-        int roomRange = UnityEngine.Random.Range(0, 100);
-        GameObject roomPrefab = m_RoomSelector.Find(x => roomRange >= x.m_BeginRange && roomRange < x.m_EndRange).m_RoomPrefab;
+        int roomRange = UnityEngine.Random.Range(0, 101);
+
+        GameObject roomPrefab = m_RoomSelector.Find(x => roomRange >= x.m_BeginRange && roomRange <= x.m_EndRange).m_RoomPrefab;
 
         if (roomPrefab == null)
             return null;

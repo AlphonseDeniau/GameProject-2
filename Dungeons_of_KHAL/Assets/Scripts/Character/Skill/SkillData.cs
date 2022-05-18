@@ -27,6 +27,7 @@ public class SkillData
     {
         Skill.LevelEffect _levelEffects = m_Skill.LevelEffects.Find(x => x.Level == m_Level);
         _levelEffects.SkillEffects.ForEach(x => x.ApplyEffect(_user, _target, _targetTeam));
+        _user.Data.LoseMP(_levelEffects.Cost);
         return true;
     }
 

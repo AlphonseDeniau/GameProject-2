@@ -21,10 +21,11 @@ public class CharacterData
 
     public int ActualHP => m_ActualHP;
     public int ActualMP => m_ActualMP;
-    public int Position => m_Position;
+    public int Position { get { return m_Position; } set { m_Position = value; } }
     public bool IsDead => m_IsDead;
     public StackEnum.EStackType StackType { get { return m_StackType; } set { m_StackType = value; } }
     public List<SkillData> Skills => m_Skills;
+    public List<StatusEffect> Statuses => m_Statuses;
 
     /// <summary>
     /// Initialize character when we create it
@@ -102,6 +103,33 @@ public class CharacterData
     }
 
     /// <summary>
+    /// Decrease current MP of the character
+    /// </summary>
+    /// <param name="_mp">value of mp used</param>
+    /// <returns>True: if the character still has MP</returns>
+    public bool LoseMP(int _mp)
+    {
+        m_ActualMP -= _mp;
+        if (m_ActualMP < 0)
+        {
+            m_ActualMP = 0;
+        }
+        return m_ActualMP > 0;
+    }
+
+    /// <summary>
+    /// Increase current MP of the character 
+    /// </summary>
+    /// <param name="_mp">value of heal</param>
+    /// <returns>True: if the character has mp</returns>
+    public bool GainMP(int _mp)
+    {
+        m_ActualMP += _mp;
+        if (m_ActualMP > m_CharacterObject.ScriptableObject.MaxMP) m_ActualMP = m_CharacterObject.ScriptableObject.MaxMP;
+        return true;
+    }
+
+    /// <summary>
     /// Add a status effect on the character
     /// </summary>
     /// <param name="_effect">Adding effect</param>
@@ -143,7 +171,9 @@ public class CharacterData
     {
         if (_effectsToRemove.Count != 0)
         {
-            // Only remove the status
+            _effectsToRemove.ForEach(x => {
+                m_Statuses.Remove(x);
+            });
             return true;
         }
         m_Statuses.Clear();

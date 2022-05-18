@@ -13,7 +13,7 @@ public class TurnManager : MonoBehaviour
     private List<FightCharacter> m_CharactersTurn = new List<FightCharacter>();
     public List<FightCharacter> CharactersTurn => m_CharactersTurn;
 
-    void Start()
+    void Awake()
     {
         m_FightManager = FightManager.Instance;
         m_Icons = new List<TurnIcon>(FindObjectsOfType<TurnIcon>());
@@ -22,17 +22,36 @@ public class TurnManager : MonoBehaviour
         });
     }
 
+    public void StartFight()
+    {
+        m_Icons.ForEach(icon => icon.UpdateIcon());
+        m_CharactersTurn.Clear();
+    }
+
+    public void EndFight()
+    {
+        m_Icons.ForEach(icon => {
+            this.ResetCharacter(icon.FightCharacter);
+            icon.RemoveIcon();
+        });
+        m_CharactersTurn.Clear();
+    }
+
     private List<TurnIcon> MoveList()
     {
         return m_Icons.FindAll(x => {
+            if (x.FightCharacter.CharacterObject == null)
+                return false;
             return !x.FightCharacter.CharacterObject.Data.CheckStatusEffect(StatusEnum.EStatusType.Freeze) && !x.FightCharacter.CharacterObject.Data.IsDead;
         });
     }
 
-    public void UpdateAlive()
+    public void UpdateAlive(FightCharacter character)
     {
-        m_Icons.FindAll(x => x.FightCharacter.CharacterObject.Data.IsDead).ForEach(x => x.gameObject.SetActive(false));
-        m_Icons.FindAll(x => !x.FightCharacter.CharacterObject.Data.IsDead).ForEach(x => x.gameObject.SetActive(true));
+        if (!character.CharacterObject || character.CharacterObject.Data.IsDead)
+            GetIcon(character).HideIcon();
+        if (character.CharacterObject && !character.CharacterObject.Data.IsDead)
+            GetIcon(character).ShowIcon();
     }
 
     private TurnIcon GetFarest()

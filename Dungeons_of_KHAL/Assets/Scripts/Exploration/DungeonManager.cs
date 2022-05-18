@@ -31,7 +31,10 @@ public class DungeonManager : Singleton<DungeonManager>
         m_GameManager = GameManager.Instance;
         m_Inventory = m_GameManager.ExplorationInventory;
         m_CharacterManager.Allies = m_GameManager.ExplorationCharacterManager.Allies;
+        m_FightManager.SetAllies(m_CharacterManager.Allies);
         m_Map = Map.Instance;
+        m_Map.MapStart();
+        m_UIManager.MiddlePanel.ActiveMiddlePanel(false);
     }
 
     public void ReturnToVillage()
@@ -48,12 +51,13 @@ public class DungeonManager : Singleton<DungeonManager>
 
     public void StartFight()
     {
-        m_UIManager.MapButton.SetActive(true);
+        m_UIManager.MapButton.SetActive(false);
         m_FightManager.Initialize();
     }
 
     public void EndFight()
     {
+        m_UIManager.MiddlePanel.ActiveMiddlePanel(false);
         m_UIManager.MapButton.SetActive(true);
         m_FightManager.Uninitialize();
         m_CharacterManager.ClearCharacter();

@@ -10,9 +10,12 @@ public class Character : ScriptableObject
         Enemy
     };
 
+    [Header("Model Prefab")]
+    [SerializeField] private GameObject m_Model;
+    [Header("Icon Prefab")]
+    [SerializeField] private GameObject m_Icon;
     [Header("Team Selection")]
     [SerializeField] private ETeam m_Team;
-    public ETeam Team => m_Team;
     [Header("Basics Statistics")]
     [SerializeField] private int m_MaxHP;
     [SerializeField] private int m_MaxMP;
@@ -28,6 +31,9 @@ public class Character : ScriptableObject
     [SerializeField] private List<Skill> m_Skills;
 
     // Accessors \\
+    public GameObject Model => m_Model;
+    public GameObject Icon => m_Icon;
+    public ETeam Team => m_Team;
     public int MaxHP => m_MaxHP;
     public int MaxMP => m_MaxMP;
     public int Strength => m_Strength;

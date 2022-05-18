@@ -89,10 +89,38 @@ public class StatusEffect
         switch (this.m_Type)
         {
             case StatusEnum.EStatusType.Regeneration:
+                float regeneration = m_StaticPower;
+                regeneration += CalcPower(m_User, m_UserPower);
+                regeneration += CalcPower(m_Target, m_TargetPower);
+                _target.Data.TakeHeal((int)regeneration);
+                break;
             case StatusEnum.EStatusType.Concentration:
+                float concentration = m_StaticPower;
+                concentration += CalcPower(m_User, m_UserPower);
+                concentration += CalcPower(m_Target, m_TargetPower);
+                _target.Data.GainMP((int)concentration);
+                break;
             case StatusEnum.EStatusType.Detoxification:
+                _target.Data.ClearStatusEffect(new List<StatusEffect>{
+                    _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Poison),
+                    _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Confusion),
+                    _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Blind),
+                });
+                break;
             case StatusEnum.EStatusType.Burn:
+                bool ally = _user.ScriptableObject.Team == _target.ScriptableObject.Team;
+                StackManager.Instance.ApplyStack(_user, _target, StackEnum.EStackType.Fire, ally ? StackEnum.EEffectType.Positive : StackEnum.EEffectType.Negative);
+                float burn = m_StaticPower;
+                burn += CalcPower(m_User, m_UserPower);
+                burn += CalcPower(m_Target, m_TargetPower);
+                _target.Data.TakeDamage((int)burn);
+                break;
             case StatusEnum.EStatusType.Poison:
+                float poison = m_StaticPower;
+                poison += CalcPower(m_User, m_UserPower);
+                poison += CalcPower(m_Target, m_TargetPower);
+                _target.Data.TakeDamage((int)poison);
+                break;
             case StatusEnum.EStatusType.Heal:
                 float heal = m_StaticPower;
                 heal += CalcPower(m_User, m_UserPower);

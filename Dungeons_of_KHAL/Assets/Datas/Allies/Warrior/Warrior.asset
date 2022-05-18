@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb70d2c594715984ba30d3c69e4dd47c, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
+  m_Model: {fileID: 882858600917361110, guid: 223dac559fff7c540abd15ec52b9c854, type: 3}
+  m_Icon: {fileID: 2903989710376986066, guid: 7c5a007c4fe37a84e8988a7fe3923879, type: 3}
   m_Team: 0
   m_MaxHP: 400
   m_MaxMP: 200

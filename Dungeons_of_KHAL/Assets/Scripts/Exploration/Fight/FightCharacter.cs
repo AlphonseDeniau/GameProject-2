@@ -8,7 +8,11 @@ public class FightCharacter : MonoBehaviour
     [SerializeField] private Character.ETeam m_Team;
     [SerializeField] private CharacterObject m_CharacterObject;
     [SerializeField] private GameObject m_Selected;
+    [SerializeField] private StatBar m_HPBar;
+    [SerializeField] private StatBar m_MPBar;
     private FightManager m_FightManager;
+    private GameObject m_Sprite;
+    private bool m_IsActive = true;
     private bool m_CanBeTargeted = false;
     public int Position => m_Position;
     public Character.ETeam Team => m_Team;
@@ -20,47 +24,59 @@ public class FightCharacter : MonoBehaviour
         m_Selected.SetActive(false);
     }
 
+    void Awake()
+    {
+        m_FightManager = FightManager.Instance;
+        m_Selected.SetActive(false);
+    }
+
     public void SkillSelected(SkillData skill, CharacterObject user)
     {
-        if (skill.Skill.Type == SkillEnum.ETargetType.Self)
+        if (m_IsActive && !m_CharacterObject.Data.IsDead)
         {
-            if (user == m_CharacterObject)
+            if (skill.Skill.Type == SkillEnum.ETargetType.Self)
             {
-                CanTarget();
+                if (user == m_CharacterObject)
+                {
+                    CanTarget();
+                }
+                else
+                {
+                    CancelTarget();
+                }
             }
-            else
+            if (skill.Skill.Type == SkillEnum.ETargetType.Ally)
             {
-                CancelTarget();
+                if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Ally)
+                {
+                    CanTarget();
+                }
+                else
+                {
+                    m_Selected.SetActive(false);
+                }
             }
-        }
-        if (skill.Skill.Type == SkillEnum.ETargetType.Ally)
-        {
-            if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Ally)
+            if (skill.Skill.Type == SkillEnum.ETargetType.Enemy)
             {
-                CanTarget();
-            }
-            else
-            {
-                m_Selected.SetActive(false);
-            }
-        }
-        if (skill.Skill.Type == SkillEnum.ETargetType.Enemy)
-        {
-            if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Enemy)
-            {
-                CanTarget();
-            }
-            else
-            {
-                m_Selected.SetActive(false);
+                if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Enemy)
+                {
+                    CanTarget();
+                }
+                else
+                {
+                    m_Selected.SetActive(false);
+                }
             }
         }
     }
 
     public void CanTarget()
     {
-        m_CanBeTargeted = true;
-        m_Selected.SetActive(true);
+        if (m_IsActive && !m_CharacterObject.Data.IsDead)
+        {
+            m_CanBeTargeted = true;
+            m_Selected.SetActive(true);
+        }
     }
 
     public void CancelTarget()
@@ -71,7 +87,19 @@ public class FightCharacter : MonoBehaviour
 
     public void SetCharacter(CharacterObject character)
     {
+        m_IsActive = true;
+        GetComponent<BoxCollider2D>().enabled = true;
         m_CharacterObject = character;
+        m_Sprite = Instantiate(m_CharacterObject.ScriptableObject.Model);
+        m_Sprite.transform.SetParent(this.gameObject.transform);
+        m_Sprite.transform.localPosition = new Vector3(0,-0.5f,0);
+        m_Sprite.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
+    }
+
+    public void NoCharacter()
+    {
+        m_IsActive = false;
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     void ShowAffected()
@@ -99,7 +127,7 @@ public class FightCharacter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && m_CanBeTargeted)
         {
-            m_FightManager.DoAction(m_FightManager.SelectedSkill, m_CharacterObject);
+            m_FightManager.DoAction(m_FightManager.SelectedSkill, m_CharacterObject, false);
         }
     }
 
@@ -114,11 +142,46 @@ public class FightCharacter : MonoBehaviour
 
     public void StartSelected()
     {
-        m_Selected.SetActive(true);
+        if (m_IsActive && !m_CharacterObject.Data.IsDead)
+        {
+            m_Selected.SetActive(true);
+        }
     }
 
     public void StopSelected()
     {
-        m_Selected.SetActive(false);
+        if (m_IsActive && !m_CharacterObject.Data.IsDead)
+        {
+            m_Selected.SetActive(false);
+        }
+    }
+
+    public void UpdateStat()
+    {
+        if (m_CharacterObject)
+        {
+            m_HPBar.UpdateStat(m_CharacterObject.ScriptableObject.MaxHP, m_CharacterObject.Data.ActualHP);
+            m_MPBar.UpdateStat(m_CharacterObject.ScriptableObject.MaxMP, m_CharacterObject.Data.ActualMP);
+        }
+    }
+
+    public void HideSprite()
+    {
+        if (m_Sprite)
+            m_Sprite.SetActive(false);
+        if (m_HPBar)
+            m_HPBar.gameObject.SetActive(false);
+        if (m_MPBar)
+            m_MPBar.gameObject.SetActive(false);
+    }
+
+    public void ShowSprite()
+    {
+        if (m_Sprite)
+            m_Sprite.SetActive(true);
+        if (m_HPBar)
+            m_HPBar.gameObject.SetActive(true);
+        if (m_MPBar)
+            m_MPBar.gameObject.SetActive(true);
     }
 }

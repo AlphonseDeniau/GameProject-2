@@ -28,6 +28,7 @@ public class CharacterManager : MonoBehaviour
         if (obj != null)
         {
             obj.Initialize(newCharacter);
+            obj.Data.Position = team == Character.ETeam.Ally ? m_Allies.Count : m_Enemies.Count;
         }
 
         if (team == Character.ETeam.Ally)
