@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6178985090374942608}
   - component: {fileID: 8181411750549210453}
   - component: {fileID: -8024839041826800041}
-  - component: {fileID: -882815334573202605}
+  - component: {fileID: -6549254010838512654}
   m_Layer: 0
   m_Name: WarriorModel
   m_TagString: Untagged
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b58354c186d9bde42ad2a4ab0545dde9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,7 +103,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-882815334573202605
+--- !u!114 &-6549254010838512654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

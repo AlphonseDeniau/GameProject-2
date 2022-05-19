@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8317603060249214875}
   - component: {fileID: 2251630836103979225}
   - component: {fileID: 6078017287255469682}
-  - component: {fileID: 5035659857284426872}
+  - component: {fileID: -8335961413754209963}
   m_Layer: 0
   m_Name: WizardModel
   m_TagString: Untagged
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b58354c186d9bde42ad2a4ab0545dde9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,7 +103,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5035659857284426872
+--- !u!114 &-8335961413754209963
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,5 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sourceColors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  m_newColors: []
+  - {r: 0.6039216, g: 0.1254902, b: 0.0627451, a: 1}
+  - {r: 0.16862746, g: 0.28235295, b: 0.5529412, a: 1}
+  m_newColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}

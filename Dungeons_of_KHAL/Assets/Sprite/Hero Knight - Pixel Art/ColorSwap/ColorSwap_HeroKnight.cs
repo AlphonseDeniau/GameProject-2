@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class ColorSwap_HeroKnight : MonoBehaviour
 {
@@ -12,12 +13,14 @@ public class ColorSwap_HeroKnight : MonoBehaviour
     Texture2D m_colorSwapTex;
     Color[] m_spriteColors; 
     SpriteRenderer m_spriteRenderer;
+    Image m_Image;
     bool m_init = false;
 
     // Initialize values
     void Awake()
     {
         m_spriteRenderer = GetComponent<SpriteRenderer>();
+        m_Image = GetComponent<Image>();
         InitColorSwapTex();
         
         SwapDemoColors();
@@ -71,7 +74,10 @@ public class ColorSwap_HeroKnight : MonoBehaviour
 
         colorSwapTex.Apply();
 
-        m_spriteRenderer.material.SetTexture("_SwapTex", colorSwapTex);
+        if (m_spriteRenderer)
+            m_spriteRenderer.material.SetTexture("_SwapTex", colorSwapTex);
+        if (m_Image)
+            m_Image.material.SetTexture("_SwapTex", colorSwapTex);
 
         m_spriteColors = new Color[colorSwapTex.width];
         m_colorSwapTex = colorSwapTex;
