@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb70d2c594715984ba30d3c69e4dd47c, type: 3}
   m_Name: Templar
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 841ae3188ba4d9746ba4f4ed86597a98, type: 3}
+  m_Model: {fileID: 8096397102409760580, guid: 5afc26ee47d6f924e951d4c6162ed29e, type: 3}
+  m_Icon: {fileID: 3411987989941279998, guid: 2bd21af8f68574746a78afaf01dd4182, type: 3}
   m_Team: 0
   m_MaxHP: 375
   m_MaxMP: 225

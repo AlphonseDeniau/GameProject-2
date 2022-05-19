@@ -18,7 +18,7 @@ public class SkillArea
 
     public List<CharacterObject> GetTargetedCharacters(CharacterObject _target, List<CharacterObject> _targetTeam)
     {
-        return (
+        List<CharacterObject> targets = 
             m_Type switch {
                 SkillEnum.EAreaTypes.Single => singleTarget(_target),
                 SkillEnum.EAreaTypes.Adjacent => adjacentTarget(_target, _targetTeam),
@@ -28,8 +28,9 @@ public class SkillArea
                 SkillEnum.EAreaTypes.Square => squareTarget(_target, _targetTeam),
                 SkillEnum.EAreaTypes.All => allTarget(_targetTeam),
                 _ => throw new ArgumentOutOfRangeException(nameof(m_Type), $"Not expected area value: {m_Type}"),
-            }
-        );
+            };
+        targets.RemoveAll(x => x == null);
+        return (targets);
     }
 
     List<CharacterObject> singleTarget(CharacterObject _target) {

@@ -20,7 +20,7 @@ MonoBehaviour:
   m_Strength: 15
   m_Defense: 20
   m_Magic: 10
-  m_Speed: 0
+  m_Speed: 15
   m_Dodge: 2
   m_Critical: 0
   m_Parry: 4

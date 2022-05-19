@@ -117,6 +117,7 @@ public class FightCharacter : MonoBehaviour
             targets = m_FightManager.SelectedSkill.GetTargetedCharacters(CharacterObject, m_FightManager.AlliesObject);
         if (Team == Character.ETeam.Enemy)
             targets = m_FightManager.SelectedSkill.GetTargetedCharacters(CharacterObject, m_FightManager.EnemiesObject);
+        targets.RemoveAll(x => x == null);
         targets.ForEach(x => {
             m_FightManager.FightCharacters.Find(y => x.Data.Position == y.Position && x.ScriptableObject.Team == y.Team).StartSelected();
         });
