@@ -40,6 +40,7 @@ public class FightManager : Singleton<FightManager>
                 x.NoCharacter();
             }
         });
+        FightCharacters.ForEach(x => x.UpdateStat());
     }
 
     public void CreateFight(List<CharacterObject> enemies)
@@ -61,6 +62,7 @@ public class FightManager : Singleton<FightManager>
         m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
         m_TurnManager.StartFight();
         UpdateAlive();
+        FightCharacters.ForEach(x => x.UpdateStat());
     }
 
     public void Initialize()
@@ -193,7 +195,7 @@ public class FightManager : Singleton<FightManager>
             if (target.ScriptableObject.Team == Character.ETeam.Ally)
                 m_CurrentTurn.Data.UseSkill(skill, target, AlliesObject);
             else
-                m_CurrentTurn.Data.UseSkill(skill, target, AlliesObject);
+                m_CurrentTurn.Data.UseSkill(skill, target, EnemiesObject);
             TurnEnd();
         }
     }

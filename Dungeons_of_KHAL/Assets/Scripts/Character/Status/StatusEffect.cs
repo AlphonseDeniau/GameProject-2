@@ -30,6 +30,22 @@ public class StatusEffect
 
     // Methods \\
 
+    public StatusEffect()
+    {}
+
+    public StatusEffect(StatusEffect _copy)
+    {
+        m_Type = _copy.m_Type;
+        m_ActionTime = _copy.m_ActionTime;
+        m_DurationType = _copy.m_DurationType;
+        m_Duration = _copy.m_Duration;
+        m_StaticPower = _copy.m_StaticPower;
+        m_UserPower = _copy.m_UserPower;
+        m_TargetPower = _copy.m_TargetPower;
+        m_User = _copy.m_User;
+        m_Target = _copy.m_Target;
+    }
+
     public float CalcPower(CharacterObject obj, StatusCharacterPower power)
     {
         float value = 0;
@@ -92,12 +108,16 @@ public class StatusEffect
                 float regeneration = m_StaticPower;
                 regeneration += CalcPower(m_User, m_UserPower);
                 regeneration += CalcPower(m_Target, m_TargetPower);
+                if (regeneration < 1)
+                    regeneration = 1;
                 _target.Data.TakeHeal((int)regeneration);
                 break;
             case StatusEnum.EStatusType.Concentration:
                 float concentration = m_StaticPower;
                 concentration += CalcPower(m_User, m_UserPower);
                 concentration += CalcPower(m_Target, m_TargetPower);
+                if (concentration < 1)
+                    concentration = 1;
                 _target.Data.GainMP((int)concentration);
                 break;
             case StatusEnum.EStatusType.Detoxification:
@@ -113,12 +133,16 @@ public class StatusEffect
                 float burn = m_StaticPower;
                 burn += CalcPower(m_User, m_UserPower);
                 burn += CalcPower(m_Target, m_TargetPower);
+                if (burn < 1)
+                    burn = 1;
                 _target.Data.TakeDamage((int)burn);
                 break;
             case StatusEnum.EStatusType.Poison:
                 float poison = m_StaticPower;
                 poison += CalcPower(m_User, m_UserPower);
                 poison += CalcPower(m_Target, m_TargetPower);
+                if (poison < 1)
+                    poison = 1;
                 _target.Data.TakeDamage((int)poison);
                 break;
             case StatusEnum.EStatusType.Heal:

@@ -163,6 +163,11 @@ public class FightCharacter : MonoBehaviour
             m_HPBar.UpdateStat(m_CharacterObject.ScriptableObject.MaxHP, m_CharacterObject.Data.ActualHP);
             m_MPBar.UpdateStat(m_CharacterObject.ScriptableObject.MaxMP, m_CharacterObject.Data.ActualMP);
         }
+        else
+        {
+            m_HPBar.UpdateStat(0, 0);
+            m_MPBar.UpdateStat(0, 0);
+        }
     }
 
     public void HideSprite()

@@ -71,15 +71,16 @@ public class SkillArea
     List<CharacterObject> crossTarget(CharacterObject _target, List<CharacterObject> _targetTeam) {
         return (rowTarget(_target, _targetTeam).Union(columnTarget(_target, _targetTeam)).ToList());
     }
+
     List<CharacterObject> rowTarget(CharacterObject _target, List<CharacterObject> _targetTeam) {
         if (_target.ScriptableObject.Team == Character.ETeam.Ally)
-            return (_targetTeam);
+            return (new List<CharacterObject>{ _target });
         else {
             List<CharacterObject> targets = new List<CharacterObject>();
-            int targetPlace = _target.Data.Position / 3;
+            int targetPlace = _target.Data.Position % 3;
 
             for (int i = 0; i < 3; i++) {
-                CharacterObject tmp = getCharacterByPosition(_targetTeam, i + (targetPlace * 3));
+                CharacterObject tmp = getCharacterByPosition(_targetTeam, targetPlace + (i * 3));
                 
                 if (tmp != null)
                     targets.Add(tmp);
@@ -90,13 +91,13 @@ public class SkillArea
 
     List<CharacterObject> columnTarget(CharacterObject _target, List<CharacterObject> _targetTeam) {
         if (_target.ScriptableObject.Team == Character.ETeam.Ally)
-            return (new List<CharacterObject>{ _target });
+            return (_targetTeam);
         else {
             List<CharacterObject> targets = new List<CharacterObject>();
             int targetPlace = _target.Data.Position / 3;
 
             for (int i = 0; i < 3; i++) {
-                CharacterObject tmp = getCharacterByPosition(_targetTeam, targetPlace + (i * 3));
+                CharacterObject tmp = getCharacterByPosition(_targetTeam, i + (targetPlace * 3));
                 
                 if (tmp != null)
                     targets.Add(tmp);
@@ -140,7 +141,7 @@ public class SkillArea
     CharacterObject getCharacterByPosition(List<CharacterObject> _targetTeam, int position) {
         CharacterObject returnValue = null;
         foreach (CharacterObject character in _targetTeam) {
-            if (character.Data.Position == position)
+            if (character && character.Data.Position == position)
                 returnValue = character;
         }
         return (returnValue);

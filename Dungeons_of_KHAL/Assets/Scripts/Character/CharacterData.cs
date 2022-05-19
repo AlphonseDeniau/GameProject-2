@@ -76,6 +76,8 @@ public class CharacterData
     /// <returns>True: if the character is still alivet</returns>
     public bool TakeDamage(int _damage)
     {
+        if (CheckStatusEffect(StatusEnum.EStatusType.Guard))
+            return (m_Statuses.Find(x => x.Type == StatusEnum.EStatusType.Guard).User.Data.TakeDamage(_damage));
         // MAKE A BETTER CALCULATION BITCHES
         if (_damage < 0) return true;
         m_ActualHP -= _damage;
@@ -147,7 +149,7 @@ public class CharacterData
                 if (_effect.Duration > currentEffect.Duration)
                 {
                     m_Statuses.Remove(currentEffect);
-                    m_Statuses.Add(_effect);
+                    m_Statuses.Add(new StatusEffect(_effect));
                 }
                 return true;
             }
@@ -156,7 +158,7 @@ public class CharacterData
         }
         else
         {
-            m_Statuses.Add(_effect);
+            m_Statuses.Add(new StatusEffect(_effect));
             return true;
         }
     }
@@ -210,7 +212,10 @@ public class CharacterData
                 }
             }
         }
-        this.ClearStatusEffect(l_EffectToRemove);
+        if (l_EffectToRemove.Count > 0)
+        {
+            this.ClearStatusEffect(l_EffectToRemove);
+        }
         return true;
     }
 
@@ -248,38 +253,38 @@ public class CharacterData
                 break;
             case StatusEnum.EStatusStatistics.Critical:
                 stat = this.m_CharacterObject.ScriptableObject.Critical;
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Accuracy).ForEach(x => stat *= x.StaticPower / 100.0f);
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Slowness).ForEach(x => stat /= x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Accuracy).ForEach(x => stat += stat * x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Slowness).ForEach(x => stat -= stat * x.StaticPower / 100.0f);
                 break;
             case StatusEnum.EStatusStatistics.Defense:
                 stat = this.m_CharacterObject.ScriptableObject.Defense;
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Resistance).ForEach(x => stat *= x.StaticPower / 100.0f);
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Weakness).ForEach(x => stat /= x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Resistance).ForEach(x => stat += stat * x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Weakness).ForEach(x => stat -= stat * x.StaticPower / 100.0f);
                 break;
             case StatusEnum.EStatusStatistics.Dodge:
                 stat = this.m_CharacterObject.ScriptableObject.Dodge;
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Ghost).ForEach(x => stat *= x.StaticPower / 100.0f);
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Weakness).ForEach(x => stat /= x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Ghost).ForEach(x => stat += stat * x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Weakness).ForEach(x => stat -= stat * x.StaticPower / 100.0f);
                 break;
             case StatusEnum.EStatusStatistics.Magic:
                 stat = this.m_CharacterObject.ScriptableObject.Magic;
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Power).ForEach(x => stat *= x.StaticPower / 100.0f);
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Exhaustion).ForEach(x => stat /= x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Power).ForEach(x => stat += stat * x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Exhaustion).ForEach(x => stat -= stat * x.StaticPower / 100.0f);
                 break;
             case StatusEnum.EStatusStatistics.Parry:
                 stat = this.m_CharacterObject.ScriptableObject.Parry;
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Vigilance).ForEach(x => stat *= x.StaticPower / 100.0f);
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Weakness).ForEach(x => stat /= x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Vigilance).ForEach(x => stat += stat * x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Weakness).ForEach(x => stat -= stat * x.StaticPower / 100.0f);
                 break;
             case StatusEnum.EStatusStatistics.Speed:
                 stat = this.m_CharacterObject.ScriptableObject.Speed;
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Haste).ForEach(x => stat *= x.StaticPower / 100.0f);
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Slowness).ForEach(x => stat /= x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Haste).ForEach(x => stat += stat * x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Slowness).ForEach(x => stat -= stat * x.StaticPower / 100.0f);
                 break;
             case StatusEnum.EStatusStatistics.Strength:
                 stat = this.m_CharacterObject.ScriptableObject.Strength;
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Strength).ForEach(x => stat *= x.StaticPower / 100.0f);
-                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Exhaustion).ForEach(x => stat /= x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Strength).ForEach(x => stat += stat * x.StaticPower / 100.0f);
+                this.m_Statuses.FindAll(x => x.Type == StatusEnum.EStatusType.Exhaustion).ForEach(x => stat -= stat * x.StaticPower / 100.0f);
                 break;
             default:
                 return (-1);

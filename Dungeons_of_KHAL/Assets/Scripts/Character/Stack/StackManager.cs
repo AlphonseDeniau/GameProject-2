@@ -19,7 +19,7 @@ public class StackManager : Singleton<StackManager>
     /// <returns>True if stack effect trigger</returns>
     public bool ApplyStack(CharacterObject _user, CharacterObject _target, StackEnum.EStackType _stackType, StackEnum.EEffectType _effectType)
     {
-        if (_target.Data.StackType == StackEnum.EStackType.None)
+        if (_target.Data.StackType == StackEnum.EStackType.None || _target.Data.StackType == StackEnum.EStackType.Neutral)
             _target.Data.StackType = _stackType;
         else
             ApplyStackEffect(_user, _target, _stackType, _effectType);
