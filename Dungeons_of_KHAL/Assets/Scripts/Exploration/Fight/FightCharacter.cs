@@ -49,7 +49,11 @@ public class FightCharacter : MonoBehaviour
             {
                 if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Ally)
                 {
-                    CanTarget();
+                    List<CharacterObject> provocs = m_FightManager.AlliesAlive.FindAll(x => x.Data.CheckStatusEffect(StatusEnum.EStatusType.Provocation));
+                    if (m_FightManager.CurrentTurn.ScriptableObject.Team == Character.ETeam.Ally || provocs.Count == 0 || provocs.Contains(m_CharacterObject))
+                        CanTarget();
+                    else
+                        m_Selected.SetActive(false);
                 }
                 else
                 {
@@ -60,7 +64,11 @@ public class FightCharacter : MonoBehaviour
             {
                 if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Enemy)
                 {
-                    CanTarget();
+                    List<CharacterObject> provocs = m_FightManager.EnemiesAlive.FindAll(x => x.Data.CheckStatusEffect(StatusEnum.EStatusType.Provocation));
+                    if (m_FightManager.CurrentTurn.ScriptableObject.Team == Character.ETeam.Enemy || provocs.Count == 0 || provocs.Contains(m_CharacterObject))
+                        CanTarget();
+                    else
+                        m_Selected.SetActive(false);
                 }
                 else
                 {

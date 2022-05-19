@@ -169,10 +169,9 @@ public class FightManager : Singleton<FightManager>
     public void SelectSkill(SkillData skill)
     {
         m_SelectedSkill = skill;
+        FightCharacters.ForEach(x => x.CancelTarget());
         if (skill != null)
             FightCharacters.ForEach(x => x.SkillSelected(skill, m_CurrentTurn));
-        else
-            FightCharacters.ForEach(x => x.CancelTarget());
     }
 
     private void UpdateAlive()

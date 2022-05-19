@@ -1513,7 +1513,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:
@@ -1541,7 +1541,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:
@@ -1569,7 +1569,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:
@@ -1595,7 +1595,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:
@@ -1608,7 +1608,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:
@@ -1664,7 +1664,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:
@@ -1690,7 +1690,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:
@@ -1703,7 +1703,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:
@@ -1729,7 +1729,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:
@@ -1755,7 +1755,7 @@ MonoBehaviour:
       m_ActionTime: 3
       m_DurationType: 0
       m_Duration: 2
-      m_StaticPower: 150
+      m_StaticPower: 50
       m_UserPower:
         m_Powers: []
       m_TargetPower:

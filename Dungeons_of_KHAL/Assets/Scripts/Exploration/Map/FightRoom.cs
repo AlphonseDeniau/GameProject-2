@@ -19,7 +19,7 @@ public class FightRoom : ARoom
 
         if (m_Characters.Count == 0)
         {
-            int numberEnemies = Random.Range(8, 10);
+            int numberEnemies = Random.Range(1, 10);
             List<Character> characters = m_BestiaryManager.CreateMonster(numberEnemies);
             m_Characters = characters;
         }
