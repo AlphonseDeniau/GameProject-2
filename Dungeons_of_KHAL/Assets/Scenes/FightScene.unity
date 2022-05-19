@@ -1440,6 +1440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 215782473}
   - component: {fileID: 215782474}
+  - component: {fileID: 215782475}
   m_Layer: 0
   m_Name: FightManager
   m_TagString: Untagged
@@ -1491,6 +1492,287 @@ MonoBehaviour:
   - {fileID: 1432301778}
   m_CurrentTurn: {fileID: 0}
   m_InFight: 0
+--- !u!114 &215782475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215782472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8586b75c1807ffb409ff7107f9e2c752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Combinaisons:
+  - m_EffectType: 0
+    m_StackType1: 2
+    m_StackType2: 2
+    m_Effect:
+      m_Type: 7
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 2
+    m_StackType2: 2
+    m_Effect:
+      m_Type: 15
+      m_ActionTime: 1
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 0
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers:
+        - m_Status: 0
+          m_Value: 5
+  - m_EffectType: 0
+    m_StackType1: 2
+    m_StackType2: 3
+    m_Effect:
+      m_Type: 10
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 2
+    m_StackType2: 3
+    m_Effect:
+      m_Type: 16
+      m_ActionTime: 1
+      m_DurationType: 0
+      m_Duration: 0
+      m_StaticPower: 0
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers:
+        - m_Status: 0
+          m_Value: 8
+  - m_EffectType: 0
+    m_StackType1: 2
+    m_StackType2: 4
+    m_Effect:
+      m_Type: 11
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 2
+    m_StackType2: 4
+    m_Effect:
+      m_Type: 18
+      m_ActionTime: 4
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 0
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 0
+    m_StackType1: 2
+    m_StackType2: 5
+    m_Effect:
+      m_Type: 13
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 2
+    m_StackType2: 5
+    m_Effect:
+      m_Type: 23
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 0
+    m_StackType1: 3
+    m_StackType2: 3
+    m_Effect:
+      m_Type: 1
+      m_ActionTime: 1
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 5
+      m_UserPower:
+        m_Powers:
+        - m_Status: 5
+          m_Value: 50
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 3
+    m_StackType2: 3
+    m_Effect:
+      m_Type: 17
+      m_ActionTime: 4
+      m_DurationType: 1
+      m_Duration: 20
+      m_StaticPower: 0
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 0
+    m_StackType1: 3
+    m_StackType2: 4
+    m_Effect:
+      m_Type: 2
+      m_ActionTime: 1
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 5
+      m_UserPower:
+        m_Powers:
+        - m_Status: 5
+          m_Value: 50
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 3
+    m_StackType2: 4
+    m_Effect:
+      m_Type: 22
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 0
+    m_StackType1: 3
+    m_StackType2: 5
+    m_Effect:
+      m_Type: 6
+      m_ActionTime: 2
+      m_DurationType: 0
+      m_Duration: 0
+      m_StaticPower: 0
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 3
+    m_StackType2: 5
+    m_Effect:
+      m_Type: 24
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 0
+    m_StackType1: 4
+    m_StackType2: 4
+    m_Effect:
+      m_Type: 9
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 4
+    m_StackType2: 4
+    m_Effect:
+      m_Type: 20
+      m_ActionTime: 4
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 0
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 0
+    m_StackType1: 4
+    m_StackType2: 5
+    m_Effect:
+      m_Type: 12
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 4
+    m_StackType2: 5
+    m_Effect:
+      m_Type: 19
+      m_ActionTime: 4
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 0
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 0
+    m_StackType1: 5
+    m_StackType2: 5
+    m_Effect:
+      m_Type: 8
+      m_ActionTime: 3
+      m_DurationType: 0
+      m_Duration: 2
+      m_StaticPower: 150
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
+  - m_EffectType: 1
+    m_StackType1: 5
+    m_StackType2: 5
+    m_Effect:
+      m_Type: 21
+      m_ActionTime: 2
+      m_DurationType: 0
+      m_Duration: 0
+      m_StaticPower: 0
+      m_UserPower:
+        m_Powers: []
+      m_TargetPower:
+        m_Powers: []
 --- !u!1 &269573227
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,7 +1874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84af7d01d3ad96642aed1df8a8426643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ScriptableObject: {fileID: 11400000, guid: 81fae94bb61827141ab84459d7947a87, type: 2}
+  m_ScriptableObject: {fileID: 11400000, guid: 30e56c330b6b5e14d9cfe98c629dcdae, type: 2}
   m_Data:
     m_CharacterObject: {fileID: 341483774}
     m_ActualHP: 0
@@ -6895,7 +7177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8045608659064905899, guid: 5f501faec7865b94bb26bbb3b5565003, type: 3}
       propertyPath: m_RoomSelector.Array.data[1].m_BeginRange
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8045608659064905899, guid: 5f501faec7865b94bb26bbb3b5565003, type: 3}
       propertyPath: m_RoomSelector.Array.data[1].m_RoomPrefab

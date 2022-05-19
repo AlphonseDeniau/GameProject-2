@@ -27,6 +27,9 @@ public class SkillData
     {
         Skill.LevelEffect _levelEffects = m_Skill.LevelEffects.Find(x => x.Level == m_Level);
         _levelEffects.SkillEffects.ForEach(x => x.ApplyEffect(_user, _target, _targetTeam));
+        GetTargetedCharacters(_target, _targetTeam).ForEach(x => {
+            StackManager.Instance.ApplyStack(_user, x, StackEnum.EStackType.Fire, _user.ScriptableObject.Team == x.ScriptableObject.Team ? StackEnum.EEffectType.Positive : StackEnum.EEffectType.Negative);
+        });
         _user.Data.LoseMP(_levelEffects.Cost);
         return true;
     }

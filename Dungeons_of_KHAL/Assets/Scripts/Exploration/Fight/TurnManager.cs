@@ -80,7 +80,7 @@ public class TurnManager : MonoBehaviour
 
     private float NextPos(TurnIcon icon, float percentage)
     {
-        return (icon.transform.position.x + icon.FightCharacter.CharacterObject.ScriptableObject.Speed * SpeedConstant * percentage);
+        return (icon.transform.position.x + icon.FightCharacter.CharacterObject.Data.GetStatWithModifier(StatusEnum.EStatusStatistics.Speed) * SpeedConstant * percentage);
     }
 
     private void MoveIcon(TurnIcon icon, float percentage) {

@@ -31,6 +31,7 @@ public class DungeonManager : Singleton<DungeonManager>
         m_GameManager = GameManager.Instance;
         m_Inventory = m_GameManager.ExplorationInventory;
         m_CharacterManager.Allies = m_GameManager.ExplorationCharacterManager.Allies;
+        m_CharacterManager.Allies.ForEach(x => x.Initialize(x.ScriptableObject));
         m_FightManager.SetAllies(m_CharacterManager.Allies);
         m_Map = Map.Instance;
         m_Map.MapStart();
