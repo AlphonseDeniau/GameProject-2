@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8404455398343946324}
   - component: {fileID: 7871343245587170168}
   - component: {fileID: 3088117170081059371}
-  - component: {fileID: -64174857817214013}
   m_Layer: 0
   m_Name: RangerModel
   m_TagString: Untagged
@@ -117,22 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_sourceColors:
-  - {r: 0.6039216, g: 0.1254902, b: 0.0627451, a: 0}
-  - {r: 0.16862746, g: 0.28235295, b: 0.5529412, a: 0}
+  - {r: 0.6039216, g: 0.1254902, b: 0.0627451, a: 1}
+  - {r: 0.16862746, g: 0.28235295, b: 0.5529412, a: 1}
   m_newColors:
-  - {r: 0.05660379, g: 0.5660378, b: 0.05660379, a: 0}
-  - {r: 0.0538626, g: 0.10439977, b: 0.16037738, a: 0}
---- !u!114 &-64174857817214013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5081211307146210323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e3fab4f60695b14c9a85e1b2c51ecaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_sourceColors: []
-  m_newColors: []
+  - {r: 0.05660379, g: 0.5660378, b: 0.05660379, a: 1}
+  - {r: 0.0538626, g: 0.10439977, b: 0.16037738, a: 1}
