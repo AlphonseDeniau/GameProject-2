@@ -13,6 +13,7 @@ public class Skill : ScriptableObject
 
     [Header("Target")]
     [SerializeField] private SkillEnum.ETargetType m_Type;
+    [SerializeField] private bool m_SelfIncluded;
 
     [Header("Effects")]
     [SerializeField] private List<LevelEffect> m_LevelEffects;
@@ -35,6 +36,7 @@ public class Skill : ScriptableObject
     public string Description => m_Description;
     public StackEnum.EStackType StackType => m_StackType;
     public SkillEnum.ETargetType Type => m_Type;
+    public bool SelfIncluded => m_SelfIncluded;
     public List<LevelEffect> LevelEffects => m_LevelEffects;
 
     // Methods \\

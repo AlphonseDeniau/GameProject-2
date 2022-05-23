@@ -47,7 +47,7 @@ public class FightCharacter : MonoBehaviour
             }
             if (skill.Skill.Type == SkillEnum.ETargetType.Ally)
             {
-                if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Ally)
+                if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Ally && (skill.Skill.SelfIncluded || (m_CharacterObject != user)))
                 {
                     List<CharacterObject> provocs = m_FightManager.AlliesAlive.FindAll(x => x.Data.CheckStatusEffect(StatusEnum.EStatusType.Provocation));
                     if (m_FightManager.CurrentTurn.ScriptableObject.Team == Character.ETeam.Ally || provocs.Count == 0 || provocs.Contains(m_CharacterObject))
@@ -62,7 +62,7 @@ public class FightCharacter : MonoBehaviour
             }
             if (skill.Skill.Type == SkillEnum.ETargetType.Enemy)
             {
-                if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Enemy)
+                if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Enemy && (skill.Skill.SelfIncluded || (m_CharacterObject != user)))
                 {
                     List<CharacterObject> provocs = m_FightManager.EnemiesAlive.FindAll(x => x.Data.CheckStatusEffect(StatusEnum.EStatusType.Provocation));
                     if (m_FightManager.CurrentTurn.ScriptableObject.Team == Character.ETeam.Enemy || provocs.Count == 0 || provocs.Contains(m_CharacterObject))
@@ -110,7 +110,7 @@ public class FightCharacter : MonoBehaviour
         GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    void ShowAffected()
+    void ShowAffected(bool self)
     {
         List<CharacterObject> targets = new List<CharacterObject>();
         if (Team == Character.ETeam.Ally)
@@ -118,6 +118,8 @@ public class FightCharacter : MonoBehaviour
         if (Team == Character.ETeam.Enemy)
             targets = m_FightManager.SelectedSkill.GetTargetedCharacters(CharacterObject, m_FightManager.EnemiesObject);
         targets.RemoveAll(x => x == null);
+        if (!self)
+            targets.Remove(CharacterObject);
         targets.ForEach(x => {
             m_FightManager.FightCharacters.Find(y => x.Data.Position == y.Position && x.ScriptableObject.Team == y.Team).StartSelected();
         });
@@ -128,7 +130,7 @@ public class FightCharacter : MonoBehaviour
         if (m_FightManager.SelectedSkill != null && m_CanBeTargeted)
         {
             m_FightManager.FightCharacters.ForEach(x => x.StopSelected());
-            ShowAffected();
+            ShowAffected(m_FightManager.SelectedSkill.Skill.SelfIncluded);
         }
     }
 

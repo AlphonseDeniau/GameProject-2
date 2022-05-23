@@ -76,8 +76,10 @@ public class CharacterData
     /// <returns>True: if the character is still alivet</returns>
     public bool TakeDamage(int _damage)
     {
-        if (CheckStatusEffect(StatusEnum.EStatusType.Guard))
+        if (CheckStatusEffect(StatusEnum.EStatusType.Guard)) {
+            Debug.Log(m_CharacterObject.gameObject.name);
             return (m_Statuses.Find(x => x.Type == StatusEnum.EStatusType.Guard).User.Data.TakeDamage(_damage));
+        }
         // MAKE A BETTER CALCULATION BITCHES
         if (_damage < 0) return true;
         m_ActualHP -= _damage;

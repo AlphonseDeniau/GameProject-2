@@ -16,12 +16,13 @@ MonoBehaviour:
   m_Description: Protect an ally
   m_StackType: 1
   m_Type: 0
+  m_SelfIncluded: 0
   m_LevelEffects:
   - m_Level: 0
     m_Cost: 15
     m_SkillEffects:
     - m_Area:
-        m_Type: 0
+        m_Type: 7
       m_Effect:
         m_Type: 5
         m_ActionTime: 3

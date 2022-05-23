@@ -21,6 +21,6 @@ public class SkillEnum
         Row,
         Column,
         Square,
-        All
+        All,
     };
 }
