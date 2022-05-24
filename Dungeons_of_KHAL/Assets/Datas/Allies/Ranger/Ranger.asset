@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb70d2c594715984ba30d3c69e4dd47c, type: 3}
+  m_Name: Ranger
+  m_EditorClassIdentifier: 
+  m_Model: {fileID: 5081211307146210323, guid: 955fa340503a1434a9b1f86203d1f000, type: 3}
+  m_Icon: {fileID: 6424422534885010011, guid: ebc02ddeb7c9fd745af922d228f0c795, type: 3}
+  m_Team: 0
+  m_MaxHP: 275
+  m_MaxMP: 325
+  m_Strength: 20
+  m_Defense: 15
+  m_Magic: 10
+  m_Speed: 15
+  m_Dodge: 4
+  m_Critical: 2
+  m_Parry: 0
+  m_Skills:
+  - {fileID: 11400000, guid: fdc8a76f380f5be4aa86d5b36984a978, type: 2}
+  - {fileID: 11400000, guid: d9a91ff2980fcf347a430e24a9b24f4e, type: 2}
+  - {fileID: 11400000, guid: 22ab3cbd14822074faebbec9ed84aafa, type: 2}
+  - {fileID: 11400000, guid: 5e454bdc2d7e94448bf2b420726e6e7c, type: 2}
+  - {fileID: 11400000, guid: aac99f0a56801fe4ca6400ee4d1a0021, type: 2}

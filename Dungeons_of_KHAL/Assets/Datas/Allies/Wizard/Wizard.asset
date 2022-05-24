@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb70d2c594715984ba30d3c69e4dd47c, type: 3}
+  m_Name: Wizard
+  m_EditorClassIdentifier: 
+  m_Model: {fileID: 6759291007486152967, guid: 8378570d1373f1f49a95889d8323ddf4, type: 3}
+  m_Icon: {fileID: 1823705008161014587, guid: a332db7ab4bb9f44a809d879878128df, type: 3}
+  m_Team: 0
+  m_MaxHP: 225
+  m_MaxMP: 375
+  m_Strength: 10
+  m_Defense: 15
+  m_Magic: 20
+  m_Speed: 15
+  m_Dodge: 0
+  m_Critical: 6
+  m_Parry: 0
+  m_Skills:
+  - {fileID: 11400000, guid: b30db8696ce72a14a8d35fe68a669f22, type: 2}
+  - {fileID: 11400000, guid: 74a91d098cfd93149b8769ec3b669f95, type: 2}
+  - {fileID: 11400000, guid: 22e791f1fab742745870c1f9d3bbf2e9, type: 2}
+  - {fileID: 11400000, guid: 198cbefc8d750404e99b8d02dd2fe236, type: 2}
+  - {fileID: 11400000, guid: 49c14f793bd76d041a931aeb3cf95f10, type: 2}

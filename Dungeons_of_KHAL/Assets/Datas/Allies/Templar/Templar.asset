@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb70d2c594715984ba30d3c69e4dd47c, type: 3}
+  m_Name: Templar
+  m_EditorClassIdentifier: 
+  m_Model: {fileID: 8096397102409760580, guid: 5afc26ee47d6f924e951d4c6162ed29e, type: 3}
+  m_Icon: {fileID: 3411987989941279998, guid: 2bd21af8f68574746a78afaf01dd4182, type: 3}
+  m_Team: 0
+  m_MaxHP: 375
+  m_MaxMP: 225
+  m_Strength: 15
+  m_Defense: 20
+  m_Magic: 15
+  m_Speed: 10
+  m_Dodge: 0
+  m_Critical: 0
+  m_Parry: 6
+  m_Skills:
+  - {fileID: 11400000, guid: 47c7ac8ed9a07c244b1079483c8347c8, type: 2}
+  - {fileID: 11400000, guid: 55992b8c2c802724e8f40c77fdd35bce, type: 2}
+  - {fileID: 11400000, guid: 4010f1e050c6f4a4195541dbdc76ea85, type: 2}
+  - {fileID: 11400000, guid: ca331cc528a5afa4698617e5b5362def, type: 2}
+  - {fileID: 11400000, guid: 082001feb7df2bf45ae7caf7ba216245, type: 2}

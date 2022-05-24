@@ -8,7 +8,7 @@ public abstract class SingletonDontDestroy<T> : MonoBehaviour where T : Componen
     private static T _instance = null;
     public static T Instance => _instance;
 
-    void Awake()
+    protected void Awake()
     {
         if (_instance == null)
         {
