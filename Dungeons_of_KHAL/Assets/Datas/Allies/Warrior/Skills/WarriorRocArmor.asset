@@ -16,6 +16,7 @@ MonoBehaviour:
   m_Description: The warrior creates and equips a roc armor which upgrades his defense.
   m_StackType: 5
   m_Type: 2
+  m_SelfIncluded: 1
   m_LevelEffects:
   - m_Level: 0
     m_Cost: 15

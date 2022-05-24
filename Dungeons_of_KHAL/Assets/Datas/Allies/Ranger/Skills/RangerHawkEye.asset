@@ -16,6 +16,7 @@ MonoBehaviour:
   m_Description: Make the ranger more efficient
   m_StackType: 4
   m_Type: 2
+  m_SelfIncluded: 1
   m_LevelEffects:
   - m_Level: 0
     m_Cost: 30

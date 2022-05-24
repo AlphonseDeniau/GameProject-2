@@ -16,6 +16,7 @@ MonoBehaviour:
   m_Description: Heal an ally
   m_StackType: 3
   m_Type: 0
+  m_SelfIncluded: 1
   m_LevelEffects:
   - m_Level: 0
     m_Cost: 15
