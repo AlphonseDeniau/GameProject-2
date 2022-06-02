@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thief
   m_EditorClassIdentifier: 
   m_Model: {fileID: 7464669371412440049, guid: 0bbff408cbb82014bacbb1c53914ba26, type: 3}
-  m_Icon: {fileID: 1531916449642455382, guid: 51997f92b76770c42bf06507924cd1c2, type: 3}
+  m_Icon: {fileID: 3201547112474826971, guid: 51997f92b76770c42bf06507924cd1c2, type: 3}
   m_Team: 0
   m_MaxHP: 300
   m_MaxMP: 300

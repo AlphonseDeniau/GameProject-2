@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wizard
   m_EditorClassIdentifier: 
   m_Model: {fileID: 6759291007486152967, guid: 8378570d1373f1f49a95889d8323ddf4, type: 3}
-  m_Icon: {fileID: 1823705008161014587, guid: a332db7ab4bb9f44a809d879878128df, type: 3}
+  m_Icon: {fileID: 782085131169814288, guid: a332db7ab4bb9f44a809d879878128df, type: 3}
   m_Team: 0
   m_MaxHP: 225
   m_MaxMP: 375

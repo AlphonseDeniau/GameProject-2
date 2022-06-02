@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Templar
   m_EditorClassIdentifier: 
   m_Model: {fileID: 8096397102409760580, guid: 5afc26ee47d6f924e951d4c6162ed29e, type: 3}
-  m_Icon: {fileID: 3411987989941279998, guid: 2bd21af8f68574746a78afaf01dd4182, type: 3}
+  m_Icon: {fileID: 1032076693999865043, guid: 2bd21af8f68574746a78afaf01dd4182, type: 3}
   m_Team: 0
   m_MaxHP: 375
   m_MaxMP: 225
