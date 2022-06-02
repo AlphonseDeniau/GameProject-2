@@ -73,14 +73,12 @@ public class CharacterData
     /// Decrease current HP of the character
     /// </summary>
     /// <param name="_damage">value of damage</param>
+    /// <param name="_attacker">attacker</param>
     /// <returns>True: if the character is still alivet</returns>
-    public bool TakeDamage(int _damage)
+    public bool TakeDamage(int _damage, CharacterObject _attacker)
     {
-        if (CheckStatusEffect(StatusEnum.EStatusType.Guard)) {
-            Debug.Log(m_CharacterObject.gameObject.name);
-            return (m_Statuses.Find(x => x.Type == StatusEnum.EStatusType.Guard).User.Data.TakeDamage(_damage));
-        }
         // MAKE A BETTER CALCULATION BITCHES
+        DungeonManager.Instance.UIManager.FeedbackManager.DamageText(m_Position, m_CharacterObject.ScriptableObject.Team, _damage);
         if (_damage < 0) return true;
         m_ActualHP -= _damage;
         if (m_ActualHP < 0)
@@ -101,6 +99,7 @@ public class CharacterData
     public bool TakeHeal(int _heal)
     {
         if (m_ActualHP <= 0) return false;
+        DungeonManager.Instance.UIManager.FeedbackManager.HealText(m_Position, m_CharacterObject.ScriptableObject.Team, _heal);
         m_ActualHP += _heal;
         if (m_ActualHP > m_CharacterObject.ScriptableObject.MaxHP) m_ActualHP = m_CharacterObject.ScriptableObject.MaxHP;
         return true;
