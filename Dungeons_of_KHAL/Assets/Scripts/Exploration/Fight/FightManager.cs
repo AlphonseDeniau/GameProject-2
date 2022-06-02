@@ -128,10 +128,16 @@ public class FightManager : Singleton<FightManager>
                 }
                 else
                 {
-                    IA();
+                    StartCoroutine(IAWait());
                 }
             }
         }
+    }
+
+    IEnumerator IAWait()
+    {
+        yield return new WaitForSecondsRealtime(1.0f);
+        IA();
     }
 
     void IA()
