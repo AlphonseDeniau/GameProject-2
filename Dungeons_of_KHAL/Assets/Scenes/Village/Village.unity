@@ -3703,6 +3703,7 @@ MonoBehaviour:
   m_ScriptableObject: {fileID: 11400000, guid: 81fae94bb61827141ab84459d7947a87, type: 2}
   m_Data:
     m_CharacterObject: {fileID: 0}
+    m_Name: 
     m_ActualHP: 0
     m_ActualMP: 0
     m_Position: 0
@@ -5572,10 +5573,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2013953364}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7950501294731511641}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FightScene
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2013953366}
+        m_TargetAssemblyTypeName: LaunchingExplo, Assembly-CSharp
+        m_MethodName: MoveCharacters
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5583,78 +5596,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 902888260}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 718297406}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 612489741}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 874322022}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 279887703}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1264640326}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &972994282
 MonoBehaviour:
@@ -5894,6 +5835,7 @@ MonoBehaviour:
   m_ScriptableObject: {fileID: 11400000, guid: 81fae94bb61827141ab84459d7947a87, type: 2}
   m_Data:
     m_CharacterObject: {fileID: 0}
+    m_Name: 
     m_ActualHP: 0
     m_ActualMP: 0
     m_Position: 0
@@ -6049,6 +5991,7 @@ MonoBehaviour:
   m_ScriptableObject: {fileID: 11400000, guid: 81fae94bb61827141ab84459d7947a87, type: 2}
   m_Data:
     m_CharacterObject: {fileID: 0}
+    m_Name: 
     m_ActualHP: 0
     m_ActualMP: 0
     m_Position: 0
@@ -6191,6 +6134,7 @@ MonoBehaviour:
   m_ScriptableObject: {fileID: 11400000, guid: 81fae94bb61827141ab84459d7947a87, type: 2}
   m_Data:
     m_CharacterObject: {fileID: 0}
+    m_Name: 
     m_ActualHP: 0
     m_ActualMP: 0
     m_Position: 0
@@ -6573,6 +6517,7 @@ MonoBehaviour:
   m_ScriptableObject: {fileID: 11400000, guid: 81fae94bb61827141ab84459d7947a87, type: 2}
   m_Data:
     m_CharacterObject: {fileID: 0}
+    m_Name: 
     m_ActualHP: 0
     m_ActualMP: 0
     m_Position: 0
@@ -7839,6 +7784,7 @@ MonoBehaviour:
   m_ScriptableObject: {fileID: 11400000, guid: 81fae94bb61827141ab84459d7947a87, type: 2}
   m_Data:
     m_CharacterObject: {fileID: 0}
+    m_Name: 
     m_ActualHP: 0
     m_ActualMP: 0
     m_Position: 0
@@ -9062,7 +9008,7 @@ MonoBehaviour:
   Templar_BTN: {fileID: 597066913}
   Thief_BTN: {fileID: 318738909}
   Warrior_BTN: {fileID: 1437455576}
-  Wizard_BTN: {fileID: 0}
+  Wizard_BTN: {fileID: 1315512098}
 --- !u!114 &2013953367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9869,8 +9815,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scenes:
   - m_Name: Village
-    m_Index: 0
-  - m_Name: 
+    m_Index: 3
+  - m_Name: FightScene
+    m_Index: 4
+  - m_Name: Menu
     m_Index: 0
 --- !u!4 &7950501294990085176
 Transform:
