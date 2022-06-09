@@ -11,6 +11,7 @@ public class FightCharacter : MonoBehaviour
     [SerializeField] private GameObject m_Selected;
     [SerializeField] private StatBar m_HPBar;
     [SerializeField] private StatBar m_MPBar;
+    [SerializeField] private StackParticleManager m_StackParticleManager;
     private FightManager m_FightManager;
     private GameObject m_Sprite;
     private bool m_IsActive = true;
@@ -94,6 +95,34 @@ public class FightCharacter : MonoBehaviour
             }
         }
     }
+    public void ItemSelected(Item item, CharacterObject user)
+    {
+        if (m_IsActive && !m_CharacterObject.Data.IsDead)
+        {
+            if (item.Target == EItem.EItemTarget.Ally)
+            {
+                if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Ally)
+                {
+                    CanTarget();
+                }
+                else
+                {
+                    m_Selected.SetActive(false);
+                }
+            }
+            if (item.Target == EItem.EItemTarget.Enemy)
+            {
+                if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Enemy)
+                {
+                    CanTarget();
+                }
+                else
+                {
+                    m_Selected.SetActive(false);
+                }
+            }
+        }
+    }
 
     public void CanTarget()
     {
@@ -152,13 +181,16 @@ public class FightCharacter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && m_CanBeTargeted)
         {
-            m_FightManager.DoAction(m_FightManager.SelectedSkill, m_CharacterObject, false);
+            if (m_FightManager.SelectedSkill == null)
+                m_FightManager.DoItem(m_CharacterObject);
+            else
+                m_FightManager.DoSkill(m_CharacterObject, false);
         }
     }
 
     void OnMouseExit()
     {
-        if (m_CanBeTargeted)
+        if (m_FightManager.SelectedSkill != null && m_CanBeTargeted)
         {
             m_FightManager.FightCharacters.ForEach(x => x.StopSelected());
             m_FightManager.FightCharacters.ForEach(x => x.SkillSelected(m_FightManager.SelectedSkill, m_FightManager.CurrentTurn));
@@ -187,6 +219,7 @@ public class FightCharacter : MonoBehaviour
         {
             m_HPBar.UpdateStat(m_CharacterObject.ScriptableObject.MaxHP, m_CharacterObject.Data.ActualHP);
             m_MPBar.UpdateStat(m_CharacterObject.ScriptableObject.MaxMP, m_CharacterObject.Data.ActualMP);
+            m_StackParticleManager.UpdateParticle(m_CharacterObject.Data.StackType);
         }
         else
         {

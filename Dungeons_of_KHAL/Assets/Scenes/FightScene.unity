@@ -7869,9 +7869,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DamageTextPrefab: {fileID: 3731901358552253421, guid: 6901459a7f0b4894a814e91d71e15491, type: 3}
+  m_HealTextPrefab: {fileID: 3720443379373779006, guid: 0746d4c1fbbf0434e9c87eab1aa1c4d6, type: 3}
+  m_LoseMPTextPrefab: {fileID: 6796058220146210214, guid: 6e1f8fd86a92a7745bfb0c0f7f18dd27, type: 3}
+  m_GainMPTextPrefab: {fileID: 0}
   m_DodgeTextPrefab: {fileID: 5012621604975362702, guid: 7e65c818ceb4f2144ab3e96533791ed7, type: 3}
   m_ParryTextPrefab: {fileID: 1161134085552927334, guid: dffffa2c4ee7c8647a6b297fa2d20ef9, type: 3}
-  m_HealTextPrefab: {fileID: 3720443379373779006, guid: 0746d4c1fbbf0434e9c87eab1aa1c4d6, type: 3}
 --- !u!114 &1703990808
 MonoBehaviour:
   m_ObjectHideFlags: 0

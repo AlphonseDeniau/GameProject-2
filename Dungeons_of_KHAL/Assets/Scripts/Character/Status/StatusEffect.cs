@@ -144,6 +144,12 @@ public class StatusEffect
                 heal += CalcPower(m_Target, m_TargetPower);
                 _target.Data.TakeHeal((int)heal);
                 break;
+            case StatusEnum.EStatusType.Mana:
+                float mana = m_StaticPower;
+                mana += CalcPower(m_User, m_UserPower);
+                mana += CalcPower(m_Target, m_TargetPower);
+                _target.Data.GainMP((int)mana);
+                break;
             case StatusEnum.EStatusType.Damage:
                 float dmg = m_StaticPower;
                 dmg += CalcPower(m_User, m_UserPower);

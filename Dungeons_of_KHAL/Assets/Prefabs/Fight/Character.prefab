@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 4629233605358938232}
   - component: {fileID: 4629233605358938234}
   - component: {fileID: 7693856329532710956}
+  - component: {fileID: 2997163131726061965}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -148,6 +149,7 @@ MonoBehaviour:
   m_Selected: {fileID: 9046082415452437985}
   m_HPBar: {fileID: 4072578049068882464}
   m_MPBar: {fileID: 6835714622981054951}
+  m_StackParticleManager: {fileID: 2997163131726061965}
 --- !u!61 &7693856329532710956
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -174,6 +176,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &2997163131726061965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4629233605358938183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a897f6971e1d5224681a379d29c365cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PrefabFireParticle: {fileID: 3927918571009367001, guid: c5264ce25583b9f44a810e5ab9c5b15e, type: 3}
+  m_PrefabWaterParticle: {fileID: 3258380740260161500, guid: 1283fe8fc6b654744b836ad25551d24c, type: 3}
+  m_PrefabWindParticle: {fileID: 2513522313868788076, guid: 79c7c6a8a1e486b46a02a3b7618fc2db, type: 3}
+  m_PrefabEarthParticle: {fileID: 6070977342519696046, guid: 5fa2dee55a5083e4ea564b70f59a9fed, type: 3}
 --- !u!1 &5967251875402128091
 GameObject:
   m_ObjectHideFlags: 0
