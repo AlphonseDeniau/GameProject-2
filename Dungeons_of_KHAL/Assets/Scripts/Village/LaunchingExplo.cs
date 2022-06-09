@@ -64,30 +64,30 @@ public class LaunchingExplo : MonoBehaviour
     void rangerManagement()
     {
         addCharacterToTeam(1);
-        Priest_BTN.interactable = false;
+        Ranger_BTN.interactable = false;
     }
 
     void templarManagement()
     {
         addCharacterToTeam(2);
-        Priest_BTN.interactable = false;
+        Templar_BTN.interactable = false;
     }
 
     void thiefManagement()
     {
         addCharacterToTeam(3);
-        Priest_BTN.interactable = false;
+        Thief_BTN.interactable = false;
     }
 
     void warriorManagement()
     {
         addCharacterToTeam(4);
-        Priest_BTN.interactable = false;
+        Warrior_BTN.interactable = false;
     }
 
     void wizardManagement()
     {
         addCharacterToTeam(5);
-        Priest_BTN.interactable = false;
+        Wizard_BTN.interactable = false;
     }
 }
