@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Priest
   m_EditorClassIdentifier: 
   m_Model: {fileID: 4728034055252957335, guid: f7d9318451f386a41ad1d1559fb7f3dc, type: 3}
-  m_Icon: {fileID: 7276398722182881642, guid: d185b064e71f7d94a9fb59a465276c6d, type: 3}
+  m_Icon: {fileID: 4488979198475066428, guid: d185b064e71f7d94a9fb59a465276c6d, type: 3}
   m_Team: 0
   m_MaxHP: 250
   m_MaxMP: 350

@@ -117,6 +117,7 @@ public class FightCharacter : MonoBehaviour
         m_CharacterObject = character;
         m_Sprite = Instantiate(m_CharacterObject.ScriptableObject.Model);
         m_Sprite.transform.SetParent(this.gameObject.transform);
+        m_Sprite.transform.localPosition = m_Sprite.transform.position;
     }
 
     public void NoCharacter()
