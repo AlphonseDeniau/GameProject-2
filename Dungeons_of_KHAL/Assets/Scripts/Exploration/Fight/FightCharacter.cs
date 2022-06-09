@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class FightCharacter : MonoBehaviour
 {
@@ -28,6 +29,22 @@ public class FightCharacter : MonoBehaviour
     {
         m_FightManager = FightManager.Instance;
         m_Selected.SetActive(false);
+    }
+
+    public void StartTurn()
+    {
+        if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Ally)
+            transform.DOMoveX(transform.position.x + 1, 1);
+        else
+            transform.DOMoveX(transform.position.x - 1, 1);
+    }
+
+    public void EndTurn()
+    {
+        if (m_CharacterObject.ScriptableObject.Team == Character.ETeam.Ally)
+            transform.DOMoveX(transform.position.x - 1, 1);
+        else
+            transform.DOMoveX(transform.position.x + 1, 1);
     }
 
     public void SkillSelected(SkillData skill, CharacterObject user)
@@ -100,8 +117,7 @@ public class FightCharacter : MonoBehaviour
         m_CharacterObject = character;
         m_Sprite = Instantiate(m_CharacterObject.ScriptableObject.Model);
         m_Sprite.transform.SetParent(this.gameObject.transform);
-        m_Sprite.transform.localPosition = new Vector3(0,-0.5f,0);
-        m_Sprite.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
+        m_Sprite.transform.localPosition = m_Sprite.transform.position;
     }
 
     public void NoCharacter()
@@ -110,7 +126,7 @@ public class FightCharacter : MonoBehaviour
         GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    void ShowAffected(bool self)
+    void ShowAffected()
     {
         List<CharacterObject> targets = new List<CharacterObject>();
         if (Team == Character.ETeam.Ally)
@@ -118,8 +134,6 @@ public class FightCharacter : MonoBehaviour
         if (Team == Character.ETeam.Enemy)
             targets = m_FightManager.SelectedSkill.GetTargetedCharacters(CharacterObject, m_FightManager.EnemiesObject);
         targets.RemoveAll(x => x == null);
-        if (!self)
-            targets.Remove(CharacterObject);
         targets.ForEach(x => {
             m_FightManager.FightCharacters.Find(y => x.Data.Position == y.Position && x.ScriptableObject.Team == y.Team).StartSelected();
         });
@@ -130,7 +144,7 @@ public class FightCharacter : MonoBehaviour
         if (m_FightManager.SelectedSkill != null && m_CanBeTargeted)
         {
             m_FightManager.FightCharacters.ForEach(x => x.StopSelected());
-            ShowAffected(m_FightManager.SelectedSkill.Skill.SelfIncluded);
+            ShowAffected();
         }
     }
 

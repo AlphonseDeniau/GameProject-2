@@ -40,6 +40,10 @@ public class SkillEffect
     private bool ApplyStatus(CharacterObject _user, CharacterObject _target)
     {
         if (m_Effect == null) return false;
+        if (_target.Data.CheckStatusEffect(StatusEnum.EStatusType.Guard))
+        {
+            _target = _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Guard).User;
+        }
         // Choose if who will have the effect link
         m_Effect.ChooseTarget(_user, _target);
         // Try to apply the Immediate Status effect

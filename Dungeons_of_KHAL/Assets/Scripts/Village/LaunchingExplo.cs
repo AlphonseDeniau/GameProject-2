@@ -70,8 +70,10 @@ public class LaunchingExplo : MonoBehaviour
 
     void removeCharacterFromTeam(int index)
     {
+        if (tmpIndexBackup.IndexOf(index) != -1)
+            return;
         team = GameManager.Instance.ExplorationCharacterManager;
-        team.RemoveCharacter(objRef[index], eTeam);
+        team.RemoveCharacter(objRef[tmpIndexBackup[index]], eTeam);
     }
 
     void priestManagement()

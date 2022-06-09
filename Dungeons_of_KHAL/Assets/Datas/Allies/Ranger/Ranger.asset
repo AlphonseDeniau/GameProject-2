@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ranger
   m_EditorClassIdentifier: 
   m_Model: {fileID: 5081211307146210323, guid: 955fa340503a1434a9b1f86203d1f000, type: 3}
-  m_Icon: {fileID: 6424422534885010011, guid: ebc02ddeb7c9fd745af922d228f0c795, type: 3}
+  m_Icon: {fileID: 1791925930457269085, guid: ebc02ddeb7c9fd745af922d228f0c795, type: 3}
   m_Team: 0
   m_MaxHP: 275
   m_MaxMP: 325

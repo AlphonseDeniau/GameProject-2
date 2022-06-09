@@ -101,6 +101,7 @@ public class FightManager : Singleton<FightManager>
     }
 
     void DoTurn() {
+        FightCharacters.Find(x => x.CharacterObject == m_CurrentTurn).StartTurn();
         m_CurrentTurn.Data.DoStatus(StatusEnum.EStatusActionTime.StartOfTurn);
         FightCharacters.ForEach(x => x.UpdateStat());
         if (m_CurrentTurn.Data.IsDead)
@@ -125,13 +126,27 @@ public class FightManager : Singleton<FightManager>
                     m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
                     m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(true);
                     m_DungeonManager.UIManager.MiddlePanel.ActivePanel(EUIPanel.Skill);
+                    m_DungeonManager.UIManager.InstructionText.text = "Select a skill";
+                    if (m_CurrentTurn != null)
+                        m_DungeonManager.UIManager.StatUI.UpdateText("Player",
+                        m_CurrentTurn.Data.ActualHP, m_CurrentTurn.ScriptableObject.MaxHP,
+                        m_CurrentTurn.Data.ActualMP, m_CurrentTurn.ScriptableObject.MaxMP,
+                        m_CurrentTurn.ScriptableObject.Strength, m_CurrentTurn.ScriptableObject.Defense,
+                        m_CurrentTurn.ScriptableObject.Magic, m_CurrentTurn.ScriptableObject.Speed
+                        );
                 }
                 else
                 {
-                    IA();
+                    StartCoroutine(IAWait());
                 }
             }
         }
+    }
+
+    IEnumerator IAWait()
+    {
+        yield return new WaitForSecondsRealtime(2.0f);
+        IA();
     }
 
     void IA()
@@ -147,9 +162,11 @@ public class FightManager : Singleton<FightManager>
 
     void TurnEnd()
     {
+        FightCharacters.Find(x => x.CharacterObject == m_CurrentTurn).EndTurn();
         m_CurrentTurn.Data.DoStatus(StatusEnum.EStatusActionTime.EndOfTurn);
         m_CurrentTurn.Data.UpdateStatus(1, StatusEnum.EStatusDurationType.Turn);
         m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
+        m_DungeonManager.UIManager.InstructionText.text = "";
         m_CurrentTurn = null;
         m_SelectedSkill = null;
         FightCharacters.ForEach(x => x.CancelTarget());
@@ -172,6 +189,7 @@ public class FightManager : Singleton<FightManager>
         FightCharacters.ForEach(x => x.CancelTarget());
         if (skill != null)
             FightCharacters.ForEach(x => x.SkillSelected(skill, m_CurrentTurn));
+        m_DungeonManager.UIManager.InstructionText.text = "Select a target";
     }
 
     private void UpdateAlive()

@@ -120,22 +120,15 @@ public class StatusEffect
                     concentration = 1;
                 _target.Data.GainMP((int)concentration);
                 break;
-            case StatusEnum.EStatusType.Detoxification:
-                _target.Data.ClearStatusEffect(new List<StatusEffect>{
-                    _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Poison),
-                    _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Confusion),
-                    _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Blind),
-                });
-                break;
             case StatusEnum.EStatusType.Burn:
-                bool ally = _user.ScriptableObject.Team == _target.ScriptableObject.Team;
-                StackManager.Instance.ApplyStack(_user, _target, StackEnum.EStackType.Fire, ally ? StackEnum.EEffectType.Positive : StackEnum.EEffectType.Negative);
+                bool ally = m_User.ScriptableObject.Team == m_Target.ScriptableObject.Team;
+                StackManager.Instance.ApplyStack(m_User, m_Target, StackEnum.EStackType.Fire, ally ? StackEnum.EEffectType.Positive : StackEnum.EEffectType.Negative);
                 float burn = m_StaticPower;
                 burn += CalcPower(m_User, m_UserPower);
                 burn += CalcPower(m_Target, m_TargetPower);
                 if (burn < 1)
                     burn = 1;
-                _target.Data.TakeDamage((int)burn);
+                m_Target.Data.TakeFlatDamage((int)burn, m_User);
                 break;
             case StatusEnum.EStatusType.Poison:
                 float poison = m_StaticPower;
@@ -143,7 +136,7 @@ public class StatusEffect
                 poison += CalcPower(m_Target, m_TargetPower);
                 if (poison < 1)
                     poison = 1;
-                _target.Data.TakeDamage((int)poison);
+                m_Target.Data.TakeFlatDamage((int)poison, m_User);
                 break;
             case StatusEnum.EStatusType.Heal:
                 float heal = m_StaticPower;
@@ -155,7 +148,14 @@ public class StatusEffect
                 float dmg = m_StaticPower;
                 dmg += CalcPower(m_User, m_UserPower);
                 dmg += CalcPower(m_Target, m_TargetPower);
-                _target.Data.TakeDamage((int)dmg);
+                _target.Data.TakeDamage((int)dmg, m_User);
+                break;
+            case StatusEnum.EStatusType.Detoxification:
+                _target.Data.ClearStatusEffect(new List<StatusEffect>{
+                    _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Poison),
+                    _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Confusion),
+                    _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Blind),
+                });
                 break;
             case StatusEnum.EStatusType.Stun:
                 FightManager.Instance.TurnManager.ResetCharacter(FightManager.Instance.TurnManager.GetCharacter(_target));
