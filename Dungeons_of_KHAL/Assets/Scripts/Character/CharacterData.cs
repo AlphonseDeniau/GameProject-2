@@ -38,6 +38,7 @@ public class CharacterData
 //        m_Position = 0;
         m_IsDead = false;
         m_CharacterObject = character;
+        m_Skills.Clear();
         character.ScriptableObject.Skills.ForEach(x => m_Skills.Add(new SkillData(x, 0)));
         return true;
     }

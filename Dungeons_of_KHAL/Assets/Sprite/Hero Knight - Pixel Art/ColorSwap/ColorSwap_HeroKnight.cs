@@ -13,14 +13,14 @@ public class ColorSwap_HeroKnight : MonoBehaviour
     Texture2D m_colorSwapTex;
     Color[] m_spriteColors; 
     SpriteRenderer m_spriteRenderer;
-    Image m_Image;
+    RawImage m_Image;
     bool m_init = false;
 
     // Initialize values
     void Awake()
     {
         m_spriteRenderer = GetComponent<SpriteRenderer>();
-        m_Image = GetComponent<Image>();
+        m_Image = GetComponent<RawImage>();
         InitColorSwapTex();
         
         SwapDemoColors();
@@ -76,8 +76,8 @@ public class ColorSwap_HeroKnight : MonoBehaviour
 
         if (m_spriteRenderer)
             m_spriteRenderer.material.SetTexture("_SwapTex", colorSwapTex);
-        if (m_Image)
-            m_Image.material.SetTexture("_SwapTex", colorSwapTex);
+//        if (m_Image)
+//            m_Image.material.SetTexture("_SwapTex", colorSwapTex);
 
         m_spriteColors = new Color[colorSwapTex.width];
         m_colorSwapTex = colorSwapTex;

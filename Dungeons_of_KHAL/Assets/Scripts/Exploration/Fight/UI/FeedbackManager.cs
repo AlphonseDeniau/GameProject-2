@@ -20,7 +20,7 @@ public class FeedbackManager : MonoBehaviour
 
     private GameObject CreateText(GameObject obj, int position, Character.ETeam team)
     {
-        Vector3 pos = FightManager.Instance.FightCharacters.Find(x => x.CharacterObject.ScriptableObject.Team == team && x.CharacterObject.Data.Position == position).transform.position;
+        Vector3 pos = FightManager.Instance.FightCharacters.Find(x => x.CharacterObject != null && x.CharacterObject.ScriptableObject.Team == team && x.CharacterObject.Data.Position == position).transform.position;
         GameObject tmp = Instantiate(obj, new Vector3(), new Quaternion());
         tmp.transform.SetParent(this.transform);
         tmp.GetComponent<RectTransform>().localPosition = ScalePos(pos);

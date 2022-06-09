@@ -101,11 +101,12 @@ public class TurnManager : MonoBehaviour
 
     public void ResetCharacter(FightCharacter character) {
         GetIcon(character).transform.position = StartWaypoint.transform.position;
+        if (m_CharactersTurn.Contains(character));
+            m_CharactersTurn.Remove(character);
     }
 
     public void TurnEnd() {
         ResetCharacter(m_CharactersTurn[0]);
-        m_CharactersTurn.RemoveAt(0);
     }
 
     public FightCharacter GetCharacter(CharacterObject character)
