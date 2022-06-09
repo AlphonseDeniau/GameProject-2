@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("FightScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Village");
     }
 
     public void QuitGame()
