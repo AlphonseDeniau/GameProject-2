@@ -128,7 +128,7 @@ public class StatusEffect
                 burn += CalcPower(m_Target, m_TargetPower);
                 if (burn < 1)
                     burn = 1;
-                m_Target.Data.TakeDamage((int)burn, m_User);
+                m_Target.Data.TakeFlatDamage((int)burn, m_User);
                 break;
             case StatusEnum.EStatusType.Poison:
                 float poison = m_StaticPower;
@@ -136,7 +136,7 @@ public class StatusEffect
                 poison += CalcPower(m_Target, m_TargetPower);
                 if (poison < 1)
                     poison = 1;
-                m_Target.Data.TakeDamage((int)poison, m_User);
+                m_Target.Data.TakeFlatDamage((int)poison, m_User);
                 break;
             case StatusEnum.EStatusType.Heal:
                 float heal = m_StaticPower;

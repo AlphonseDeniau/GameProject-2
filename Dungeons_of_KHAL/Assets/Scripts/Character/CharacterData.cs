@@ -77,6 +77,34 @@ public class CharacterData
     /// <returns>True: if the character is still alivet</returns>
     public bool TakeDamage(int _damage, CharacterObject _attacker)
     {
+        float tmpDamage = _damage;
+        bool crit = UnityEngine.Random.Range(0, 100) < _attacker.ScriptableObject.Critical;
+        if (crit)
+        {
+            tmpDamage *= 1.5f;
+        }
+        tmpDamage = _damage * (40.0f / (40.0f + (float)_attacker.ScriptableObject.Defense));
+        if (UnityEngine.Random.Range(0, 100) < m_CharacterObject.ScriptableObject.Dodge)
+        {
+            DungeonManager.Instance.UIManager.FeedbackManager.DodgeText(m_Position, m_CharacterObject.ScriptableObject.Team);
+            return true;
+        }
+        if (UnityEngine.Random.Range(0, 100) < m_CharacterObject.ScriptableObject.Parry)
+        {
+            DungeonManager.Instance.UIManager.FeedbackManager.ParryText(m_Position, m_CharacterObject.ScriptableObject.Team);
+            return true;
+        }
+        return TakeFlatDamage((int)tmpDamage, _attacker);
+    }
+
+    /// <summary>
+    /// Decrease current HP of the character
+    /// </summary>
+    /// <param name="_damage">value of damage</param>
+    /// <param name="_attacker">attacker</param>
+    /// <returns>True: if the character is still alivet</returns>
+    public bool TakeFlatDamage(int _damage, CharacterObject _attacker)
+    {
         // MAKE A BETTER CALCULATION BITCHES
         DungeonManager.Instance.UIManager.FeedbackManager.DamageText(m_Position, m_CharacterObject.ScriptableObject.Team, _damage);
         if (_damage < 0) return true;
@@ -87,6 +115,10 @@ public class CharacterData
             m_IsDead = true;
             m_Statuses.Clear();
             m_StackType = StackEnum.EStackType.Neutral;
+        }
+        if (!m_IsDead && CheckStatusEffect(StatusEnum.EStatusType.Thorn))
+        {
+            _attacker.Data.TakeFlatDamage(_damage, m_CharacterObject);
         }
         return m_IsDead;
     }

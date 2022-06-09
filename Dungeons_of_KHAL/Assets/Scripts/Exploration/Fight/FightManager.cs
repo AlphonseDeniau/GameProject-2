@@ -101,6 +101,7 @@ public class FightManager : Singleton<FightManager>
     }
 
     void DoTurn() {
+        FightCharacters.Find(x => x.CharacterObject == m_CurrentTurn).StartTurn();
         m_CurrentTurn.Data.DoStatus(StatusEnum.EStatusActionTime.StartOfTurn);
         FightCharacters.ForEach(x => x.UpdateStat());
         if (m_CurrentTurn.Data.IsDead)
@@ -136,7 +137,7 @@ public class FightManager : Singleton<FightManager>
 
     IEnumerator IAWait()
     {
-        yield return new WaitForSecondsRealtime(1.0f);
+        yield return new WaitForSecondsRealtime(2.0f);
         IA();
     }
 
@@ -153,6 +154,7 @@ public class FightManager : Singleton<FightManager>
 
     void TurnEnd()
     {
+        FightCharacters.Find(x => x.CharacterObject == m_CurrentTurn).EndTurn();
         m_CurrentTurn.Data.DoStatus(StatusEnum.EStatusActionTime.EndOfTurn);
         m_CurrentTurn.Data.UpdateStatus(1, StatusEnum.EStatusDurationType.Turn);
         m_DungeonManager.UIManager.MiddlePanel.ActiveMiddlePanel(false);
