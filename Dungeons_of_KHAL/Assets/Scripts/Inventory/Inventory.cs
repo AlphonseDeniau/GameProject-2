@@ -78,5 +78,19 @@ public class Inventory : MonoBehaviour
             m_SelectedItem = null;
         if (m_Items.Exists(x => x.m_Item == item))
             m_SelectedItem = item;
+        DungeonManager.Instance.FightManager.SelectItem(item);
+    }
+
+    public void UseItem(CharacterObject target)
+    {
+        if (m_SelectedItem.Type == EItem.EItemType.Consommable)
+        {
+            m_SelectedItem.Effect.ChooseTarget(target, target);
+            if (!m_SelectedItem.Effect.ApplyImmediateStatus(target, target))
+            {
+                target.Data.AddStatusEffect(m_SelectedItem.Effect);
+            }
+        }
+        RemoveItem(m_SelectedItem, 1);
     }
 }

@@ -152,12 +152,15 @@ public class FightManager : Singleton<FightManager>
     void IA()
     {
         SkillData skill = m_CurrentTurn.Data.Skills[Random.Range(0, m_CurrentTurn.Data.Skills.Count)];
+        while (!skill.IsUsable(m_CurrentTurn))
+            skill = m_CurrentTurn.Data.Skills[Random.Range(0, m_CurrentTurn.Data.Skills.Count)];
+        m_SelectedSkill = skill;
         if (skill.Skill.Type == SkillEnum.ETargetType.Self)
-            DoAction(skill, m_CurrentTurn, true);
+            DoSkill(m_CurrentTurn, true);
         if (skill.Skill.Type == SkillEnum.ETargetType.Ally)
-            DoAction(skill, AlliesAlive[Random.Range(0, AlliesAlive.Count)], true);
+            DoSkill(AlliesAlive[Random.Range(0, AlliesAlive.Count)], true);
         if (skill.Skill.Type == SkillEnum.ETargetType.Enemy)
-            DoAction(skill, EnemiesAlive[Random.Range(0, EnemiesAlive.Count)], true);
+            DoSkill(EnemiesAlive[Random.Range(0, EnemiesAlive.Count)], true);
     }
 
     void TurnEnd()
@@ -192,6 +195,15 @@ public class FightManager : Singleton<FightManager>
         m_DungeonManager.UIManager.InstructionText.text = "Select a target";
     }
 
+    public void SelectItem(Item item)
+    {
+        m_SelectedSkill = null;
+        FightCharacters.ForEach(x => x.CancelTarget());
+        if (item != null)
+            FightCharacters.ForEach(x => x.ItemSelected(item, m_CurrentTurn));
+        m_DungeonManager.UIManager.InstructionText.text = "Select a target";
+    }
+
     private void UpdateAlive()
     {
         FightCharacters.ForEach(x => {
@@ -203,18 +215,27 @@ public class FightManager : Singleton<FightManager>
         });
     }
 
-    public void DoAction(SkillData skill, CharacterObject target, bool loop)
+    public void DoSkill(CharacterObject target, bool loop)
     {
         if (!loop && (m_CurrentTurn.Data.CheckStatusEffect(StatusEnum.EStatusType.Confusion) && Random.Range(0, 100) < 50))
             IA();
         else
         {
             if (target.ScriptableObject.Team == Character.ETeam.Ally)
-                m_CurrentTurn.Data.UseSkill(skill, target, AlliesObject);
+                m_CurrentTurn.Data.UseSkill(m_SelectedSkill, target, AlliesObject);
             else
-                m_CurrentTurn.Data.UseSkill(skill, target, EnemiesObject);
+                m_CurrentTurn.Data.UseSkill(m_SelectedSkill, target, EnemiesObject);
             TurnEnd();
         }
+    }
+
+    public void DoItem(CharacterObject target)
+    {
+        if (target.ScriptableObject.Team == Character.ETeam.Ally)
+            m_DungeonManager.Inventory.UseItem(target);
+        else
+            m_DungeonManager.Inventory.UseItem(target);
+        TurnEnd();
     }
 
     private void DoContinuousStatus() {

@@ -15,9 +15,16 @@ MonoBehaviour:
   name: Mana Potion
   m_Description: Add mana
   m_Sprite: {fileID: 21300000, guid: e248ee69775f35c4b86f5e54526dc5bf, type: 3}
-  m_Effect: 1
+  m_Effect:
+    m_Type: 1
+    m_ActionTime: 2
+    m_DurationType: 0
+    m_Duration: 0
+    m_StaticPower: 500
+    m_UserPower:
+      m_Powers: []
+    m_TargetPower:
+      m_Powers: []
   m_Target: 0
   m_Type: 0
-  m_Usage: 1
-  m_Power: 500
   m_Cost: 50

@@ -144,6 +144,7 @@ public class CharacterData
     /// <returns>True: if the character still has MP</returns>
     public bool LoseMP(int _mp)
     {
+        DungeonManager.Instance.UIManager.FeedbackManager.LoseMPText(m_Position, m_CharacterObject.ScriptableObject.Team, _mp);
         m_ActualMP -= _mp;
         if (m_ActualMP < 0)
         {
@@ -159,6 +160,7 @@ public class CharacterData
     /// <returns>True: if the character has mp</returns>
     public bool GainMP(int _mp)
     {
+        DungeonManager.Instance.UIManager.FeedbackManager.GainMPText(m_Position, m_CharacterObject.ScriptableObject.Team, _mp);
         m_ActualMP += _mp;
         if (m_ActualMP > m_CharacterObject.ScriptableObject.MaxMP) m_ActualMP = m_CharacterObject.ScriptableObject.MaxMP;
         return true;

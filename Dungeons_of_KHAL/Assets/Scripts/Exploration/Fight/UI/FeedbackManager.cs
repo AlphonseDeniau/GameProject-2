@@ -7,9 +7,11 @@ using DG.Tweening;
 public class FeedbackManager : MonoBehaviour
 {
     [SerializeField] private GameObject m_DamageTextPrefab;
+    [SerializeField] private GameObject m_HealTextPrefab;
+    [SerializeField] private GameObject m_LoseMPTextPrefab;
+    [SerializeField] private GameObject m_GainMPTextPrefab;
     [SerializeField] private GameObject m_DodgeTextPrefab;
     [SerializeField] private GameObject m_ParryTextPrefab;
-    [SerializeField] private GameObject m_HealTextPrefab;
 
     private Vector3 ScalePos(Vector3 pos)
     {
@@ -32,6 +34,24 @@ public class FeedbackManager : MonoBehaviour
         tmp.GetComponent<Text>().text = value.ToString();
     }
 
+    public void HealText(int position, Character.ETeam team, int value)
+    {
+        GameObject tmp = CreateText(m_HealTextPrefab, position, team);
+        tmp.GetComponent<Text>().text = value.ToString();
+    }
+
+    public void LoseMPText(int position, Character.ETeam team, int value)
+    {
+        GameObject tmp = CreateText(m_LoseMPTextPrefab, position, team);
+        tmp.GetComponent<Text>().text = value.ToString();
+    }
+
+    public void GainMPText(int position, Character.ETeam team, int value)
+    {
+        GameObject tmp = CreateText(m_GainMPTextPrefab, position, team);
+        tmp.GetComponent<Text>().text = value.ToString();
+    }
+
     public void DodgeText(int position, Character.ETeam team)
     {
         GameObject tmp = CreateText(m_DodgeTextPrefab, position, team);
@@ -40,11 +60,5 @@ public class FeedbackManager : MonoBehaviour
     public void ParryText(int position, Character.ETeam team)
     {
         GameObject tmp = CreateText(m_ParryTextPrefab, position, team);
-    }
-
-    public void HealText(int position, Character.ETeam team, int value)
-    {
-        GameObject tmp = CreateText(m_HealTextPrefab, position, team);
-        tmp.GetComponent<Text>().text = value.ToString();
     }
 }

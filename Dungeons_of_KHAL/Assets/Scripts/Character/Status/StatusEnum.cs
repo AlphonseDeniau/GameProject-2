@@ -36,6 +36,7 @@ public class StatusEnum : MonoBehaviour
         Exhaustion,
         Weakness,
         Slowness,
+        Mana,
     };
 
     public enum EStatusActionTime
