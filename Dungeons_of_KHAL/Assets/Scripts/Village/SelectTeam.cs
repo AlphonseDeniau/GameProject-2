@@ -12,6 +12,7 @@ public class SelectTeam : MonoBehaviour
     {
         m_Buttons.ForEach(x => x.ResumeAdd());
         m_Buttons.ForEach(x => x.StopMinus());
+        m_Buttons.ForEach(x => x.ShowNumber(m_Characters.FindAll(y => x.Character == y).Count));
     }
 
     public void LaunchExpedition()
@@ -32,6 +33,7 @@ public class SelectTeam : MonoBehaviour
     {
         m_Characters.Add(character);
         m_Buttons.Find(x => x.Character == character).ResumeMinus();
+        m_Buttons.ForEach(x => x.ShowNumber(m_Characters.FindAll(y => x.Character == y).Count));
         if (m_Characters.Count >= 4)
         {
             m_Buttons.ForEach(x => x.StopAdd());
@@ -41,6 +43,7 @@ public class SelectTeam : MonoBehaviour
     public void RemoveCharacter(Character character)
     {
         m_Characters.Remove(character);
+        m_Buttons.ForEach(x => x.ShowNumber(m_Characters.FindAll(y => x.Character == y).Count));
         if (!m_Characters.Contains(character))
             m_Buttons.Find(x => x.Character == character).StopMinus();
         m_Buttons.ForEach(x => x.ResumeAdd());
