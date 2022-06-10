@@ -11,6 +11,7 @@ public class DungeonUIManager : MonoBehaviour
     [SerializeField] private FeedbackManager m_FeedbackManager;
     [SerializeField] private StatUI m_StatUI;
     [SerializeField] private Text m_InstructionText;
+    [SerializeField] private StatusWindow m_StatusWindow;
     
 
     // Accessors \\
@@ -20,4 +21,5 @@ public class DungeonUIManager : MonoBehaviour
     public FeedbackManager FeedbackManager => m_FeedbackManager;
     public StatUI StatUI => m_StatUI;
     public Text InstructionText => m_InstructionText;
+    public StatusWindow StatusWindow => m_StatusWindow;
 }

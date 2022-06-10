@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectTeam : MonoBehaviour
 {
     [SerializeField] private List<SelectButton> m_Buttons;
+    [SerializeField] private Button m_PlayButton;
     [SerializeField] private List<Character> m_Characters = new List<Character>();
     [SerializeField] private GameObject m_Prefab;
 
@@ -13,6 +15,7 @@ public class SelectTeam : MonoBehaviour
         m_Buttons.ForEach(x => x.ResumeAdd());
         m_Buttons.ForEach(x => x.StopMinus());
         m_Buttons.ForEach(x => x.ShowNumber(m_Characters.FindAll(y => x.Character == y).Count));
+        m_PlayButton.interactable = false;
     }
 
     public void LaunchExpedition()
@@ -36,6 +39,7 @@ public class SelectTeam : MonoBehaviour
         m_Buttons.ForEach(x => x.ShowNumber(m_Characters.FindAll(y => x.Character == y).Count));
         if (m_Characters.Count >= 4)
         {
+            m_PlayButton.interactable = true;
             m_Buttons.ForEach(x => x.StopAdd());
         }
     }
@@ -46,6 +50,7 @@ public class SelectTeam : MonoBehaviour
         m_Buttons.ForEach(x => x.ShowNumber(m_Characters.FindAll(y => x.Character == y).Count));
         if (!m_Characters.Contains(character))
             m_Buttons.Find(x => x.Character == character).StopMinus();
+        m_PlayButton.interactable = false;
         m_Buttons.ForEach(x => x.ResumeAdd());
     }
 }
