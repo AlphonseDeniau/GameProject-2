@@ -77,7 +77,7 @@ public class FightManager : Singleton<FightManager>
     public void Uninitialize()
     {
         m_InFight = false;
-        FightCharacters.ForEach(x => x.CharacterObject.Data.Uninitialize());
+        FightCharacters.FindAll(x => x.CharacterObject != null).ForEach(x => x.CharacterObject.Data.Uninitialize());
         FightCharacters.ForEach(x => x.UpdateStat());
         m_TurnManager.EndFight();
     }

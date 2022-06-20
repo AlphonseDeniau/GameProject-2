@@ -25,7 +25,7 @@ MonoBehaviour:
         m_Type: 0
       m_Effect:
         m_Type: 11
-        m_ActionTime: 2
+        m_ActionTime: 3
         m_DurationType: 0
         m_Duration: 2
         m_StaticPower: 0
