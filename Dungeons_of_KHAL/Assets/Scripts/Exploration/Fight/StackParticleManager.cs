@@ -20,8 +20,11 @@ public class StackParticleManager : MonoBehaviour
 
     public void UpdateParticle(StackEnum.EStackType type)
     {
+        if (type == StackEnum.EStackType.Neutral)
+            DestroyImmediate(m_Particle);
         if (m_StackUsed != type)
         {
+            m_StackUsed = type;
             if (m_Particle)
                 DestroyImmediate(m_Particle);
             if (type == StackEnum.EStackType.Fire)

@@ -77,6 +77,8 @@ public class FightManager : Singleton<FightManager>
     public void Uninitialize()
     {
         m_InFight = false;
+        FightCharacters.ForEach(x => x.CharacterObject.Data.Uninitialize());
+        FightCharacters.ForEach(x => x.UpdateStat());
         m_TurnManager.EndFight();
     }
 
@@ -106,14 +108,12 @@ public class FightManager : Singleton<FightManager>
         FightCharacters.ForEach(x => x.UpdateStat());
         if (m_CurrentTurn.Data.IsDead)
         {
-            TurnEnd();
-            m_CurrentTurn = null;
+            StartCoroutine(WaitTurn());
             return;
         }
         if (m_CurrentTurn.Data.CheckStatusEffect(StatusEnum.EStatusType.Paralysis))
         {
-            TurnEnd();
-            m_CurrentTurn = null;
+            StartCoroutine(WaitTurn());
         }
         else
         {
@@ -141,6 +141,13 @@ public class FightManager : Singleton<FightManager>
                 }
             }
         }
+    }
+
+    IEnumerator WaitTurn()
+    {
+        yield return new WaitForSecondsRealtime(2.0f);
+        TurnEnd();
+        m_CurrentTurn = null;
     }
 
     IEnumerator IAWait()

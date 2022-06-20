@@ -21,7 +21,7 @@ public class StackManager : Singleton<StackManager>
     {
         if (_target.Data.StackType == StackEnum.EStackType.None || _target.Data.StackType == StackEnum.EStackType.Neutral)
             _target.Data.StackType = _stackType;
-        else
+        else if (_stackType != StackEnum.EStackType.None && _stackType != StackEnum.EStackType.Neutral)
             ApplyStackEffect(_user, _target, _stackType, _effectType);
         return true;
     }

@@ -29,7 +29,7 @@ public class SkillArea
                 SkillEnum.EAreaTypes.All => allTarget(_targetTeam),
                 _ => throw new ArgumentOutOfRangeException(nameof(m_Type), $"Not expected area value: {m_Type}"),
             };
-        targets.RemoveAll(x => x == null);
+        targets.RemoveAll(x => x == null || x.Data.IsDead);
         return (targets);
     }
 

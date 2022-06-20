@@ -186,6 +186,11 @@ public class FightCharacter : MonoBehaviour
             else
                 m_FightManager.DoSkill(m_CharacterObject, false);
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            DungeonManager.Instance.UIManager.StatusWindow.gameObject.SetActive(true);
+            DungeonManager.Instance.UIManager.StatusWindow.SetStatus(m_CharacterObject.Data.Statuses);
+        }
     }
 
     void OnMouseExit()
@@ -215,7 +220,7 @@ public class FightCharacter : MonoBehaviour
 
     public void UpdateStat()
     {
-        if (m_CharacterObject)
+        if (m_CharacterObject && !m_CharacterObject.Data.IsDead)
         {
             m_HPBar.UpdateStat(m_CharacterObject.ScriptableObject.MaxHP, m_CharacterObject.Data.ActualHP);
             m_MPBar.UpdateStat(m_CharacterObject.ScriptableObject.MaxMP, m_CharacterObject.Data.ActualMP);
@@ -225,6 +230,7 @@ public class FightCharacter : MonoBehaviour
         {
             m_HPBar.UpdateStat(0, 0);
             m_MPBar.UpdateStat(0, 0);
+            m_StackParticleManager.UpdateParticle(StackEnum.EStackType.Neutral);
         }
     }
 

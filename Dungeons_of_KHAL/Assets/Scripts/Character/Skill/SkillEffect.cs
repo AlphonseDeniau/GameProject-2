@@ -40,7 +40,7 @@ public class SkillEffect
     private bool ApplyStatus(CharacterObject _user, CharacterObject _target)
     {
         if (m_Effect == null) return false;
-        if (_target.Data.CheckStatusEffect(StatusEnum.EStatusType.Guard))
+        if (_target.Data.CheckStatusEffect(StatusEnum.EStatusType.Guard) && !_target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Guard).User.Data.IsDead)
         {
             _target = _target.Data.Statuses.Find(x => x.Type == StatusEnum.EStatusType.Guard).User;
         }

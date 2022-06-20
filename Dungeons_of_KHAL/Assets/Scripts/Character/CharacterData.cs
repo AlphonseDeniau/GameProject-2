@@ -43,6 +43,12 @@ public class CharacterData
         return true;
     }
 
+    public void Uninitialize()
+    {
+        m_StackType = StackEnum.EStackType.Neutral;
+        m_Statuses.Clear();
+    }
+
     /// <summary>
     /// Take the character for an expedition
     /// </summary>
@@ -90,6 +96,11 @@ public class CharacterData
             DungeonManager.Instance.UIManager.FeedbackManager.DodgeText(m_Position, m_CharacterObject.ScriptableObject.Team);
             return true;
         }
+        if (UnityEngine.Random.Range(0, 100) < 30 && _attacker.Data.CheckStatusEffect(StatusEnum.EStatusType.Blind))
+        {
+            DungeonManager.Instance.UIManager.FeedbackManager.DodgeText(m_Position, m_CharacterObject.ScriptableObject.Team);
+            return true;
+        }
         if (UnityEngine.Random.Range(0, 100) < m_CharacterObject.ScriptableObject.Parry)
         {
             DungeonManager.Instance.UIManager.FeedbackManager.ParryText(m_Position, m_CharacterObject.ScriptableObject.Team);
@@ -110,7 +121,7 @@ public class CharacterData
         DungeonManager.Instance.UIManager.FeedbackManager.DamageText(m_Position, m_CharacterObject.ScriptableObject.Team, _damage);
         if (_damage < 0) return true;
         m_ActualHP -= _damage;
-        if (m_ActualHP < 0)
+        if (m_ActualHP <= 0)
         {
             m_ActualHP = 0;
             m_IsDead = true;

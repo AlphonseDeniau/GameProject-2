@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Model: {fileID: 8494256159374588806, guid: ad8cc64bca8e1014ea133f023d08b35d, type: 3}
   m_Icon: {fileID: 4516348529793372116, guid: 47fb50f75be2f714ca92b2466ba267d9, type: 3}
   m_Team: 1
-  m_MaxHP: 250
+  m_MaxHP: 75
   m_MaxMP: 100
   m_Strength: 25
   m_Defense: 10
